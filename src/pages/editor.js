@@ -21,8 +21,8 @@ const Editor = () => (
         py: 8
       }}
     >
-      <Container>      
-        <CodeEditor value={"for (var i=0; i < 10; i++) {\n  console.log(i)\n}"} />
+      <Container>
+        <CodeEditor />
       </Container>
     </Box>
   </>

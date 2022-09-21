@@ -18,6 +18,10 @@ const tasks = [
   {
     id: uuid(),
     tarefas: 'Multiplicar'
+  },
+  {
+    id: uuid(),
+    tarefas: 'Tamanho da String'
   }
 ]
 
@@ -28,28 +32,17 @@ export const NextTasks = (props) => (
       <Grid
         container
         spacing={3}
+        width="100%"
         sx={{ justifyContent: 'space-between' }}
       >
         <Grid item
         >
           <Typography
+            sx={{pb:3}}
             color="textPrimary"
             variant="h6"
           >
             PRÓXIMAS TAREFAS
-          </Typography>
- 
-          {tasks.map((task) => (
-          <Typography sx={{py:2.5}} key={task.id} >
-              {task.tarefas}
-          </Typography>
-            ))}
-
-
-          <Typography
-            color="textPrimary"
-            variant="overline"
-          >
           </Typography>
         </Grid>
         <Grid>
@@ -64,6 +57,11 @@ export const NextTasks = (props) => (
           </Avatar>
         </Grid>
       </Grid>
+      {tasks.map((task) => (
+        <Typography sx={{border:1, borderRadius:1, p:1, my:2}} key={task.id} >
+            {task.tarefas}
+        </Typography>
+          ))}
     </CardContent>
   </Card>
 );

@@ -21,7 +21,7 @@
     "@mui/lab": "5.0.0-alpha.99",
     "@mui/material": "5.10.5",
     "@mui/system": "5.10.5",
-    "@mui/x-date-pickers": "5.0.1",
+    "@mui/x-date-pickers": "^5.0.2",
     "@zalter/identity-js": "1.2.1",
     "chart.js": "3.9.1",
     "date-fns": "2.29.3",
