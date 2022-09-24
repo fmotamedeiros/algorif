@@ -14,7 +14,7 @@ export const TasksTopic = (props) => {
         hoverBorderColor: '#FFFFFF'
       }
     ],
-    labels: ['Função', 'Repetição', 'Classes'] 
+    labels: ['String', 'Função', 'Estrutura de Repetição', 'Classes', 'Operadores', 'Variáveis e Tipos de Dados', 'Arrays', 'Estrutura Condicional',] 
   };
 
   const options = {
@@ -60,8 +60,7 @@ export const TasksTopic = (props) => {
   return (
     <Card {...props} sx={{ height: '100%', backgroundColor: '#1F2937'}} >
       <CardHeader title="Assunto das Tarefas Realizadas" />
-      <Divider />
-      <CardContent>
+ 
         <Box
           sx={{
             height: 200,
@@ -78,7 +77,7 @@ export const TasksTopic = (props) => {
           sx={{
             display: 'flex',
             justifyContent: 'center',
-            pt: 2
+            p: 2
           }}
         >
           {devices.map(({
@@ -109,7 +108,6 @@ export const TasksTopic = (props) => {
             </Box>
           ))}
         </Box>
-      </CardContent>
     </Card>
   );
 };

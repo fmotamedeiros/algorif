@@ -129,7 +129,19 @@ export const theme = createTheme({
           }
         }
       }
-    }
+    },
+    MuiTableRow: {
+      styleOverrides: {
+        root: {
+          '& .MuiTableCell-root': {
+            borderColor: '#1C2532',
+            fontWeight: 400,
+          },
+        }
+      }
+    },
+
+
   },
   palette: {
     neutral: {
@@ -160,15 +172,15 @@ export const theme = createTheme({
     },
     divider: '#E6E8F0',
     primary: {
-      main: '#5048E5',
-      light: '#828DF8',
-      dark: '#3832A0',
-      contrastText: '#FFFFFF'
-    },
-    secondary: {
       main: '#10B981',
       light: '#3FC79A',
       dark: '#1F2937',
+      contrastText: '#FFFFFF'
+    },
+    secondary: {
+      main: '#5048E5',
+      light: '#828DF8',
+      dark: '#3832A0',
       contrastText: '#FFFFFF'
     },
     success: {

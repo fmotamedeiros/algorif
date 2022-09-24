@@ -9,6 +9,7 @@ import { UserCircle as UserCircleIcon } from '../icons/user-circle';
 import { Users as UsersIcon } from '../icons/users';
 import { AccountPopover } from './account-popover';
 import { Logo } from './logo';
+import NextLink from 'next/link';
 
 const DashboardNavbarRoot = styled(AppBar)(({ theme }) => ({
   backgroundColor: theme.palette.background.paper,
@@ -23,14 +24,6 @@ export const DashboardNavbar = (props) => {
   return (
     <>
     <DashboardNavbarRoot
-        // sx={{
-        //   left: {
-        //     lg: 280
-        //   },
-        //   width: {
-        //     lg: 'calc(100% - 280px)'
-        //   }
-        // }}
         {...other}>
         <Toolbar
           disableGutters
@@ -60,7 +53,14 @@ export const DashboardNavbar = (props) => {
             </IconButton>
           </Tooltip>
           <Box sx={{ flexGrow: 1 }} />
-          <Logo />
+          <NextLink
+              href="/"
+              passHref
+            >
+              <a>
+                <Logo />
+              </a>
+          </NextLink>
           <Box sx={{ flexGrow: 1 }} />
           <Tooltip title="Contacts">
             <IconButton sx={{ 

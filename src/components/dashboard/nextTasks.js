@@ -1,67 +1,77 @@
-import { Avatar, Card, CardContent, Grid, Typography } from '@mui/material';
-import AddToQueueIcon from '@mui/icons-material/AddToQueue';
+import { Card, CardContent, Grid, Typography } from '@mui/material';
 import { v4 as uuid } from 'uuid';
+import Link from 'next/link';
 
 const tasks = [
   {
     id: uuid(),
-    tarefas: 'Soma de Inteiros'
+    tarefas: 'String'
   },
   {
     id: uuid(),
-    tarefas: 'Converter Fahrenheit para Celsius'
+    tarefas: 'Função'
   },
   {
     id: uuid(),
-    tarefas: 'Resto da Divisão'
+    tarefas: 'Estrutura de Repetição'
   },
   {
     id: uuid(),
-    tarefas: 'Multiplicar'
+    tarefas: 'Classes'
   },
   {
     id: uuid(),
-    tarefas: 'Tamanho da String'
-  }
+    tarefas: 'Operadores'
+  },
+  {
+    id: uuid(),
+    tarefas: 'Variáveis e Tipos de Dados'
+  },
+  {
+    id: uuid(),
+    tarefas: 'Arrays'
+  },
+  {
+    id: uuid(),
+    tarefas: 'Estrutura Condicional'
+  },
 ]
 
 export const NextTasks = (props) => (
   <Card {...props}
   >
     <CardContent>
-      <Grid
+        <Grid 
         container
-        spacing={3}
         width="100%"
         sx={{ justifyContent: 'space-between' }}
-      >
-        <Grid item
         >
           <Typography
             sx={{pb:3}}
             color="textPrimary"
             variant="h6"
           >
-            PRÓXIMAS TAREFAS
+            Selecione um Tópico
           </Typography>
         </Grid>
-        <Grid>
-          <Avatar
-            sx={{
-              backgroundColor: 'success.main',
-              height: 56,
-              width: 56
-            }}
-          >
-            <AddToQueueIcon />
-          </Avatar>
-        </Grid>
-      </Grid>
-      {tasks.map((task) => (
-        <Typography sx={{border:1, borderRadius:1, p:1, my:2}} key={task.id} >
-            {task.tarefas}
-        </Typography>
+
+      <Grid className='sm:grid-cols-2 grid-cols-1'
+        sx={{ display: 'grid', justifyContent: 'space-between', gap: 1 }}
+        width="100%"
+      >
+        {tasks.map((task) => (
+        <button>
+          <Link href={`/tasks`}>
+            <Typography className='border p-3 border-gray-500 hover:border-green-500' key={task.id} >
+              {task.tarefas}
+            </Typography>
+          </Link>
+        </button>
+
+        
           ))}
+      </Grid>
+      
     </CardContent>
   </Card>
 );

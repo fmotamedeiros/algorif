@@ -21,11 +21,6 @@ const items = [
     title: 'Dashboard'
   },
   {
-    href: '/editor',
-    icon: (<Selector fontSize="small" />),
-    title: 'Editor'
-  },
-  {
     href: '/rankingTotal',
     icon: (<UsersIcon fontSize="small" />),
     title: 'Ranking'

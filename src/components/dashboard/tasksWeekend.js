@@ -9,14 +9,14 @@ export const TasksWeekend = (props) => {
   const data = {
     datasets: [
       {
-        backgroundColor: '#3F51B5',
+        backgroundColor: '#22c55e',
         barPercentage: 0.5,
-        barThickness: 12,
-        borderRadius: 4,
+        barThickness: 7,
+        borderRadius: 2,
         categoryPercentage: 0.5,
         data: [18, 5, 19, 27, 29, 19, 20],
-        label: 'Challenges completed',
-        maxBarThickness: 10
+        label: 'Desafios Completados',
+        maxBarThickness: 7
       },
     ],
     labels: ['1 Aug', '2 Aug', '3 Aug', '4 Aug', '5 Aug', '6 Aug', '7 aug']
@@ -32,7 +32,7 @@ export const TasksWeekend = (props) => {
     xAxes: [
       {
         ticks: {
-          fontColor: theme.palette.text.secondary
+          fontColor: 'theme.palette.text.secondary'
         },
         gridLines: {
           display: false,
@@ -43,7 +43,7 @@ export const TasksWeekend = (props) => {
     yAxes: [
       {
         ticks: {
-          fontColor: theme.palette.text.secondary,
+          fontColor: 'theme.palette.text.secondary',
           beginAtZero: true,
           min: 0
         },
@@ -60,11 +60,11 @@ export const TasksWeekend = (props) => {
     ],
     tooltips: {
       backgroundColor: theme.palette.background.paper,
-      bodyFontColor: theme.palette.text.secondary,
+      bodyFontColor: 'theme.palette.text.secondary',
       borderColor: theme.palette.divider,
       borderWidth: 1,
       enabled: true,
-      footerFontColor: theme.palette.text.secondary,
+      footerFontColor: 'theme.palette.text.secondary',
       intersect: false,
       mode: 'index',
       titleFontColor: theme.palette.text.primary
@@ -84,7 +84,6 @@ export const TasksWeekend = (props) => {
         )}
         title="Tarefas Concluídas"
       />
-      <Divider />
       <CardContent>
         <Box
           sx={{
@@ -106,7 +105,6 @@ export const TasksWeekend = (props) => {
         }}
       >
         <Button
-          color="primary"
           endIcon={<ArrowRightIcon fontSize="small" />}
           size="small"
         >

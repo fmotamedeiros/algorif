@@ -59,6 +59,7 @@ const NotFound = () => (
             passHref
           >
             <Button
+              color='secondary'
               component="a"
               startIcon={(<ArrowBackIcon fontSize="small" />)}
               sx={{ mt: 3 }}
