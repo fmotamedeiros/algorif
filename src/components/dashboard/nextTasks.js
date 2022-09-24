@@ -51,9 +51,9 @@ export const NextTasks = (props) => (
         width="100%"
       >
         {tasks.map((task) => (
-        <button>
+        <button key={task.tarefas}>
           <Link href={`/tasks`}>
-            <Typography className='border p-3 border-gray-500 hover:border-green-500' key={task.tarefas} >
+            <Typography className='border p-3 border-gray-500 hover:border-green-500'  >
               {task.tarefas}
             </Typography>
           </Link>

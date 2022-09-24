@@ -36,8 +36,8 @@ const Tasks = () => (
         <Link href={`/question`}>
         <Container className="pt-10">
           {questions.map((question) => (
-          <Box className="group">
-            <button className="p-4 border mb-3 border-gray-500 group-hover:border-green-500 w-full" key={question.nome}>
+          <Box className="group" key={question.nome}>
+            <button className="p-4 border mb-3 border-gray-500 group-hover:border-green-500 w-full">
               <Box className="font-semibold justify-between flex">
                 <Box className="group-hover:text-green-500 p-2">
                 {question.nome}
