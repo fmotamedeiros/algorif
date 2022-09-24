@@ -1,12 +1,10 @@
-import { Box, Container, Typography } from "@mui/material";
+import { Box, Container } from "@mui/material";
 import Head from "next/head";
 import Link from "next/link";
 import { DashboardLayout } from "../components/dashboard-layout";
-import { v4 as uuid } from 'uuid';
 
 const questions = [
   {
-    id: uuid(),
     nome: 'Some dois numeros',
     descricao: 'Crie duas variaveis e atribua um número a cada uma delas, fazendo então a soma delas, e usa o comando console.log() para apresentar na tela '
   },
@@ -39,7 +37,7 @@ const Tasks = () => (
         <Container className="pt-10">
           {questions.map((question) => (
           <Box className="group">
-            <button className="p-4 border mb-3 border-gray-500 group-hover:border-green-500 w-full" key={question.id}>
+            <button className="p-4 border mb-3 border-gray-500 group-hover:border-green-500 w-full" key={question.nome}>
               <Box className="font-semibold justify-between flex">
                 <Box className="group-hover:text-green-500 p-2">
                 {question.nome}

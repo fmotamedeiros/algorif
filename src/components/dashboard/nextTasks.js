@@ -1,38 +1,29 @@
 import { Card, CardContent, Grid, Typography } from '@mui/material';
-import { v4 as uuid } from 'uuid';
 import Link from 'next/link';
 
 const tasks = [
   {
-    id: uuid(),
     tarefas: 'String'
   },
   {
-    id: uuid(),
     tarefas: 'Função'
   },
   {
-    id: uuid(),
     tarefas: 'Estrutura de Repetição'
   },
   {
-    id: uuid(),
     tarefas: 'Classes'
   },
   {
-    id: uuid(),
     tarefas: 'Operadores'
   },
   {
-    id: uuid(),
     tarefas: 'Variáveis e Tipos de Dados'
   },
   {
-    id: uuid(),
     tarefas: 'Arrays'
   },
   {
-    id: uuid(),
     tarefas: 'Estrutura Condicional'
   },
 ]
@@ -62,7 +53,7 @@ export const NextTasks = (props) => (
         {tasks.map((task) => (
         <button>
           <Link href={`/tasks`}>
-            <Typography className='border p-3 border-gray-500 hover:border-green-500' key={task.id} >
+            <Typography className='border p-3 border-gray-500 hover:border-green-500' key={task.tarefas} >
               {task.tarefas}
             </Typography>
           </Link>
