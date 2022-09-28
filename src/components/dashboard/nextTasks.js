@@ -1,32 +1,7 @@
 import { Card, CardContent, Grid, Typography } from '@mui/material';
 import Link from 'next/link';
 
-const tasks = [
-  {
-    tarefas: 'String'
-  },
-  {
-    tarefas: 'Função'
-  },
-  {
-    tarefas: 'Estrutura de Repetição'
-  },
-  {
-    tarefas: 'Classes'
-  },
-  {
-    tarefas: 'Operadores'
-  },
-  {
-    tarefas: 'Variáveis e Tipos de Dados'
-  },
-  {
-    tarefas: 'Arrays'
-  },
-  {
-    tarefas: 'Estrutura Condicional'
-  },
-]
+const topics= require('../../data/topics.json'); 
 
 export const NextTasks = (props) => (
   <Card {...props}
@@ -50,11 +25,11 @@ export const NextTasks = (props) => (
         sx={{ display: 'grid', justifyContent: 'space-between', gap: 1 }}
         width="100%"
       >
-        {tasks.map((task) => (
-        <button key={task.tarefas}>
-          <Link href={`/tasks`}>
+        {topics.map((topic) => (
+        <button key={topic.name}>
+          <Link href={`/tasks/${topic.name}`}>
             <Typography className='border p-3 border-gray-500 hover:border-green-500'  >
-              {task.tarefas}
+              {topic.name}
             </Typography>
           </Link>
         </button>

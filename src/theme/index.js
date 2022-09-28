@@ -65,7 +65,8 @@ export const theme = createTheme({
       },
       styleOverrides: {
         root: {
-          padding: '32px 24px'
+          padding: '32px 24px',
+          paddingBottom: '10px'
         }
       }
     },
@@ -170,11 +171,11 @@ export const theme = createTheme({
       paper: '#1F2937',
       dark: '#1F2937'
     },
-    divider: '#E6E8F0',
+    divider: '#111827',
     primary: {
-      main: '#10B981',
+      main: '#21a87b',
       light: '#3FC79A',
-      dark: '#1F2937',
+      dark: '#1f2d37',
       contrastText: '#FFFFFF'
     },
     secondary: {

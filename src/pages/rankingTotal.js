@@ -9,7 +9,7 @@ const RankingTotal = () => (
   <>
     <Head>
       <title>
-        Ranking | Material Kit
+        Ranking
       </title>
     </Head>
     <Box

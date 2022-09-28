@@ -1,0 +1,19 @@
+{
+    "soma":{
+        "name": "Soma",
+        "tarefa": "O stub de código fornecido lê dois inteiros, a e b, de STDIN.\n Adicione lógica para imprimir duas linhas. A primeira linha deve conter o resultado da divisão inteira, a // b.\n A segunda linha deve conter o resultado da divisão float, a / b.\n Não é necessário arredondamento ou formatação."
+    },
+    "divisão": {
+        "name": "Divisão",
+        "tarefa": "O stub de código fornecido lê dois inteiros, a e b, de STDIN.\n Adicione lógica para imprimir duas linhas. A primeira linha deve conter o resultado da divisão inteira, a // b.\n A segunda linha deve conter o resultado da divisão float, a / b.\n Não é necessário arredondamento ou formatação."
+    },
+    
+    "criarfunção":{
+        "name": "CriarFunção",
+        "tarefa": "a e b, de STDIN.\n Adicione lógica para imprimir duas linhas. A primeira linha deve conter o resultado da divisão inteira, a // b.\n A segunda linha deve conter o resultado da divisão float, a / b.\n Não é necessário arredondamento ou formatação."
+    },
+    "usarfunção": {
+        "name": "UsarFunção",
+        "tarefa": "O stub de código fornecido lê dois inteiros, a e b, de STDIN.\n Adicione lógica para imprimir duas linhas. A primeira linha deve conter o resultado da divisão inteira, a // b.\n A segunda linha deve conter o resultado da divisão float, a / b.\n Não é necessário arredondamento ou formatação."
+    }
+}

@@ -1,112 +1,52 @@
 import { Doughnut } from 'react-chartjs-2';
-import { Box, Card, CardContent, CardHeader, Divider, Typography, useTheme } from '@mui/material';
+import { Box, Card, CardHeader, Typography, useTheme } from '@mui/material';
 
 export const TasksTopic = (props) => {
-  const theme = useTheme();
 
   const data = {
     datasets: [
       {
-        data: [63, 15, 23],
-        backgroundColor: ['#3F51B5', '#e53935', '#FB8C00'],
-        borderWidth: 8,
+        data: [12.5, 12.5, 12.5, 12.5, 12.5, 12.5, 12.5, 12.5],
+        backgroundColor: ['#3F51B5', '#e53935', '#FB8C00', '#6ddd17', '#881ce0', '#e01cb2', '#83a1a0', '#fff30c'],
+        borderWidth: 4,
         borderColor: '#1F2937',
-        hoverBorderColor: '#FFFFFF'
+        hoverBorderColor: '#111827',    
       }
     ],
-    labels: ['String', 'Função', 'Estrutura de Repetição', 'Classes', 'Operadores', 'Variáveis e Tipos de Dados', 'Arrays', 'Estrutura Condicional',] 
+    labels: ['String', 'Função', 'Estrutura de Repetição', 'Classes', 'Operadores', 'Variáveis e Tipos de Dados', 'Arrays', 'Estrutura Condicional'],
   };
 
   const options = {
     animation: false,
     cutoutPercentage: 80,
     layout: { padding: 0 },
-    legend: {
-      display: false
+    plugins: {
+      legend: {
+        display: true,
+        position: "bottom",
+      },
     },
     maintainAspectRatio: false,
     responsive: true,
-    tooltips: {
-      backgroundColor: theme.palette.background.paper,
-      bodyFontColor: theme.palette.text.secondary,
-      borderColor: theme.palette.divider,
-      borderWidth: 1,
-      enabled: true,
-      footerFontColor: theme.palette.text.secondary,
-      intersect: false,
-      mode: 'index',
-      titleFontColor: theme.palette.text.primary
-    }
   };
 
-  const devices = [
-    {
-      title: 'Função',
-      value: 63,
-      color: '#3F51B5'
-    },
-    {
-      title: 'Repetição',
-      value: 15,
-      color: '#E53935'
-    },
-    {
-      title: 'Classes',
-      value: 23,
-      color: '#FB8C00'
-    }
-  ];
-
   return (
-    <Card {...props} sx={{ height: '100%', backgroundColor: '#1F2937'}} >
+    <Card {...props} 
+      sx={{ height: '100%', backgroundColor: '#1F2937'}} >
       <CardHeader title="Assunto das Tarefas Realizadas" />
  
         <Box
           sx={{
-            height: 200,
+            height: 300,
             width: '100%',
-            position: 'relative'
+            position: 'relative',
+            pb:1
           }}
         >
           <Doughnut
             data={data}
             options={options}
           />
-        </Box>
-        <Box
-          sx={{
-            display: 'flex',
-            justifyContent: 'center',
-            p: 2
-          }}
-        >
-          {devices.map(({
-            color,
-            title,
-            value
-          }) => (
-            <Box
-              key={title}
-              sx={{
-                paddingX: 1,
-                textAlign: 'center'
-              }}
-            >
-              <Typography
-                color="textPrimary"
-                variant="body1"
-              >
-                {title}
-              </Typography>
-              <Typography
-                style={{ color }}
-                variant="h5"
-              >
-                {value}
-                %
-              </Typography>
-            </Box>
-          ))}
         </Box>
     </Card>
   );
