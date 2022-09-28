@@ -1,7 +1,6 @@
 import { Card, CardContent, Grid, Typography } from '@mui/material';
 import Link from 'next/link';
-
-const topics= require('../../data/topics.json'); 
+import topics from '../../data/topics.json'
 
 export const NextTasks = (props) => (
   <Card {...props}
