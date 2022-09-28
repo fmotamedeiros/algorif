@@ -19,7 +19,8 @@ const user = {
 };
 
 export const AccountProfile = (props) => (
-  <Card {...props} sx={{backgroundColor: 'background.dark'}}>
+  <Card {...props} 
+    sx={{backgroundColor: 'background.dark'}}>
     <CardContent>
       <Box
         sx={{

@@ -27,7 +27,8 @@ const Tasks = () => {
         </Box>
         
           {questions[router.query.name.toLowerCase()]["questions"].map((question) => (
-          <Link href={`/questions/${question.href}`} key={question.task}>
+          <Link href={`/questions/${question.href}`} 
+            key={question.task}>
             <Container className="pt-5">
               <Box className="group">
                 <button className="p-4 border mb-3 border-gray-500 group-hover:border-green-500 w-full">
