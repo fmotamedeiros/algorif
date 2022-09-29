@@ -36,14 +36,43 @@
         "name" : "Estrutura de Repetição",
         "questions": [ 
             {
-        "task": "",
-        "descricao": ""
-            },
-        
+            "task": "",
+            "descricao": ""
+            },              
             {
-        "task": "",
-        "descricao": ""
+            "task": "",
+            "descricao": ""
             }
+        ]
+    },
+    "classes":{
+        "name" : "Classes",
+        "questions": [ 
+            
+        ]
+    },
+    "operadores":{
+        "name" : "Operadores",
+        "questions": [ 
+            
+        ]
+    },
+    "variáveis e tipos de dados":{
+        "name" : "Variáveis e Tipos de Dados",
+        "questions": [ 
+            
+        ]
+    },
+    "arrays":{
+        "name" : "Arrays",
+        "questions": [ 
+            
+        ]
+    },
+    "estrutura condicional":{
+        "name" : "Estrutura Condicional",
+        "questions": [ 
+        
         ]
     }
 }

@@ -1,5 +1,5 @@
 import { Doughnut } from 'react-chartjs-2';
-import { Box, Card, CardHeader, Typography, useTheme } from '@mui/material';
+import { Box, Card, CardHeader } from '@mui/material';
 
 export const TasksTopic = (props) => {
 
@@ -7,7 +7,7 @@ export const TasksTopic = (props) => {
     datasets: [
       {
         data: [12.5, 12.5, 12.5, 12.5, 12.5, 12.5, 12.5, 12.5],
-        backgroundColor: ['#3F51B5', '#e53935', '#FB8C00', '#6ddd17', '#881ce0', '#e01cb2', '#83a1a0', '#fff30c'],
+        backgroundColor: ['rgba(63, 81, 181, 0.8)', 'rgba(229, 57, 53, 0.8)', 'rgba(251, 140, 0, 0.8)', 'rgba(109, 221, 23, 0.8)', 'rgba(136, 28, 224, 0.8)', 'rgba(224, 28, 178, 0.8)', 'rgba(131, 161, 160, 0.8)', 'rgba(255, 243, 12, 0.8)'],
         borderWidth: 4,
         borderColor: '#1F2937',
         hoverBorderColor: '#111827',    
@@ -17,8 +17,8 @@ export const TasksTopic = (props) => {
   };
 
   const options = {
-    animation: false,
-    cutoutPercentage: 80,
+    animation: true,
+    cutoutPercentage: 40,
     layout: { padding: 0 },
     plugins: {
       legend: {
