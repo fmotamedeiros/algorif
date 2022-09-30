@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import PerfectScrollbar from 'react-perfect-scrollbar';
 import PropTypes from 'prop-types';
-import { format } from 'date-fns';
 import {
   Avatar,
   Box,
@@ -16,8 +15,10 @@ import {
   Typography
 } from '@mui/material';
 import { getInitials } from '../../utils/get-initials';
+import customers from '../../__mocks__/customers'
 
-export const RankerListResults = ({ customers, ...rest }) => {
+
+export const RankerListResults = ( ...rest ) => {
   const [selectedCustomerIds, setSelectedCustomerIds] = useState([]);
   const [limit, setLimit] = useState(10);
   const [page, setPage] = useState(0);
@@ -64,8 +65,9 @@ export const RankerListResults = ({ customers, ...rest }) => {
 
   return (
     <Card {...rest}>
+      
       <PerfectScrollbar>
-        <Box sx={{ minWidth: 1050}}>
+        <Box>
           <Table>
             <TableHead sx={{backgroundColor: 'background.dark'}}>
               <TableRow>
@@ -81,24 +83,18 @@ export const RankerListResults = ({ customers, ...rest }) => {
                   />
                 </TableCell>
                 <TableCell style={{color:'#9b9ea3'}}>
+                  Position
+                </TableCell>
+                <TableCell style={{color:'#9b9ea3'}}>
                   Name
                 </TableCell>
                 <TableCell style={{color:'#9b9ea3'}}>
-                  Email
-                </TableCell>
-                <TableCell style={{color:'#9b9ea3'}}>
-                  Location
-                </TableCell>
-                <TableCell style={{color:'#9b9ea3'}}>
-                  Phone
-                </TableCell>
-                <TableCell style={{color:'#9b9ea3'}}>
-                  Registration date
+                  Tasks
                 </TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
-              {customers.slice(0, limit).map((customer) => (
+              {customers.map((customer) => (
                 <TableRow
                   hover
                   key={customer.id}
@@ -110,6 +106,9 @@ export const RankerListResults = ({ customers, ...rest }) => {
                       onChange={(event) => handleSelectOne(event, customer.id)}
                       value="true"
                     />
+                  </TableCell>
+                  <TableCell>
+                    {customer.position}                   
                   </TableCell>
                   <TableCell>
                     <Box
@@ -133,16 +132,7 @@ export const RankerListResults = ({ customers, ...rest }) => {
                     </Box>
                   </TableCell>
                   <TableCell>
-                    {customer.email}                   
-                  </TableCell>
-                  <TableCell>                    
-                    {`${customer.address.city}, ${customer.address.state}, ${customer.address.country}`}                   
-                  </TableCell>
-                  <TableCell>
-                      {customer.phone}
-                  </TableCell>
-                  <TableCell>
-                      {format(customer.createdAt, 'dd/MM/yyyy')}
+                    {customer.tasks}                   
                   </TableCell>
                 </TableRow>
               ))}

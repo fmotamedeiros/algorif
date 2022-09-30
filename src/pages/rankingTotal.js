@@ -3,7 +3,6 @@ import { Box, Container } from '@mui/material';
 import { RankerListResults } from '../components/ranker/ranker-list-results';
 import { RankerListToolbar } from '../components/ranker/ranker-list-toolbar';
 import { DashboardLayout } from '../components/dashboard-layout';
-import { customers } from '../__mocks__/customers';
 
 const RankingTotal = () => (
   <>
@@ -22,7 +21,7 @@ const RankingTotal = () => (
       <Container>
         <RankerListToolbar />
         <Box sx={{ mt: 3 }}>
-          <RankerListResults customers={customers} />
+          <RankerListResults />
         </Box>
       </Container>
     </Box>

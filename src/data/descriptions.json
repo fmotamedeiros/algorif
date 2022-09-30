@@ -1,19 +1,43 @@
 {
     "soma":{
         "name": "Soma",
-        "tarefa": "O stub de código fornecido lê dois inteiros, a e b, de STDIN.\n\n Adicione lógica para imprimir duas linhas. A primeira linha deve conter o resultado da divisão inteira, a // b.\n\n A segunda linha deve conter o resultado da divisão float, a / b.\n Não é necessário arredondamento ou formatação."
+        "tarefa": "O stub de código fornecido lê dois inteiros, a e b, de STDIN. Adicione lógica para imprimir duas linhas. A primeira linha deve conter o resultado da divisão inteira, a // b.\n\n A segunda linha deve conter o resultado da divisão float, a / b.\n Não é necessário arredondamento ou formatação.",
+        "exemplo": "a = 3 b = 5 • O resultado da divisão inteira 3//5 = 0. • O resultado da divisão float é 3/5 = 0.6. Imprimir:",
+        "exemplo1": "0 0.6",
+        "entrada": "A primeira linha contém o primeiro inteiro, a. A segunda linha contém o segundo inteiro, b.",
+        "saida": "Imprima as duas linhas conforme descrito acima.",
+        "amostra0": "4 3",
+        "amostra1": "1 1.33333333333"
     },
     "divisão": {
         "name": "Divisão",
-        "tarefa": "O stub de código fornecido lê dois inteiros, a e b, de STDIN.\n Adicione lógica para imprimir duas linhas. A primeira linha deve conter o resultado da divisão inteira, a // b.\n A segunda linha deve conter o resultado da divisão float, a / b.\n Não é necessário arredondamento ou formatação."
+        "tarefa": "O stub de código fornecido lê dois inteiros, a e b, de STDIN. Adicione lógica para imprimir duas linhas. A primeira linha deve conter o resultado da divisão inteira, a // b.\n\n A segunda linha deve conter o resultado da divisão float, a / b.\n Não é necessário arredondamento ou formatação.",
+        "exemplo": "a = 3 b = 5 • O resultado da divisão inteira 3//5 = 0. • O resultado da divisão float é 3/5 = 0.6. Imprimir:",
+        "exemplo1": "0 0.6",
+        "entrada": "A primeira linha contém o primeiro inteiro, a. A segunda linha contém o segundo inteiro, b.",
+        "saida": "Imprima as duas linhas conforme descrito acima.",
+        "amostra0": "4 3",
+        "amostra1": "1 1.33333333333"
     },
     
     "criarfunção":{
         "name": "CriarFunção",
-        "tarefa": "a e b, de STDIN.\n Adicione lógica para imprimir duas linhas. A primeira linha deve conter o resultado da divisão inteira, a // b.\n A segunda linha deve conter o resultado da divisão float, a / b.\n Não é necessário arredondamento ou formatação."
+        "tarefa": "O stub de código fornecido lê dois inteiros, a e b, de STDIN. Adicione lógica para imprimir duas linhas. A primeira linha deve conter o resultado da divisão inteira, a // b.\n\n A segunda linha deve conter o resultado da divisão float, a / b.\n Não é necessário arredondamento ou formatação.",
+        "exemplo": "a = 3 b = 5 • O resultado da divisão inteira 3//5 = 0. • O resultado da divisão float é 3/5 = 0.6. Imprimir:",
+        "exemplo1": "0 0.6",
+        "entrada": "A primeira linha contém o primeiro inteiro, a. A segunda linha contém o segundo inteiro, b.",
+        "saida": "Imprima as duas linhas conforme descrito acima.",
+        "amostra0": "4 3",
+        "amostra1": "1 1.33333333333"
     },
     "usarfunção": {
         "name": "UsarFunção",
-        "tarefa": "O stub de código fornecido lê dois inteiros, a e b, de STDIN.\n Adicione lógica para imprimir duas linhas. A primeira linha deve conter o resultado da divisão inteira, a // b.\n A segunda linha deve conter o resultado da divisão float, a / b.\n Não é necessário arredondamento ou formatação."
+        "tarefa": "O stub de código fornecido lê dois inteiros, a e b, de STDIN. Adicione lógica para imprimir duas linhas. A primeira linha deve conter o resultado da divisão inteira, a // b.\n\n A segunda linha deve conter o resultado da divisão float, a / b.\n Não é necessário arredondamento ou formatação.",
+        "exemplo": "a = 3 b = 5 • O resultado da divisão inteira 3//5 = 0. • O resultado da divisão float é 3/5 = 0.6. Imprimir:",
+        "exemplo1": "0 0.6",
+        "entrada": "A primeira linha contém o primeiro inteiro, a. A segunda linha contém o segundo inteiro, b.",
+        "saida": "Imprima as duas linhas conforme descrito acima.",
+        "amostra0": "4 3",
+        "amostra1": "1 1.33333333333"
     }
 }
