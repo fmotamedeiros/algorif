@@ -43,16 +43,10 @@ export const DashboardNavbar = (props) => {
               }
             }}
           >
-            <MenuIcon fontSize="small" />
+            <MenuIcon fontSize="medium" />
           </IconButton>
-          <Tooltip title="Search">
-            <IconButton sx={{
-              color:"neutral.200",
-              ml: 1 }}>
-              <SearchIcon fontSize="small" />
-            </IconButton>
-          </Tooltip>
-          <Box sx={{ flexGrow: 1 }} />
+  
+          <Box sx={{ px:1 }} />
           <NextLink
               href="/"
               passHref
@@ -62,13 +56,7 @@ export const DashboardNavbar = (props) => {
               </a>
           </NextLink>
           <Box sx={{ flexGrow: 1 }} />
-          <Tooltip title="Contacts">
-            <IconButton sx={{ 
-              color:"neutral.200",
-              ml: 1 }}>
-              <UsersIcon fontSize="small" />
-            </IconButton>
-          </Tooltip>
+          
           <Tooltip title="Notifications">
             <IconButton sx={{ 
               color:"neutral.200",

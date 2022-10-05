@@ -1,6 +1,6 @@
 import Head from 'next/head';
 import { Box, Container, Grid } from '@mui/material';
-import { NextTasks } from '../components/dashboard/nextTasks';
+import { Answers } from '../components/dashboard/answers';
 import { TasksWeekend } from '../components/dashboard/tasksWeekend';
 import { TasksTopic } from '../components/dashboard/tasksTopic';
 import { Ranking } from '../components/dashboard/ranking';
@@ -32,7 +32,7 @@ const Dashboard = () => (
             xl={8}
             xs={12}
           >
-            <NextTasks sx={{ height: '100%' }} />
+            <Answers sx={{ height: '100%' }} />
           </Grid>
           <Grid
             item

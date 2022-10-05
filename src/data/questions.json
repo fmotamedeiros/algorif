@@ -12,6 +12,11 @@
         "task": "Divida dois numeros",
         "href": "divisão",
         "descricao": "Crie duas variaveis e atribua um número a cada uma delas, fazendo então a divisão delas, e usa o comando console.log() para apresentar na tela"
+            },
+            {
+                "task": "Subtraia dois numeros",
+                "href": "divisão",
+                "descricao": "Crie duas variaveis e atribua um número a cada uma delas, fazendo então a divisão delas, e usa o comando console.log() para apresentar na tela"
             }
         ]
     },

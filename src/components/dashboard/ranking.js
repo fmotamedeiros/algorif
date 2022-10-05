@@ -2,6 +2,7 @@ import { v4 as uuid } from 'uuid';
 
 import {
   Box,
+  Button,
   Card,
   CardHeader,
   Table,
@@ -10,6 +11,8 @@ import {
   TableHead,
   TableRow,
 } from '@mui/material';
+
+import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 
 const orders = [
   {
@@ -96,7 +99,17 @@ const orders = [
 
 export const Ranking = (props) => (
   <Card {...props}>
-    <CardHeader title="Ranking" />
+    <CardHeader
+        action={(
+          <Button
+            endIcon={<ArrowDropDownIcon fontSize="small" />}
+            size="small"
+          >
+            Semanal
+          </Button>
+        )}
+        title="Ranking"
+      />
       <Box>
         <Table size='small' 
           aria-label="a dense table">

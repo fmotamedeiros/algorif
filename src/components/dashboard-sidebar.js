@@ -13,12 +13,18 @@ import { Users as UsersIcon } from '../icons/users';
 import { XCircle as XCircleIcon } from '../icons/x-circle';
 import { Logo } from './logo';
 import { NavItem } from './nav-item';
+import { Clock } from '../icons/clock';
 
 const items = [
   {
     href: '/',
     icon: (<ChartBarIcon fontSize="small" />),
     title: 'Dashboard'
+  },
+  {
+    href: '/topics',
+    icon: (<Clock fontSize="small" />),
+    title: 'Exercícios'
   },
   {
     href: '/rankingTotal',
