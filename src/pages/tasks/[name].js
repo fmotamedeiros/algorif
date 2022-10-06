@@ -1,12 +1,28 @@
-import { Box, Checkbox, Container, FormControlLabel, Typography } from "@mui/material";
+import { Box, Checkbox, FormControlLabel, Popover, Typography } from "@mui/material";
 import Head from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { useState } from "react";
 import { DashboardLayout } from "../../components/dashboard-layout";
-import questions from "../../data/questions.json"
+import questions from "../../data/questions.json";
+import { Exercices } from "../../components/quests/exercices"
 
 const Tasks = () => {
   const router = useRouter()
+  const [isTopicsOpen, setTopicsOpen] = useState(false)
+
+  const handleClick = (event) => {
+    setTopicsOpen(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setTopicsOpen(null);
+  };
+
+  const open = Boolean(isTopicsOpen);
+  const id = open ? 'simple-popover' : undefined;
+
+
   return(
     <>
       <Head>
@@ -22,7 +38,30 @@ const Tasks = () => {
       >
         <Box className="bg-[#1F2937] w-full p-4 px-6">
           <div className="text-[30px] lg:text-[2rem] font-semibold text-white max-w-[1150px] mx-auto">
-            {router.query.name}
+            <button aria-describedby={id} 
+            onClick={handleClick} 
+            className="hover:text-green-500">
+              {router.query.name}
+            </button>
+            
+            <Popover
+              id={id}
+              open={open}
+              isTopicsOpen={isTopicsOpen}
+              onClose={handleClose}
+                  anchorOrigin={{
+                    horizontal: "center",
+                    vertical: "center"
+                  }}
+                  transformOrigin={{
+                    horizontal: "right",
+                    vertical: "bottom"
+                  }}
+
+            >
+              <Exercices />
+            </Popover>
+            
           </div>
         </Box>
 

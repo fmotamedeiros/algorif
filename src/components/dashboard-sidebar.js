@@ -6,7 +6,7 @@ import { Box, Divider, Drawer, Typography } from '@mui/material';
 import { ChartBar as ChartBarIcon } from '../icons/chart-bar';
 import { Cog as CogIcon } from '../icons/cog';
 import { Lock as LockIcon } from '../icons/lock';
-import { Selector, Selector as SelectorIcon } from '../icons/selector';
+import { Selector as SelectorIcon } from '../icons/selector';
 import { User as UserIcon } from '../icons/user';
 import { UserAdd as UserAddIcon } from '../icons/user-add';
 import { Users as UsersIcon } from '../icons/users';
@@ -94,8 +94,8 @@ export const DashboardSidebar = (props) => {
               <a>
                 <Logo
                   sx={{
-                    height: 42,
-                    width: 42
+                    height: 50,
+                    width: 100
                   }}
                 />
               </a>
