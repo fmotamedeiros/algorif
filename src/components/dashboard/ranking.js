@@ -5,6 +5,7 @@ import {
   Button,
   Card,
   CardHeader,
+  Popover,
   Table,
   TableBody,
   TableCell,
@@ -13,6 +14,7 @@ import {
 } from '@mui/material';
 
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
+import { useState } from 'react';
 
 const orders = [
   {
@@ -97,53 +99,94 @@ const orders = [
   }
 ];
 
-export const Ranking = (props) => (
-  <Card {...props}>
-    <CardHeader
-        action={(
-          <Button
-            endIcon={<ArrowDropDownIcon fontSize="small" />}
-            size="small"
-          >
-            Semanal
-          </Button>
-        )}
-        title="Ranking"
-      />
-      <Box>
-        <Table size='small' 
-          aria-label="a dense table">
-          <TableHead sx={{ backgroundColor: 'background.dark'}}>
-            <TableRow>
-            <TableCell style={{color:'#9b9ea3'}}>
-                Position
-              </TableCell>
-              <TableCell style={{color:'#9b9ea3'}}>
-                Name
-              </TableCell>
-              <TableCell style={{color:'#9b9ea3'}}>
-                Tasks
-              </TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {orders.map((order) => (
-              <TableRow 
-                key={order.id}
+export const Ranking = (props) => {
+
+  const [time, setTime] = useState("Semanal");
+
+  const [anchorEl, setAnchorEl] = useState(null);
+
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const open = Boolean(anchorEl);
+  const id = open ? 'simple-popover' : undefined;
+
+  return(
+    <Card {...props}>
+      <CardHeader
+          action={(
+            <>
+              <Button
+                aria-describedby={id} 
+                onClick={handleClick}
+                endIcon={<ArrowDropDownIcon fontSize="small" />}
+                size="small"
               >
-                <TableCell>
-                  {order.position}
-                </TableCell>
-                <TableCell>
-                  {order.customer.name}
+                {time}
+              </Button>
+              <Popover
+              id={id}
+              open={open}
+              anchorEl={anchorEl}
+              onClose={handleClose}
+              anchorOrigin={{
+                vertical: 'bottom',
+                horizontal: 'center',
+              }}
+              transformOrigin={{
+                vertical: 'top',
+                horizontal: 'center',
+              }}
+            >
+              <Button onClick={() => setTime("Mensal")} 
+              className='p-2 text-green-400'>Mensal</Button>
+              <Button onClick={() => setTime("Semanal")} 
+              className='p-2 text-green-400'>Semanal</Button>
+            </Popover>
+          </>
+          )}
+          title="Ranking"
+        />
+        <Box>
+          <Table size='small' 
+            aria-label="a dense table">
+            <TableHead sx={{ backgroundColor: 'background.dark'}}>
+              <TableRow>
+              <TableCell style={{color:'#9b9ea3'}}>
+                  Position
                 </TableCell>
                 <TableCell style={{color:'#9b9ea3'}}>
-                  {order.tasks}
+                  Name
+                </TableCell>
+                <TableCell style={{color:'#9b9ea3'}}>
+                  Tasks
                 </TableCell>
               </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </Box>
-  </Card>
-);
+            </TableHead>
+            <TableBody>
+              {orders.map((order) => (
+                <TableRow 
+                  key={order.id}
+                >
+                  <TableCell>
+                    {order.position}
+                  </TableCell>
+                  <TableCell>
+                    {order.customer.name}
+                  </TableCell>
+                  <TableCell style={{color:'#9b9ea3'}}>
+                    {order.tasks}
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </Box>
+    </Card>
+  );
+};

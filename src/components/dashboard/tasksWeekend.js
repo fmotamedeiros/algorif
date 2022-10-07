@@ -1,10 +1,25 @@
 import { Bar } from 'react-chartjs-2';
-import { Box, Button, Card, CardContent, CardHeader, Divider, useTheme } from '@mui/material';
+import { Box, Button, Card, CardContent, CardHeader, Popover, useTheme } from '@mui/material';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
-import ArrowRightIcon from '@mui/icons-material/ArrowRight';
+import { useState } from 'react';
 
 export const TasksWeekend = (props) => {
   const theme = useTheme();
+
+  const [time, setTime] = useState("Semanal");
+
+  const [anchorEl, setAnchorEl] = useState(null);
+
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const open = Boolean(anchorEl);
+  const id = open ? 'simple-popover' : undefined;
 
   const data = {
     datasets: [
@@ -19,7 +34,7 @@ export const TasksWeekend = (props) => {
         maxBarThickness: 7
       },
     ],
-    labels: ['1 Aug', '2 Aug', '3 Aug', '4 Aug', '5 Aug', '6 Aug', '7 aug']
+    labels: ['1° Semana', '2° Semana', '3° Semana', '4° Semana', '5° Semana', '6° Semana', '7° Semana']
   };
 
   const options = {
@@ -75,14 +90,37 @@ export const TasksWeekend = (props) => {
     <Card {...props}>
       <CardHeader
         action={(
-          <Button
-            endIcon={<ArrowDropDownIcon fontSize="small" />}
-            size="small"
+          <>
+            <Button
+              aria-describedby={id} 
+              onClick={handleClick}
+              endIcon={<ArrowDropDownIcon fontSize="small" />}
+              size="small"
+            >
+              {time}
+            </Button>
+            <Popover
+            id={id}
+            open={open}
+            anchorEl={anchorEl}
+            onClose={handleClose}
+            anchorOrigin={{
+              vertical: 'bottom',
+              horizontal: 'center',
+            }}
+            transformOrigin={{
+              vertical: 'top',
+              horizontal: 'center',
+            }}
           >
-            Last 7 days
-          </Button>
+            <Button onClick={() => setTime("Mensal")} 
+            className='p-2 text-green-400'>Mensal</Button>
+            <Button onClick={() => setTime("Semanal")} 
+            className='p-2 text-green-400'>Semanal</Button>
+          </Popover>
+          </>
         )}
-        title="Tarefas Concluídas"
+        title="Exercícios Concluídos"
       />
       <CardContent>
         <Box
@@ -97,20 +135,6 @@ export const TasksWeekend = (props) => {
           />
         </Box>
       </CardContent>
-      <Box
-        sx={{
-          display: 'flex',
-          justifyContent: 'flex-end',
-          p: 2
-        }}
-      >
-        <Button
-          endIcon={<ArrowRightIcon fontSize="small" />}
-          size="small"
-        >
-          Overview
-        </Button>
-      </Box>
     </Card>
   );
 };
