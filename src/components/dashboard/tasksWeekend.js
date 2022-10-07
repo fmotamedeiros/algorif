@@ -44,46 +44,20 @@ export const TasksWeekend = (props) => {
     legend: { display: false },
     maintainAspectRatio: false,
     responsive: true,
-    xAxes: [
-      {
-        ticks: {
-          fontColor: 'theme.palette.text.secondary'
-        },
-        gridLines: {
-          display: false,
-          drawBorder: false
-        }
+    plugins: {
+      legend: {
+        display: false,
+      },
+    },
+    scales: {
+      y: {
+        ticks: { color: '#bbbec7', beginAtZero: true }
+      },
+      x: {
+        ticks: { color: '#bbbec7', beginAtZero: true }
       }
-    ],
-    yAxes: [
-      {
-        ticks: {
-          fontColor: 'theme.palette.text.secondary',
-          beginAtZero: true,
-          min: 0
-        },
-        gridLines: {
-          borderDash: [2],
-          borderDashOffset: [2],
-          color: theme.palette.divider,
-          drawBorder: false,
-          zeroLineBorderDash: [2],
-          zeroLineBorderDashOffset: [2],
-          zeroLineColor: theme.palette.divider
-        }
-      }
-    ],
-    tooltips: {
-      backgroundColor: theme.palette.background.paper,
-      bodyFontColor: 'theme.palette.text.secondary',
-      borderColor: theme.palette.divider,
-      borderWidth: 1,
-      enabled: true,
-      footerFontColor: 'theme.palette.text.secondary',
-      intersect: false,
-      mode: 'index',
-      titleFontColor: theme.palette.text.primary
     }
+    
   };
 
   return (

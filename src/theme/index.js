@@ -158,14 +158,7 @@ export const theme = createTheme({
       1000: '#584A73',
       1100: '#7509e8'
     },
-    action: {
-      active: '#6B7280',
-      focus: 'rgba(55, 65, 81, 0.12)',
-      hover: 'rgba(55, 65, 81, 0.04)',
-      selected: 'rgba(55, 65, 81, 0.08)',
-      disabledBackground: 'rgba(55, 65, 81, 0.12)',
-      disabled: 'rgba(55, 65, 81, 0.26)'
-    },
+    
     background: {
       default: '#111827',
       paper: '#1F2937',

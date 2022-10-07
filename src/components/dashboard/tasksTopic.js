@@ -24,10 +24,14 @@ export const TasksTopic = (props) => {
       legend: {
         display: true,
         position: "bottom",
+        labels: {
+          color: "#bbbec7",
+        }
       },
     },
     maintainAspectRatio: false,
     responsive: true,
+    
   };
 
   return (

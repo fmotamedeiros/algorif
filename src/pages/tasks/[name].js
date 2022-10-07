@@ -6,10 +6,11 @@ import { useState } from "react";
 import { DashboardLayout } from "../../components/dashboard-layout";
 import questions from "../../data/questions.json";
 import { Exercices } from "../../components/quests/exercices"
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 const Tasks = () => {
   const router = useRouter()
-  const [isTopicsOpen, setTopicsOpen] = useState(false)
+  const [isTopicsOpen, setTopicsOpen] = useState(null)
 
   const handleClick = (event) => {
     setTopicsOpen(event.currentTarget);
@@ -42,22 +43,22 @@ const Tasks = () => {
             onClick={handleClick} 
             className="hover:text-green-500">
               {router.query.name}
+              <ExpandMoreIcon fontSize="20" />
             </button>
             
             <Popover
               id={id}
               open={open}
-              isTopicsOpen={isTopicsOpen}
+              anchorEl={isTopicsOpen}
               onClose={handleClose}
-                  anchorOrigin={{
-                    horizontal: "center",
-                    vertical: "center"
-                  }}
-                  transformOrigin={{
-                    horizontal: "right",
-                    vertical: "bottom"
-                  }}
-
+              anchorOrigin={{
+                vertical: 'bottom',
+                horizontal: 'left',
+              }}
+              transformOrigin={{
+                vertical: 'top',
+                horizontal: 'left',
+              }}
             >
               <Exercices />
             </Popover>

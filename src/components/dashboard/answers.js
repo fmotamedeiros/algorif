@@ -5,11 +5,13 @@ export const Answers = (props) => {
     const dataBar = {
       datasets: [
       {
-        backgroundColor: ['rgba(63, 81, 181, 0.7)', 'rgba(109, 221, 23, 0.7)', 'rgba(255, 243, 12, 0.7)', 'rgba(251, 140, 0, 0.7)','rgba(229, 57, 53, 0.7)'],
-        borderColor: ['rgba(63, 81, 181, 0.8)', 'rgba(109, 221, 23, 0.8)', 'rgba(255, 243, 12, 0.8)', 'rgba(251, 140, 0, 0.8)','rgba(229, 57, 53, 0.8)'],
+        backgroundColor: ['rgba(0, 230, 0, 1)', 'rgba(0, 200, 0, 1)', 'rgba(0, 170, 0, 1)', 'rgba(0, 140, 0, 1)','rgba(0, 110, 0, 1)'],
+        borderColor: ['rgba(0, 230, 0, 0.7)', 'rgba(0, 200, 0, 0.7)', 'rgba(0, 170, 0, 0.7)', 'rgba(0, 140, 0, 0.7)','rgba(0, 110, 0, 0.7)'],
         borderWidth: 1,
-        hoverBackgroundColor: ['rgba(63, 81, 181, 0.5)', 'rgba(109, 221, 23, 0.5)', 'rgba(255, 243, 12, 0.5)', 'rgba(251, 140, 0, 0.5)','rgba(229, 57, 53, 0.5)'],
-        hoverBorderColor: ['rgba(63, 81, 181, 0.7)', 'rgba(109, 221, 23, 0.7)', 'rgba(255, 243, 12, 0.7)', 'rgba(251, 140, 0, 0.7)','rgba(229, 57, 53, 0.7)'],
+        barThickness:30,
+        label: 'Taxa de Acerto',
+        hoverBackgroundColor: ['rgba(0, 230, 0, 0.5)', 'rgba(0, 200, 0, 0.5)', 'rgba(0, 170, 0, 0.5)', 'rgba(0, 140, 0, 0.5)','rgba(0, 110, 0, 0.5)'],
+        hoverBorderColor: ['rgba(0, 230, 0, 0.8)', 'rgba(0, 200, 0, 0.8)', 'rgba(0, 170, 0, 0.8)', 'rgba(0, 140, 0, 0.8)','rgba(0, 110, 0, 0.8)'],
         data: [65, 59, 91, 41, 20]
       },
     ],
@@ -22,6 +24,14 @@ export const Answers = (props) => {
         display: false,
       },
     },
+    scales: {
+      y: {
+        ticks: { color: '#bbbec7', beginAtZero: true }
+      },
+      x: {
+        ticks: { color: '#bbbec7', beginAtZero: true }
+      }
+    }
   };
 
 
