@@ -9,8 +9,10 @@ export const TasksTopic = (props) => {
         data: [12.5, 12.5, 12.5, 12.5, 12.5, 12.5, 12.5, 12.5],
         backgroundColor: ['rgba(63, 81, 181, 0.8)', 'rgba(229, 57, 53, 0.8)', 'rgba(251, 140, 0, 0.8)', 'rgba(109, 221, 23, 0.8)', 'rgba(136, 28, 224, 0.8)', 'rgba(224, 28, 178, 0.8)', 'rgba(131, 161, 160, 0.8)', 'rgba(255, 243, 12, 0.8)'],
         borderWidth: 4,
+        cutout: 60,
         borderColor: '#1F2937',
-        hoverBorderColor: '#111827',    
+        hoverBorderColor: '#111827',
+        hoverOffset: 10,    
       }
     ],
     labels: ['String', 'Função', 'Estrutura de Repetição', 'Classes', 'Operadores', 'Variáveis e Tipos de Dados', 'Arrays', 'Estrutura Condicional'],
