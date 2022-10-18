@@ -5,18 +5,24 @@
             {
         "task": "Some dois numeros",
         "href": "soma",
-        "descricao": "Crie duas variaveis e atribua um número a cada uma delas, fazendo então a soma delas, e usa o comando console.log() para apresentar na tela"
+        "descricao": "Crie duas variaveis e atribua um número a cada uma delas, fazendo então a soma delas, e usa o comando console.log() para apresentar na tela",
+        "dificuldade": "Iniciante",
+        "taxaSucesso": "98.80%"
             },
         
             {
         "task": "Divida dois numeros",
         "href": "divisão",
-        "descricao": "Crie duas variaveis e atribua um número a cada uma delas, fazendo então a divisão delas, e usa o comando console.log() para apresentar na tela"
+        "descricao": "Crie duas variaveis e atribua um número a cada uma delas, fazendo então a divisão delas, e usa o comando console.log() para apresentar na tela",
+        "dificuldade": "Iniciante",
+        "taxaSucesso": "96.80%"
             },
             {
-                "task": "Subtraia dois numeros",
-                "href": "divisão",
-                "descricao": "Crie duas variaveis e atribua um número a cada uma delas, fazendo então a divisão delas, e usa o comando console.log() para apresentar na tela"
+        "task": "Subtraia dois numeros",
+        "href": "divisão",
+        "descricao": "Crie duas variaveis e atribua um número a cada uma delas, fazendo então a divisão delas, e usa o comando console.log() para apresentar na tela",
+        "dificuldade": "Iniciante",
+        "taxaSucesso": "95.20%"
             }
         ]
     },
@@ -27,13 +33,17 @@
             {
         "task": "Crie uma função",
         "href": "criarfunção",
-        "descricao": "Crie duas variaveis e atribua um número a cada uma delas, fazendo então a soma delas, e usa o comando console.log() para apresentar na tela"
+        "descricao": "Crie duas variaveis e atribua um número a cada uma delas, fazendo então a soma delas, e usa o comando console.log() para apresentar na tela",
+        "dificuldade": "Fácil",
+        "taxaSucesso": "96.20%"
             },
         
             {
         "task": "Use uma função",
         "href": "usarfunção",
-        "descricao": "Crie duas variaveis e atribua um número a cada uma delas, fazendo então a divisão delas, e usa o comando console.log() para apresentar na tela"
+        "descricao": "Crie duas variaveis e atribua um número a cada uma delas, fazendo então a divisão delas, e usa o comando console.log() para apresentar na tela",
+        "dificuldade": "Médio",
+        "taxaSucesso": "91.00%"
             }
         ]
     },
