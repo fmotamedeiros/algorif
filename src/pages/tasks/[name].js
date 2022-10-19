@@ -7,7 +7,7 @@ import { DashboardLayout } from "../../components/dashboard-layout";
 import questions from "../../data/questions.json";
 import { Exercices } from "../../components/quests/exercices"
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import { Filter } from "../../components/quests/filter";
+import Filter from "../../components/quests/filter";
 
 const Tasks = () => {
   const router = useRouter()
@@ -51,7 +51,7 @@ const Tasks = () => {
         }}
       >
         <Box className="bg-[#1F2937] w-full p-4 px-6">
-          <div className="text-[30px] lg:text-[2rem] font-semibold text-white max-w-[1150px] mx-auto flex justify-between">
+          <div className="text-[18px] md:text-[25px] lg:text-[1.7rem] font-semibold text-white max-w-[1150px] mx-auto flex justify-between">
             <button aria-describedby={topics} 
             onClick={handleClick} 
             className="hover:text-green-500">
@@ -113,7 +113,7 @@ const Tasks = () => {
             <div className="pb-3">
               <Box className="group">
                 <button className="p-4 border mb-3 border-gray-500 group-hover:border-green-500 w-full rounded">
-                  <Box className="font-semibold justify-between flex">
+                  <Box className="font-semibold">
                     <Box className="p-2">
                       <div className="group-hover:text-green-500 flex">
                         {question.task}
@@ -126,13 +126,16 @@ const Tasks = () => {
                         , Taxa de Sucesso: {question.taxaSucesso}
                         </div>
                       </div>
-                    </Box>
-                    <Box className="mb-4 p-2 border border-green-500 group-hover:bg-green-500 text-green-500 group-hover:text-[#1F2937] rounded">
-                      Resolver Desafio
-                    </Box>
+                    </Box>                   
                   </Box>
-                  <Box className="text-left text-gray-400 p-2">
-                    {question.descricao}
+                  <Box className="font-semibold block lg:justify-between lg:flex lg:items-center w-full">
+                    <Box className="text-left text-gray-400 p-2 lg:w-[70%]">
+                      {question.descricao}
+                      </Box>
+                    
+                    <Box className="p-2 border border-green-500 group-hover:bg-green-500 text-green-500 group-hover:text-[#1F2937] rounded lg:w-[30%] ">
+                        Resolver Desafio
+                    </Box>
                   </Box>
                 </button>
               </Box>
