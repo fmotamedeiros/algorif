@@ -1,5 +1,5 @@
 import Head from 'next/head';
-import { Box, Container } from '@mui/material';
+import { Box } from '@mui/material';
 import { DashboardLayout } from '../components/dashboard-layout';
 import { Exercices } from '../components/quests/exercices'
 
@@ -18,9 +18,9 @@ const Settings = () => (
         py: 8
       }}
     >
-      <Container>
+      <div className='px-[5%]'>
         <Exercices />
-      </Container>
+      </div>
     </Box>
   </>
 );

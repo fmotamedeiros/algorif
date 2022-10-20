@@ -5,9 +5,9 @@ export default function Filter() {
     
     return(
         <Box className="p-2 border rounded border-gray-500">
-            <div className="flex flex-col border-b border-gray-500 w-full px-4">
+            <div className="flex flex-col border-b border-gray-500 px-4 py-3">
             <Typography
-                color="textSecondary"
+                color="primary.light"
                 gutterBottom
                 variant="h6"
                 >
@@ -22,9 +22,9 @@ export default function Filter() {
                 label="Não Resolvido"
                 />           
             </div>
-            <div className="flex flex-col pt-2 px-4">
+            <div className="flex flex-col pt-5 px-4 pb-2">
             <Typography
-                color="textSecondary"
+                color="primary.light"
                 gutterBottom
                 variant="h6"
             >

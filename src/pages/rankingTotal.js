@@ -1,5 +1,5 @@
 import Head from 'next/head';
-import { Box, Container } from '@mui/material';
+import { Box } from '@mui/material';
 import { RankerListResults } from '../components/ranker/ranker-list-results';
 import { RankerListToolbar } from '../components/ranker/ranker-list-toolbar';
 import { DashboardLayout } from '../components/dashboard-layout';
@@ -18,12 +18,12 @@ const RankingTotal = () => (
         py: 8
       }}
     >
-      <Container>
+      <div className='px-[5%]'>
         <RankerListToolbar />
         <Box sx={{ mt: 3 }}>
           <RankerListResults />
         </Box>
-      </Container>
+      </div>
     </Box>
   </>
 );

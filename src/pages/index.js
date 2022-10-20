@@ -1,6 +1,6 @@
 import Head from 'next/head';
-import { Box, Container, Grid } from '@mui/material';
-import { Answers } from '../components/dashboard/answers';
+import { Box, Grid } from '@mui/material';
+import { DifficultyRate } from '../components/dashboard/difficultyRate';
 import { TasksWeekend } from '../components/dashboard/tasksWeekend';
 import { TasksTopic } from '../components/dashboard/tasksTopic';
 import { Ranking } from '../components/dashboard/ranking';
@@ -20,7 +20,7 @@ const Dashboard = () => (
         py: 8
       }}
     >
-      <Container>
+      <div className='px-[5%]'>
         <Grid
           container
           spacing={3}
@@ -28,11 +28,11 @@ const Dashboard = () => (
           <Grid
             item
             lg={7}
-            sm={14}
+            sm={12}
             xl={8}
             xs={12}
           >
-            <Answers sx={{ height: '100%' }} />
+            <DifficultyRate sx={{ height: '100%' }} />
           </Grid>
           <Grid
             item
@@ -62,7 +62,7 @@ const Dashboard = () => (
             <Ranking sx={{ height: '100%' }} />
           </Grid>
         </Grid>
-      </Container>
+      </div>
     </Box>
   </>
 );

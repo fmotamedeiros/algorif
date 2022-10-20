@@ -99,7 +99,7 @@ export const TasksWeekend = (props) => {
       <CardContent>
         <Box
           sx={{
-            height: 270,
+            height: 300,
             position: 'relative'
           }}
         >

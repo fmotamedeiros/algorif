@@ -1,7 +1,7 @@
 import { Box, Card, CardHeader } from '@mui/material';
 import { Bar } from 'react-chartjs-2';
 
-export const Answers = (props) => {
+export const DifficultyRate = (props) => {
     const dataBar = {
       datasets: [
       {
@@ -19,6 +19,9 @@ export const Answers = (props) => {
   };
 
   const options = {
+    animation: false,
+    maintainAspectRatio: false,
+    responsive: true,
     plugins: {
       legend: {
         display: false,
@@ -40,7 +43,8 @@ export const Answers = (props) => {
     >
       <CardHeader title="Taxa de Acerto dos Exercícios" />
       
-      <Box className='p-2 px-6'>
+      <Box className='p-2 px-6' 
+        sx={{height: 300, position: 'relative'}}>
         <Bar data={dataBar} 
         options={options}
         width={360} />

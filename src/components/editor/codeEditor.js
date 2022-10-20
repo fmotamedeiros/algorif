@@ -38,7 +38,7 @@ const CodeEditor = () => {
   return (
     <>
       <textarea id='realtimeEditor'></textarea>
-      <div>{output}</div>
+      <div className='bg-[#1F2937] border border-gray-700 h-40'>{output}</div>
     </>
   )
 };

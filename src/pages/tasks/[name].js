@@ -51,7 +51,7 @@ const Tasks = () => {
         }}
       >
         <Box className="bg-[#1F2937] w-full p-4 px-6">
-          <div className="text-[18px] md:text-[25px] lg:text-[1.7rem] font-semibold text-white max-w-[1150px] mx-auto flex justify-between">
+          <div className="text-[18px] md:text-[25px] lg:text-[1.7rem] font-semibold text-white flex justify-between">
             <button aria-describedby={topics} 
             onClick={handleClick} 
             className="hover:text-green-500">
@@ -76,7 +76,7 @@ const Tasks = () => {
             </Popover>
 
             <button
-            className="text-[15px] lg:hidden text-[#21a87b] border border-[#3FC79A] px-2 rounded hover:bg-[#21a87b] hover:text-[#1F2937]" 
+            className="text-[15px]  text-[#21a87b] border border-[#3FC79A] px-2 rounded hover:bg-[#21a87b] hover:text-[#1F2937]" 
             aria-describedby={filter} 
             onClick={clickFilter} >
               Filtro
@@ -105,50 +105,50 @@ const Tasks = () => {
         </Box>
 
         <div className="px-6">
-        <Box className="w-full max-w-[1150px] flex flex-col lg:flex-row pt-5 justify-between mx-auto gap-4 h-full">
-          <div className="lg:max-w-[80%]">
-          {questions[router.query.name.toLowerCase()]["questions"].map((question) => (
-          <Link href={`/questions/${question.href}`} 
-            key={question.task}>
-            <div className="pb-3">
-              <Box className="group">
-                <button className="p-4 border mb-3 border-gray-500 group-hover:border-green-500 w-full rounded">
-                  <Box className="font-semibold">
-                    <Box className="p-2">
-                      <div className="group-hover:text-green-500 flex">
-                        {question.task}
-                      </div>
-                      <div className="text-[13px] flex">
-                        <div className="text-green-500">
-                        {question.dificuldade}
+          <Box className="w-full flex flex-col lg:flex-row pt-5 justify-between gap-4 h-full">
+            <div className="lg:w-[80%]">
+            {questions[router.query.name.toLowerCase()]["questions"].map((question) => (
+            <Link href={`/questions/${question.href}`} 
+              key={question.task}>
+              <div className="pb-3">
+                <Box className="group">
+                  <button className="p-4 border mb-3 border-gray-500 group-hover:border-green-500 w-full rounded">
+                    <Box className="font-semibold">
+                      <Box className="p-2">
+                        <div className="group-hover:text-green-500 flex text-[20px]">
+                          {question.task}
                         </div>
-                        <div>
-                        , Taxa de Sucesso: {question.taxaSucesso}
+                        <div className="text-[16px] flex">
+                          <div className="flex">
+                            <div>Nível:&nbsp;</div>
+                            <div className="text-green-500">{question.dificuldade}</div>
+                          </div>
+                          <div>
+                          , Taxa de Acerto: {question.taxaSucesso}
+                          </div>
                         </div>
-                      </div>
-                    </Box>                   
-                  </Box>
-                  <Box className="font-semibold block lg:justify-between lg:flex lg:items-center w-full">
-                    <Box className="text-left text-gray-400 p-2 lg:w-[70%]">
-                      {question.descricao}
-                      </Box>
-                    
-                    <Box className="p-2 border border-green-500 group-hover:bg-green-500 text-green-500 group-hover:text-[#1F2937] rounded lg:w-[30%] ">
-                        Resolver Desafio
+                      </Box>                   
                     </Box>
-                  </Box>
-                </button>
-              </Box>
+                    <Box className="font-semibold block lg:justify-between lg:flex lg:items-center w-full">
+                      <Box className="text-left text-gray-400 p-2 lg:w-[70%]">
+                        {question.descricao}
+                        </Box>
+                      
+                      <Box className="p-3 m-2 lg:m-0 border border-green-500 group-hover:bg-green-500 text-green-500 group-hover:text-[#1F2937] rounded lg:w-[30%] ">
+                          Resolver Desafio
+                      </Box>
+                    </Box>
+                  </button>
+                </Box>
+              </div>
+            </Link>
+            ))}
             </div>
-          </Link>
-          ))}
-          </div>
-          <Box className="h-full lg:flex flex-col hidden">
-            <Filter />
-            
-          </Box>
+            <Box className="w-[20%] lg:flex flex-col hidden">
+              <Filter />              
+            </Box>
 
-      </Box>
+        </Box>
       </div>
         
       </Box>
