@@ -76,7 +76,7 @@ const Tasks = () => {
             </Popover>
 
             <button
-            className="text-[15px]  text-[#21a87b] border border-[#3FC79A] px-2 rounded hover:bg-[#21a87b] hover:text-[#1F2937]" 
+            className="text-[15px]  text-[#21a87b] border border-[#3FC79A] px-2 lg:hidden rounded hover:bg-[#21a87b] hover:text-[#1F2937]" 
             aria-describedby={filter} 
             onClick={clickFilter} >
               Filtro

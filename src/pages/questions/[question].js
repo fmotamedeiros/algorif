@@ -3,10 +3,10 @@ import dynamic from "next/dynamic";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { DashboardLayout } from "../../components/dashboard-layout";
-import Description from "../../components/question/description";
+import Description from "../../components/solveTask/description";
 import descriptionData from "../../data/descriptions.json"
 
-const CodeEditor = dynamic(import('../../components/editor/codeEditor'), {ssr: false})
+const CodeEditor = dynamic(import('../../components/solveTask/codeEditor'), {ssr: false})
 
 const Question = () => {
   const router = useRouter()
