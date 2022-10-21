@@ -10,7 +10,6 @@ import { Selector as SelectorIcon } from '../icons/selector';
 import { User as UserIcon } from '../icons/user';
 import { UserAdd as UserAddIcon } from '../icons/user-add';
 import { Users as UsersIcon } from '../icons/users';
-import { XCircle as XCircleIcon } from '../icons/x-circle';
 import { Logo } from './logo';
 import { NavItem } from './nav-item';
 import { Clock } from '../icons/clock';

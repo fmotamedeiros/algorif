@@ -57,7 +57,7 @@ export const theme = createTheme({
     MuiCardHeader: {
       defaultProps: {
         titleTypographyProps: {
-          variant: 'h6'
+          variant: 'h5'
         },
         subheaderTypographyProps: {
           variant: 'body2'
@@ -296,7 +296,7 @@ export const theme = createTheme({
     },
     h5: {
       fontWeight: 600,
-      fontSize: '1.5rem',
+      fontSize: '1.3rem',
       lineHeight: 1.375
     },
     h6: {
