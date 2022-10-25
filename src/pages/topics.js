@@ -1,14 +1,14 @@
 import Head from 'next/head';
 import { Box } from '@mui/material';
 import { DashboardLayout } from '../components/dashboard-layout';
-import { Exercices } from '../components/quests/exercices'
+import { Topics } from '../components/quests/topics'
 
 
 const Settings = () => (
   <>
     <Head>
       <title>
-        Exercícios
+        Tópicos
       </title>
     </Head>
     <Box
@@ -19,7 +19,7 @@ const Settings = () => (
       }}
     >
       <div className='px-[5%]'>
-        <Exercices />
+        <Topics />
       </div>
     </Box>
   </>

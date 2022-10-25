@@ -1,6 +1,6 @@
 export const Description = (props) => {
     return(
-    <div className="w-full flex-1 p-4 md:overflow-y-scroll">
+    <div className="w-full flex-1 p-4">
         <div className="font-semibold leading-8 text-white">Tarefa</div>
         <div>{props.descricao}</div>
 
@@ -39,6 +39,37 @@ export const Description = (props) => {
                 1<br/>
                 1.33333333333
             </div>
+            <div>
+            A primeira linha contém o primeiro inteiro, a.<br/>
+            A segunda linha contém o segundo inteiro, b.
+        </div><div>
+            A primeira linha contém o primeiro inteiro, a.<br/>
+            A segunda linha contém o segundo inteiro, b.
+        </div><div>
+            A primeira linha contém o primeiro inteiro, a.<br/>
+            A segunda linha contém o segundo inteiro, b.
+        </div><div>
+            A primeira linha contém o primeiro inteiro, a.<br/>
+            A segunda linha contém o segundo inteiro, b.
+        </div><div>
+            A primeira linha contém o primeiro inteiro, a.<br/>
+            A segunda linha contém o segundo inteiro, b.
+        </div><div>
+            A primeira linha contém o primeiro inteiro, a.<br/>
+            A segunda linha contém o segundo inteiro, b.
+        </div><div>
+            A primeira linha contém o primeiro inteiro, a.<br/>
+            A segunda linha contém o segundo inteiro, b.
+        </div><div>
+            A primeira linha contém o primeiro inteiro, a.<br/>
+            A segunda linha contém o segundo inteiro, b.
+        </div><div>
+            A primeira linha contém o primeiro inteiro, a.<br/>
+            A segunda linha contém o segundo inteiro, b.
+        </div><div>
+            A primeira linha contém o primeiro inteiro, a.<br/>
+            A segunda linha contém o segundo inteiro, b.
+        </div>
     </div>
     )
 }

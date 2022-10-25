@@ -23,15 +23,9 @@ const Question = () => {
           flexGrow: 1,
         }}
       >
-        <div className="flex flex-wrap sm:flex-row-reverse h-screen">
-            <div
-                className="w-full md:w-1/2 xl:w-3/5 bg-cover flex"
-            >
-                <Box className="w-full h-full">
-                    <CodeEditor />
-                </Box>
-            </div>     
-            <Description 
+         <Box className="w-full flex flex-col lg:flex-row h-full">
+            <div className="lg:w-[40%] overflow-y-auto lg:h-screen">
+              <Description
               descricao={descriptionData[router.query.question.toLowerCase()]['tarefa']} 
               exemplo={descriptionData[router.query.question.toLowerCase()]['exemplo']}
               exemplo1 = {descriptionData[router.query.question.toLowerCase()]['exemplo1']} 
@@ -39,8 +33,12 @@ const Question = () => {
               saida = {descriptionData[router.query.question.toLowerCase()]['saida']}
               amostra0 = {descriptionData[router.query.question.toLowerCase()]['amostra0']}
               amostra1 = {descriptionData[router.query.question.toLowerCase()]['amostra1']}
-            />           
-        </div>
+            />                  
+            </div>     
+            <Box className="lg:w-[60%]">
+              <CodeEditor />
+            </Box>                  
+        </Box>
 
       </Box>
     </>

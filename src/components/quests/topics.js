@@ -2,7 +2,7 @@ import { Card, CardContent, Grid, Typography } from '@mui/material';
 import Link from 'next/link';
 import topics from '../../data/topics.json'
 
-export const Exercices = (props) => (
+export const Topics = (props) => (
   <Card {...props}
   >
     <CardContent>

@@ -5,7 +5,7 @@ import { useRouter } from "next/router";
 import { useState } from "react";
 import { DashboardLayout } from "../../components/dashboard-layout";
 import questions from "../../data/questions.json";
-import { Exercices } from "../../components/quests/exercices"
+import { Topics } from "../../components/quests/topics"
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import Filter from "../../components/quests/filter";
 
@@ -72,7 +72,7 @@ const Tasks = () => {
                 horizontal: 'left',
               }}
             >
-              <Exercices />
+              <Topics />
             </Popover>
 
             <button
