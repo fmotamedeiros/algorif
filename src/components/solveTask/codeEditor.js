@@ -25,6 +25,7 @@ const CodeEditor = () => {
         autoCloseBrackets: true,
         lineNumbers: true,
       });
+      editorRef.current.setSize("100%",450)
 
       editorRef.current.on('change', (instance, changes) => {
         const code = instance.getValue();
