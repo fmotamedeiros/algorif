@@ -112,7 +112,7 @@ const Tasks = () => {
               key={question.task}>
               <div className="pb-3">
                 <Box className="group">
-                  <button className="p-4 border mb-3 border-gray-500 group-hover:border-green-500 w-full rounded">
+                  <button className="p-4 border mb-3 border-gray-500 group-hover:border-gray-300 w-full rounded">
                     <Box className="font-semibold">
                       <Box className="p-2">
                         <div className="group-hover:text-green-500 flex text-[20px]">
@@ -130,11 +130,11 @@ const Tasks = () => {
                       </Box>                   
                     </Box>
                     <Box className="font-semibold block lg:justify-between lg:flex lg:items-center w-full">
-                      <Box className="text-left text-gray-400 p-2 lg:w-[80%]">
+                      <Box className="text-left text-gray-400 p-2 lg:w-[60%]">
                         {question.descricao}
                         </Box>
                       
-                      <Box className="p-3 m-2 lg:m-0 border border-green-500 group-hover:bg-green-500 text-green-500 group-hover:text-[#1F2937] rounded lg:w-[20%] ">
+                      <Box className="p-3 m-2 lg:m-0 border border-gray-300 bg-[#111827] group-hover:bg-gray-300 text-gray-300 group-hover:text-[#1F2937] rounded lg:w-[20%] ">
                           Resolver Desafio
                       </Box>
                     </Box>
