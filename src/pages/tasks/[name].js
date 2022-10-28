@@ -130,11 +130,11 @@ const Tasks = () => {
                       </Box>                   
                     </Box>
                     <Box className="font-semibold block lg:justify-between lg:flex lg:items-center w-full">
-                      <Box className="text-left text-gray-400 p-2 lg:w-[70%]">
+                      <Box className="text-left text-gray-400 p-2 lg:w-[80%]">
                         {question.descricao}
                         </Box>
                       
-                      <Box className="p-3 m-2 lg:m-0 border border-green-500 group-hover:bg-green-500 text-green-500 group-hover:text-[#1F2937] rounded lg:w-[30%] ">
+                      <Box className="p-3 m-2 lg:m-0 border border-green-500 group-hover:bg-green-500 text-green-500 group-hover:text-[#1F2937] rounded lg:w-[20%] ">
                           Resolver Desafio
                       </Box>
                     </Box>

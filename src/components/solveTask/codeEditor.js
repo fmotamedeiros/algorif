@@ -11,6 +11,7 @@ const CodeEditor = () => {
   const [output, setOutput] = useState()
   const editorRef = useRef(null)
   const [updated, setUpdated] = useState(output);
+  const [show, setShow] = useState(false)
 
   
 
@@ -25,7 +26,7 @@ const CodeEditor = () => {
         autoCloseBrackets: true,
         lineNumbers: true,
       });
-      editorRef.current.setSize("100%",450)
+      editorRef.current.setSize("100%",550)
 
       editorRef.current.on('change', (instance, changes) => {
         const code = instance.getValue();
@@ -41,9 +42,7 @@ const CodeEditor = () => {
     init();
   }, []);
 
-
-  const handleClick = () => {
-    //  "message" stores input field value
+  const outputResult = () => {
     setUpdated(output);
   };
 
@@ -52,16 +51,31 @@ const CodeEditor = () => {
       <textarea id='realtimeEditor'></textarea>
       <div className='px-4 py-2 flex gap-4 justify-end'>
         <Button variant='outlined' 
-          onClick={handleClick}>Executar</Button>
-        <Button variant='outlined'>Verificar Resposta</Button> 
+          onClick={outputResult}>Executar</Button>
+        <Button variant='outlined' 
+          onClick={() => setShow((v) => !v)}>Verificar Resposta</Button> 
       </div>
-      <div className='bg-[#1F2937] border border-gray-700 h-40 p-6' >{updated}</div>
-      <div className='lg:flex lg:justify-between p-[2%]'>
-        <div className='bg-[#1F2937] p-[10%] border border-green-700 m-5 lg:m-0'>1° TESTE</div>
-        <div className='bg-[#1F2937] p-[10%] border border-red-700 m-5 lg:m-0'>2° TESTE</div>
-        <div className='bg-[#1F2937] p-[10%] border border-green-700 m-5 lg:m-0'>3° TESTE</div>
-      </div>
+      <div className='bg-[#1F2937] border border-gray-700 lg:h-[260px] h-[200px] p-6' >{updated}</div>
+      {show && 
+        <div className='flex flex-wrap py-2 gap-2 bg-[#1F2937] my-2 border border-gray-700'>
+          <div className='border border-green-600 bg-green-700 p-4 m-2 '></div>
+          <div className='border border-red-600 bg-red-700 p-4 m-2'></div>
+          <div className='border border-green-600  bg-green-700 p-4 m-2'></div>
+          <div className='border border-green-600 bg-green-700 p-4 m-2 '></div>
+          <div className='border border-red-600 bg-red-700 p-4 m-2'></div>
+          <div className='border border-green-600 bg-green-700 p-4 m-2'></div>
+          <div className='border border-green-600 bg-green-700 p-4 m-2 '></div>
+          <div className='border border-green-600 bg-green-700 p-4 m-2 '></div>
+          <div className='border border-red-600 bg-red-700 p-4 m-2'></div>
+          <div className='border border-green-600  bg-green-700 p-4 m-2'></div>
+          <div className='border border-green-600 bg-green-700 p-4 m-2 '></div>
+          <div className='border border-red-600 bg-red-700 p-4 m-2'></div>
+          <div className='border border-green-600 bg-green-700 p-4 m-2'></div>
+          <div className='border border-green-600 bg-green-700 p-4 m-2 '></div>
+        </div>
+      }
     </>
+    
   )
 };
 

@@ -6,70 +6,31 @@ export const Description = (props) => {
 
         <div className="font-semibold leading-8 text-white">Exemplo</div>
         <div>
-            a = 3<br/>
-            b = 5<br/>
-            • O resultado da divisão inteira 3//5 = 0.<br/>
-            • O resultado da divisão float é 3/5 = 0.6.<br/>
-            Imprimir:
+            {props.exemplo}
             <div className="border border-[#1F2937] p-2 bg-[#1F2937] mb-2">
-                0<br/>
-                0.6
+            {props.exemplo1}
             </div>
         </div>
 
         <div className="font-semibold leading-8 text-white">Formato de Entrada</div>
         <div>
-            A primeira linha contém o primeiro inteiro, a.<br/>
-            A segunda linha contém o segundo inteiro, b.
+            {props.entrada}
         </div>
 
         <div className="font-semibold leading-8 text-white">Formato de Saída</div>
         <div>
-            Imprima as duas linhas conforme descrito acima.  
+            {props.saida}
         </div>
 
         <div className="font-semibold leading-8 text-white">Entrada de Amostra 0</div>
             <div className="border border-[#1F2937] p-2 bg-[#1F2937] mb-2">
-                4<br/>
-                3
+                {props.amostra0}
             </div>
                 
         <div className="font-semibold leading-8 text-white">Entrada de Amostra 1</div>
             <div className="border border-[#1F2937] p-2 bg-[#1F2937] mb-2">
-                1<br/>
-                1.33333333333
+                {props.amostra1}
             </div>
-            <div>
-            A primeira linha contém o primeiro inteiro, a.<br/>
-            A segunda linha contém o segundo inteiro, b.
-        </div><div>
-            A primeira linha contém o primeiro inteiro, a.<br/>
-            A segunda linha contém o segundo inteiro, b.
-        </div><div>
-            A primeira linha contém o primeiro inteiro, a.<br/>
-            A segunda linha contém o segundo inteiro, b.
-        </div><div>
-            A primeira linha contém o primeiro inteiro, a.<br/>
-            A segunda linha contém o segundo inteiro, b.
-        </div><div>
-            A primeira linha contém o primeiro inteiro, a.<br/>
-            A segunda linha contém o segundo inteiro, b.
-        </div><div>
-            A primeira linha contém o primeiro inteiro, a.<br/>
-            A segunda linha contém o segundo inteiro, b.
-        </div><div>
-            A primeira linha contém o primeiro inteiro, a.<br/>
-            A segunda linha contém o segundo inteiro, b.
-        </div><div>
-            A primeira linha contém o primeiro inteiro, a.<br/>
-            A segunda linha contém o segundo inteiro, b.
-        </div><div>
-            A primeira linha contém o primeiro inteiro, a.<br/>
-            A segunda linha contém o segundo inteiro, b.
-        </div><div>
-            A primeira linha contém o primeiro inteiro, a.<br/>
-            A segunda linha contém o segundo inteiro, b.
-        </div>
     </div>
     )
 }

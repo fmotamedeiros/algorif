@@ -35,7 +35,7 @@ const Question = () => {
               amostra1 = {descriptionData[router.query.question.toLowerCase()]['amostra1']}
             />                  
             </div>     
-            <Box className="lg:w-[60%]">
+            <Box className="lg:w-[60%] w-full">
               <CodeEditor />
             </Box>                  
         </Box>
