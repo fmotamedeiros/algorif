@@ -14,15 +14,15 @@ const Tasks = () => {
   const [isTopicsOpen, setTopicsOpen] = useState(null)
   const [isFilterOpen, setFilterOpen] = useState(null)
 
-  const handleClick = (event) => {
+  const topicsClick = (event) => {
     setTopicsOpen(event.currentTarget);
   };
 
-  const handleClose = () => {
+  const topicsClose = () => {
     setTopicsOpen(null);
   };
 
-  const clickFilter = (event) => {
+  const filterClick = (event) => {
     setFilterOpen(event.currentTarget);
   };
 
@@ -31,10 +31,10 @@ const Tasks = () => {
   };
 
 
-  const open = Boolean(isTopicsOpen);
-  const unClose = Boolean(isFilterOpen);
-  const topics = open ? 'simple-popover' : undefined;
-  const filter = unClose ? 'simple-popover' : undefined;
+  const openTopics = Boolean(isTopicsOpen);
+  const openFilter = Boolean(isFilterOpen);
+  const topics = openTopics ? 'simple-popover' : undefined;
+  const filter = openFilter ? 'simple-popover' : undefined;
 
 
   return(
@@ -53,16 +53,16 @@ const Tasks = () => {
         <Box className="bg-[#1F2937] w-full p-4 px-6">
           <div className="text-[18px] md:text-[25px] lg:text-[1.7rem] font-semibold text-white flex justify-between">
             <button aria-describedby={topics} 
-            onClick={handleClick} 
+            onClick={topicsClick} 
             className="hover:text-green-500">
               {router.query.name}
               <ExpandMoreIcon fontSize="20" />
             </button>           
             <Popover
               id={topics}
-              open={open}
+              open={openTopics}
               anchorEl={isTopicsOpen}
-              onClose={handleClose}
+              onClose={topicsClose}
               anchorOrigin={{
                 vertical: 'bottom',
                 horizontal: 'left',
@@ -78,12 +78,12 @@ const Tasks = () => {
             <button
             className="text-[15px]  text-[#21a87b] border border-[#3FC79A] px-2 lg:hidden rounded hover:bg-[#21a87b] hover:text-[#1F2937]" 
             aria-describedby={filter} 
-            onClick={clickFilter} >
+            onClick={filterClick} >
               Filtro
             </button>
             <Popover
               id={filter}
-              open={unClose}
+              open={openFilter}
               anchorEl={isFilterOpen}
               onClose={filterClose}
               anchorOrigin={{
