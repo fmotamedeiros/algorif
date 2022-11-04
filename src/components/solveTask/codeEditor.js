@@ -13,8 +13,6 @@ const CodeEditor = () => {
   const [updated, setUpdated] = useState(output);
   const [show, setShow] = useState(false)
 
-  
-
   useEffect(() => {
     async function init() {
       editorRef.current = Codemirror.fromTextArea(
@@ -63,15 +61,6 @@ const CodeEditor = () => {
           <div className='border border-green-600  bg-green-700 p-4 m-2'></div>
           <div className='border border-green-600 bg-green-700 p-4 m-2 '></div>
           <div className='border border-red-600 bg-red-700 p-4 m-2'></div>
-          <div className='border border-green-600 bg-green-700 p-4 m-2'></div>
-          <div className='border border-green-600 bg-green-700 p-4 m-2 '></div>
-          <div className='border border-green-600 bg-green-700 p-4 m-2 '></div>
-          <div className='border border-red-600 bg-red-700 p-4 m-2'></div>
-          <div className='border border-green-600  bg-green-700 p-4 m-2'></div>
-          <div className='border border-green-600 bg-green-700 p-4 m-2 '></div>
-          <div className='border border-red-600 bg-red-700 p-4 m-2'></div>
-          <div className='border border-green-600 bg-green-700 p-4 m-2'></div>
-          <div className='border border-green-600 bg-green-700 p-4 m-2 '></div>
         </div>
       }
     </>

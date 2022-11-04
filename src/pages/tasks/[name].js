@@ -107,7 +107,7 @@ const Tasks = () => {
         <div className="px-6">
           <Box className="w-full flex flex-col lg:flex-row pt-5 justify-between gap-4 h-full">
             <div className="lg:w-[80%]">
-            {questions[router.query.name.toLowerCase()]["questions"].map((question) => (
+            {questions[router.query.name.toLowerCase()]["questions"].map((question) => ( //Pega os dados de questions.json e faz uma box para cada questão
             <Link href={`/questions/${question.href}`} 
               key={question.task}>
               <div className="pb-3">

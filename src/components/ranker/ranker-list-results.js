@@ -15,7 +15,7 @@ import {
   Typography
 } from '@mui/material';
 import { getInitials } from '../../utils/get-initials';
-import customers from '../../__mocks__/customers'
+import customers from '../../data/rankers.json'
 
 
 export const RankerListResults = ( ...rest ) => {
