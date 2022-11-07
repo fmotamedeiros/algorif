@@ -1,61 +1,72 @@
-import React, { useEffect, useRef, useState } from 'react';
-import Codemirror from 'codemirror';
-import 'codemirror/lib/codemirror.css'
-import 'codemirror/theme/dracula.css'
-import 'codemirror/mode/javascript/javascript';
-import 'codemirror/addon/edit/closetag';
-import 'codemirror/addon/edit/closebrackets';
+import React, { useEffect, useState } from 'react';
 import { Button } from '@mui/material';
 
 const CodeEditor = () => {
-  const [output, setOutput] = useState()
-  const editorRef = useRef(null)
-  const [updated, setUpdated] = useState(output);
   const [show, setShow] = useState(false)
+  
+  var MirrorConsole = require("../../../node_modules/codemirror-console/lib/mirror-console");
+  var editor = new MirrorConsole();
+  var codeMirror = editor.editor;
 
-  useEffect(() => {
-    async function init() {
-      editorRef.current = Codemirror.fromTextArea(
-        document.getElementById('realtimeEditor'), 
-        {
-        mode: {name: 'javascript', json: true },
-        theme: 'dracula',
-        autoCloseTags: true,
-        autoCloseBrackets: true,
-        lineNumbers: true,
-      });
-      editorRef.current.setSize("100%",550)
+  codeMirror.setOption("lineNumbers", true);
+  codeMirror.setOption("autoCloseTags", true);
+  codeMirror.setOption("autoCloseBrackets", true);
+  codeMirror.setOption('theme', 'dracula')
+  codeMirror.setSize("100%",550)
+  
 
-      editorRef.current.on('change', (instance, changes) => {
-        const code = instance.getValue();
-        try {
-          setOutput(eval(code))
-        } catch (error) {
-          console.log(error)
-        }
-
-      });
-
+  async function init() {
+    try {
+      editor.swapWithElement(document.getElementById("content"))
+    } catch (error) {
+      console.log(error)
     }
-    init();
-  }, []);
 
-  const outputResult = () => {
-    setUpdated(output);
-  };
+  }
+  useEffect(() => {
+        init();
+  });
+
+
+const outputResult = () => {
+  var consoleMock = {
+    log: function (arg) {
+      function line(text) {
+        var div = document.createElement("div");
+        div.appendChild(document.createTextNode(text));
+        return div;
+      }
+      document.getElementById("output").appendChild(line(arg));
+    }
+  }
+  editor.runInContext({ console: consoleMock }, function (error, result) {
+    if (error) {
+      console.error(error);
+    }
+  })
+};
 
   return (
     <>
-      <textarea id='realtimeEditor'></textarea>
+      <div id='content'></div>
       <div className='px-4 py-2 flex gap-4 justify-end'>
-        <Button variant='outlined' 
+        
+        <Button variant='outlined'
           onClick={outputResult}>Executar</Button>
-        <Button variant='outlined' 
-          onClick={() => setShow((v) => !v)}>Verificar Resposta</Button> 
+
+        <Button variant='outlined'
+          onClick={() => setShow((v) => !v)} 
+          href="#Verificado"> Verificar Resposta
+        </Button>
       </div>
-      <div className='bg-[#1F2937] border border-gray-700 lg:h-[260px] h-[200px] p-6' >{updated}</div>
+
+      <div id="output" 
+        className='bg-[#1F2937] border border-gray-700 lg:h-[260px] h-[200px] p-6'></div>
+
+      <div id="Verificado">
       {show && 
-        <div className='flex flex-wrap py-2 gap-2 bg-[#1F2937] my-2 border border-gray-700'>
+        <div
+          className='flex flex-wrap py-2 gap-2 bg-[#1F2937] my-2 border border-gray-700'>
           <div className='border border-green-600 bg-green-700 p-4 m-2 '></div>
           <div className='border border-red-600 bg-red-700 p-4 m-2'></div>
           <div className='border border-green-600  bg-green-700 p-4 m-2'></div>
@@ -63,8 +74,9 @@ const CodeEditor = () => {
           <div className='border border-red-600 bg-red-700 p-4 m-2'></div>
         </div>
       }
+      </div>
     </>
-    
+
   )
 };
 
