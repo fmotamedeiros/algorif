@@ -1,4 +1,8 @@
 import React, { useEffect, useState } from 'react';
+import 'codemirror/lib/codemirror.css'
+import 'codemirror/theme/dracula.css'
+import 'codemirror/addon/edit/closetag';
+import 'codemirror/addon/edit/closebrackets';
 import { Button } from '@mui/material';
 
 const CodeEditor = () => {
@@ -12,7 +16,7 @@ const CodeEditor = () => {
   codeMirror.setOption("autoCloseTags", true);
   codeMirror.setOption("autoCloseBrackets", true);
   codeMirror.setOption('theme', 'dracula')
-  codeMirror.setSize("100%",550)
+  codeMirror.setSize("100%", 520)
   
 
   async function init() {
@@ -49,8 +53,7 @@ const outputResult = () => {
   return (
     <>
       <div id='content'></div>
-      <div className='px-4 py-2 flex gap-4 justify-end'>
-        
+      <div className='px-4 py-2 flex gap-4 justify-end'> 
         <Button variant='outlined'
           onClick={outputResult}>Executar</Button>
 
@@ -61,7 +64,7 @@ const outputResult = () => {
       </div>
 
       <div id="output" 
-        className='bg-[#1F2937] border border-gray-700 lg:h-[260px] h-[200px] p-6'></div>
+        className='bg-[#1F2937] border border-gray-700 lg:h-[280px] h-[200px] p-6'></div>
 
       <div id="Verificado">
       {show && 
