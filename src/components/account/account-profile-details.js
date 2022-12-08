@@ -12,14 +12,14 @@ import {
 import * as Yup from 'yup';
 import { useFormik } from 'formik';
 
-import { AuthContext } from '../../contexts/auth-context';
+import { SetContext } from '../../contexts/setFirebaseContext';
 import { useRouter } from 'next/router';
 
 export const AccountProfileDetails = (props) => {
 
   const router = useRouter()
 
-  const authContext = useContext(AuthContext);
+  const setContext = useContext(SetContext);
   const formik = useFormik({
     initialValues: {
       userName: props.coders.userName,
@@ -48,11 +48,11 @@ export const AccountProfileDetails = (props) => {
         .max(255)
         .required('City is required'),
       phone: Yup
-        .number()
+        .string()
         .max(11)
     }),
     onSubmit: async () => {
-      await authContext.setUserDetails(formik.values.email, formik.values.userName, formik.values.state, formik.values.city, formik.values.phone)
+      await setContext.setUserDetails(formik.values.email, formik.values.userName, formik.values.state, formik.values.city, formik.values.phone)
       router.reload()
     }
   });

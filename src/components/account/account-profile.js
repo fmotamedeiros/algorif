@@ -12,10 +12,12 @@ import {
 import { useContext, useState } from 'react';
 import { GetContext } from '../../contexts/getFirebaseContext';
 import { useRouter } from 'next/router';
+import { SetContext } from '../../contexts/setFirebaseContext';
 
 
 export const AccountProfile = (props) => {
   const router = useRouter()
+  const setContext = useContext(SetContext);
   const getContext = useContext(GetContext);
   const [imgURL, setImgURL] = useState("")
 
@@ -26,7 +28,7 @@ export const AccountProfile = (props) => {
 
     if (!file) return;
 
-    await getContext.setPictureUser(file)
+    await setContext.setPictureUser(file)
     
     router.reload()
   }

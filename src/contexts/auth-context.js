@@ -1,9 +1,9 @@
 import { createContext, useContext, useEffect, useReducer } from 'react';
 import PropTypes from 'prop-types';
 import { initializeApp } from "firebase/app";
-import { collection, doc, getDoc, getDocs, getFirestore, query, setDoc, updateDoc } from "firebase/firestore";
+import { getFirestore } from "firebase/firestore";
 import { getAuth } from 'firebase/auth';
-import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { getStorage } from "firebase/storage";
 
 const firebaseConfig = {
   apiKey: "AIzaSyCom5O7EmjXV7roCIpeCEu5o6kx4LMWSE4",
@@ -133,49 +133,6 @@ export const AuthProvider = (props) => {
       type: HANDLERS.SIGN_OUT
     });
   };
-
-  
-
-  async function setUserDetails(email, userName, state, city, phone) {
-    const ref = doc(db, "coders", auth.currentUser.uid);
-    await updateDoc(ref, {
-      email: email,
-      userName: userName,
-      state: state,
-      city: city,
-      phone: phone
-    });
-  }
-
-  async function setPictureUser(file) {
-    const storageRef = ref(storage, auth.currentUser.uid + ".png");
-    await uploadBytes(storageRef, file)
-  }
-
-  
-
-  async function setRegisterUser(email, userName, state, city) {
-    try {
-      await setDoc(doc(db, "coders", auth.currentUser.uid), {
-        email: email, 
-        userName: userName,
-        state: state,
-        city: city,
-        phone: '',
-      });
-      console.log(auth.currentUser.uid)
-    } catch (error) {
-      console.log(error)
-      alert(error)
-    }
-
-    const storageRef = ref(storage, auth.currentUser.uid + ".png");
-    await uploadBytes(storageRef)
-  }
-
-  
-
-  
   
   return (
     <AuthContext.Provider
@@ -183,9 +140,6 @@ export const AuthProvider = (props) => {
         ...state,
         signIn,
         signOut,
-        setUserDetails,
-        setPictureUser,
-        setRegisterUser,
 
       }}
     >

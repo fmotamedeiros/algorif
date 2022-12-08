@@ -16,11 +16,11 @@ import {
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
-import { AuthContext } from '../contexts/auth-context';
+import { SetContext } from '../contexts/setFirebaseContext';
 import { useContext } from 'react';
 
 const Register = () => {
-  const authContext = useContext(AuthContext);
+  const setContext = useContext(SetContext);
 
   const formik = useFormik({
     initialValues: {
@@ -65,7 +65,7 @@ const Register = () => {
       const auth = getAuth();
       createUserWithEmailAndPassword(auth, formik.values.email, formik.values.password)
         .then(async () => {
-          await authContext.setRegisterUser(formik.values.email, formik.values.userName, formik.values.state, formik.values.city)
+          await setContext.setRegisterUser(formik.values.email, formik.values.userName, formik.values.state, formik.values.city)
 
           Router
           .push('/login')

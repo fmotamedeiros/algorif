@@ -11,6 +11,7 @@ import { registerChartJs } from '../utils/register-chart-js';
 import { theme } from '../theme';
 import '../theme/globals.css'
 import { GetProvider } from '../contexts/getFirebaseContext';
+import { SetProvider } from '../contexts/setFirebaseContext';
 
 registerChartJs();
 
@@ -37,13 +38,15 @@ const App = (props) => {
           <CssBaseline />
           <AuthProvider>
             <GetProvider>
-              <AuthConsumer>
-                {
-                  (auth) => auth.isLoading
-                    ? <Fragment />
-                    : getLayout(<Component {...pageProps} />)
-                }
-              </AuthConsumer>
+              <SetProvider>
+                <AuthConsumer>
+                  {
+                    (auth) => auth.isLoading
+                      ? <Fragment />
+                      : getLayout(<Component {...pageProps} />)
+                  }
+                </AuthConsumer>
+              </SetProvider>
             </GetProvider>
           </AuthProvider>
         </ThemeProvider>
