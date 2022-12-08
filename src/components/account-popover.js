@@ -5,10 +5,12 @@ import { Box, MenuItem, MenuList, Popover, Typography } from '@mui/material';
 import { getAuth } from "firebase/auth";
 import NextLink from 'next/link';
 import { GetContext } from '../contexts/getFirebaseContext';
+import { AuthContext } from '../contexts/auth-context';
 
 export const AccountPopover = (props) => {
   
   const [coders, setCoders] = useState(null)
+  const authContext = useContext(AuthContext);
   const getContext = useContext(GetContext);
 
   const datasUsers = () => {
