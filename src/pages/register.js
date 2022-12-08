@@ -15,13 +15,20 @@ import {
 } from '@mui/material';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { AuthContext } from '../contexts/auth-context';
+import { useContext } from 'react';
+
 const Register = () => {
+  const authContext = useContext(AuthContext);
+
   const formik = useFormik({
     initialValues: {
       email: '',
-      firstName: '',
-      lastName: '',
+      userName: '',
       password: '',
+      city: '',
+      state: '',
       policy: false
     },
     validationSchema: Yup.object({
@@ -31,18 +38,22 @@ const Register = () => {
         .max(255)
         .required(
           'Email is required'),
-      firstName: Yup
+      userName: Yup
         .string()
         .max(255)
-        .required('First name is required'),
-      lastName: Yup
-        .string()
-        .max(255)
-        .required('Last name is required'),
+        .required('UserName is required'),
       password: Yup
         .string()
         .max(255)
         .required('Password is required'),
+      state: Yup
+        .string()
+        .max(255)
+        .required('State is required'),
+      city: Yup
+        .string()
+        .max(255)
+        .required('City is required'),
       policy: Yup
         .boolean()
         .oneOf(
@@ -51,9 +62,20 @@ const Register = () => {
         )
     }),
     onSubmit: () => {
-      Router
-        .push('/')
-        .catch(console.error);
+      const auth = getAuth();
+      createUserWithEmailAndPassword(auth, formik.values.email, formik.values.password)
+        .then(async () => {
+          await authContext.setRegisterUser(formik.values.email, formik.values.userName, formik.values.state, formik.values.city)
+
+          Router
+          .push('/login')
+          .catch(console.error);
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          // ..
+        });
     }
   });
 
@@ -102,27 +124,15 @@ const Register = () => {
               </Typography>
             </Box>
             <TextField
-              error={Boolean(formik.touched.firstName && formik.errors.firstName)}
+              error={Boolean(formik.touched.userName && formik.errors.userName)}
               fullWidth
-              helperText={formik.touched.firstName && formik.errors.firstName}
-              label="First Name"
+              helperText={formik.touched.userName && formik.errors.userName}
+              label="UserName"
               margin="normal"
-              name="firstName"
+              name="userName"
               onBlur={formik.handleBlur}
               onChange={formik.handleChange}
-              value={formik.values.firstName}
-              variant="outlined"
-            />
-            <TextField
-              error={Boolean(formik.touched.lastName && formik.errors.lastName)}
-              fullWidth
-              helperText={formik.touched.lastName && formik.errors.lastName}
-              label="Last Name"
-              margin="normal"
-              name="lastName"
-              onBlur={formik.handleBlur}
-              onChange={formik.handleChange}
-              value={formik.values.lastName}
+              value={formik.values.userName}
               variant="outlined"
             />
             <TextField
@@ -151,6 +161,32 @@ const Register = () => {
               value={formik.values.password}
               variant="outlined"
             />
+            <div className='block sm:flex gap-3'>
+              <TextField
+                error={Boolean(formik.touched.state && formik.errors.state)}
+                helperText={formik.touched.state && formik.errors.state}
+                fullWidth
+                label="State"
+                margin="normal"
+                name="state"
+                onBlur={formik.handleBlur}
+                onChange={formik.handleChange}
+                value={formik.values.state}
+                variant="outlined"
+              />    
+              <TextField
+                error={Boolean(formik.touched.city && formik.errors.city)}
+                helperText={formik.touched.city && formik.errors.city}
+                fullWidth
+                label="City"
+                margin="normal"
+                name="city"
+                onBlur={formik.handleBlur}
+                onChange={formik.handleChange}
+                value={formik.values.city}
+                variant="outlined"
+              />
+            </div>
             <Box
               sx={{
                 alignItems: 'center',

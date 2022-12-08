@@ -1,41 +1,72 @@
 import Head from 'next/head';
 import NextLink from 'next/link';
-import Router from 'next/router';
+import Router, { useRouter } from 'next/router';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { Box, Button, Container, Grid, Link, TextField, Typography } from '@mui/material';
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import { Facebook as FacebookIcon } from '../icons/facebook';
 import { Google as GoogleIcon } from '../icons/google';
+import { getAuth, signInWithEmailAndPassword, signInWithPopup, } from "firebase/auth";
+import { auth, AuthContext } from '../contexts/auth-context';
+import { useContext } from 'react';
+import { Logo } from '../components/logo';
+
 
 const Login = () => {
+  const authContext = useContext(AuthContext);
+  //const provider = new GoogleAuthProvider()
+  const router = useRouter()
+
+  function handleGoogleSignIn() {
+  
+    signInWithPopup(auth, provider)
+    .then((response) => {
+      authContext.signIn(response.user)
+      router.push('/')
+    })
+    .catch((error) => {
+      console.log(error)
+    })
+  }
+
   const formik = useFormik({
     initialValues: {
-      email: 'demo@devias.io',
-      password: 'Password123'
+      email: 'masiocesar@gmail.com',
+      password: '123456'
     },
     validationSchema: Yup.object({
       email: Yup
         .string()
-        .email('Must be a valid email')
+        .email('O email deve ser válido!')
         .max(255)
-        .required('Email is required'),
+        .required('O email é obrigatório!'),
       password: Yup
         .string()
         .max(255)
-        .required('Password is required')
+        .required('A senha é obrigatória!')
     }),
     onSubmit: () => {
-      Router
-        .push('/')
-        .catch(console.error);
+      const auth = getAuth();
+      signInWithEmailAndPassword(auth, formik.values.email, formik.values.password)
+        .then(async (response) => {
+          //console.log(JSON.stringify(response));
+          localStorage.setItem("@AuthFirebase:metadata", JSON.stringify(response.user))
+          authContext.signIn(response.user);
+          Router
+            .push('/')
+            .catch(console.error);
+        })
+        .catch((error) => {
+          console.log(error);
+          router.reload()
+          alert('Email e/ou Senha Incorretos')
+        });
     }
   });
 
   return (
     <>
       <Head>
-        <title>Login</title>
+        <title>Algorif</title>
       </Head>
       <Box
         component="main"
@@ -47,69 +78,37 @@ const Login = () => {
         }}
       >
         <Container maxWidth="sm">
-          <NextLink
-            href="/"
-            passHref
-          >
-            <Button
-              component="a"
-              startIcon={<ArrowBackIcon fontSize="small" />}
-            >
-              Dashboard
-            </Button>
-          </NextLink>
           <form onSubmit={formik.handleSubmit}>
             <Box sx={{ my: 3 }}>
               <Typography
                 color="textPrimary"
                 variant="h4"
               >
-                Sign in
+                <Logo />
               </Typography>
               <Typography
                 color="textSecondary"
                 gutterBottom
                 variant="body2"
               >
-                Sign in on the internal platform
+                Faça Login no Plataforma do Algorif
               </Typography>
             </Box>
             <Grid
-              container
-              spacing={3}
+              item
+              xs={12}
+              md={6}
             >
-              <Grid
-                item
-                xs={12}
-                md={6}
+              <Button
+                color="error"
+                fullWidth
+                onClick={handleGoogleSignIn}
+                size="large"
+                startIcon={<GoogleIcon />}
+                variant="contained"
               >
-                <Button
-                  color="info"
-                  fullWidth
-                  startIcon={<FacebookIcon />}
-                  onClick={() => formik.handleSubmit()}
-                  size="large"
-                  variant="contained"
-                >
-                  Login with Facebook
-                </Button>
-              </Grid>
-              <Grid
-                item
-                xs={12}
-                md={6}
-              >
-                <Button
-                  color="error"
-                  fullWidth
-                  onClick={() => formik.handleSubmit()}
-                  size="large"
-                  startIcon={<GoogleIcon />}
-                  variant="contained"
-                >
-                  Login with Google
-                </Button>
-              </Grid>
+                Entre com o Google
+              </Button>
             </Grid>
             <Box
               sx={{
@@ -122,7 +121,7 @@ const Login = () => {
                 color="textSecondary"
                 variant="body1"
               >
-                or login with email address
+                ou entre com seu endereço de email
               </Typography>
             </Box>
             <TextField
@@ -160,14 +159,14 @@ const Login = () => {
                 type="submit"
                 variant="contained"
               >
-                Sign In Now
+                Entrar
               </Button>
             </Box>
             <Typography
               color="textSecondary"
               variant="body2"
             >
-              Don&apos;t have an account?
+              Ainda não tem conta?
               {' '}
               <NextLink
                 href="/register"
@@ -180,7 +179,7 @@ const Login = () => {
                     cursor: 'pointer'
                   }}
                 >
-                  Sign Up
+                  Registrar-se
                 </Link>
               </NextLink>
             </Typography>

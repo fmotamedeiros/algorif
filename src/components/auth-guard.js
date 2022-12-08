@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/router';
 import PropTypes from 'prop-types';
 import { useAuthContext } from '../contexts/auth-context';
+import { getAuth } from "firebase/auth";
 
 export const AuthGuard = (props) => {
   const { children } = props;
@@ -10,9 +11,7 @@ export const AuthGuard = (props) => {
   const ignore = useRef(false);
   const [checked, setChecked] = useState(false);
 
-  // Only do authentication check on component mount.
-  // This flow allows you to manually redirect the user after sign-out, otherwise this will be
-  // triggered and will automatically redirect to sign-in page.
+  const auth = getAuth();
 
   useEffect(
     () => {
@@ -25,18 +24,25 @@ export const AuthGuard = (props) => {
         return;
       }
 
-      ignore.current = true;
-
-      if (!isAuthenticated) {
-        console.log('Not authenticated, redirecting');
-        router
+      auth.onAuthStateChanged((user) => {
+        if (user) {
+          setChecked(true);
+          const uid = user.uid
+        } else {
+          router
           .replace({
-            pathname: '/sign-in',
+            pathname: '/login',
             query: router.asPath !== '/' ? { continueUrl: router.asPath } : undefined
           })
           .catch(console.error);
+        }
+      });
+
+      ignore.current = true;
+      if (!isAuthenticated) {
+        router.push("/login")
       } else {
-        setChecked(true);
+        
       }
     },
     [router.isReady]
@@ -45,9 +51,6 @@ export const AuthGuard = (props) => {
   if (!checked) {
     return null;
   }
-
-  // If got here, it means that the redirect did not occur, and that tells us that the user is
-  // authenticated / authorized.
 
   return children;
 };

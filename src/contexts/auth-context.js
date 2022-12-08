@@ -1,6 +1,28 @@
-import { createContext, useContext, useEffect, useReducer, useRef } from 'react';
+import { createContext, useContext, useEffect, useReducer } from 'react';
 import PropTypes from 'prop-types';
-import { auth, ENABLE_AUTH } from '../lib/auth';
+import { initializeApp } from "firebase/app";
+import { doc, getDoc, getFirestore, setDoc, updateDoc } from "firebase/firestore";
+import { getAuth } from 'firebase/auth';
+import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyDawQyUAHfpmsg5939nMOoTG1bCE11wNwA",
+  authDomain: "algorif-eb555.firebaseapp.com",
+  databaseURL: "https://algorif-eb555-default-rtdb.firebaseio.com",
+  projectId: "algorif-eb555",
+  storageBucket: "algorif-eb555.appspot.com",
+  messagingSenderId: "617491934888",
+  appId: "1:617491934888:web:3058646b81b569d8e8dc9d",
+  measurementId: "G-HLV12L77SB"
+};
+
+const app = initializeApp(firebaseConfig);
+
+export const db = getFirestore(app);
+
+const auth = getAuth(app);
+
+const storage = getStorage(app);
 
 const HANDLERS = {
   INITIALIZE: 'INITIALIZE',
@@ -21,7 +43,6 @@ const handlers = {
     return {
       ...state,
       ...(
-        // if payload (user) is provided, then is authenticated
         user
           ? ({
             isAuthenticated: true,
@@ -56,56 +77,28 @@ const reducer = (state, action) => (
   handlers[action.type] ? handlers[action.type](state, action) : state
 );
 
-// The role of this context is to propagate authentication state through the App tree.
-
 export const AuthContext = createContext({ undefined });
+
+
 
 export const AuthProvider = (props) => {
   const { children } = props;
   const [state, dispatch] = useReducer(reducer, initialState);
-  const initialized = useRef(false);
+
+
 
   const initialize = async () => {
-    // Prevent from calling twice in development mode with React.StrictMode enabled
-    if (initialized.current) {
-      return;
+    //const localStorage = localStorage()
+    const user = JSON.parse(localStorage.getItem('@AuthFirebase:metadata'))
+    if (user) {
+      signIn(user)
     }
-
-    initialized.current = true;
-
-    // Check if auth has been skipped
-    // From sign-in page we may have set "skip-auth" to "true"
-    const authSkipped = globalThis.sessionStorage.getItem('skip-auth') === 'true';
-
-    if (authSkipped) {
-      const user = {};
-
-      dispatch({
-        type: HANDLERS.INITIALIZE,
-        payload: user
-      });
-      return;
-    }
-
-    // Check if authentication with Zalter is enabled
-    // If not, then set user as authenticated
-    if (!ENABLE_AUTH) {
-      const user = {};
-
-      dispatch({
-        type: HANDLERS.INITIALIZE,
-        payload: user
-      });
-      return;
-    }
-
+    //auth.currentUser = user
     try {
-      // Check if user is authenticated
-      const isAuthenticated = await auth.isAuthenticated();
+      const isAuthenticated = auth.currentUser ? true : false;
 
       if (isAuthenticated) {
-        // Get user from your database
-        const user = {};
+        const user = auth.currentUser;
 
         dispatch({
           type: HANDLERS.INITIALIZE,
@@ -135,18 +128,77 @@ export const AuthProvider = (props) => {
     });
   };
 
-  const signOut = () => {
+  const signOut = async () => {
+    await auth.signOut();
     dispatch({
       type: HANDLERS.SIGN_OUT
     });
   };
 
+  const getUserDetails = async () => {
+    const ref = doc(db, "coders", auth.currentUser.uid);
+    const data = await getDoc(ref)
+
+    //console.log(data)
+    return data.data();
+  }
+
+  async function setUserDetails(email, userName, state, city, phone) {
+    const ref = doc(db, "coders", auth.currentUser.uid);
+    await updateDoc(ref, {
+      email: email,
+      userName: userName,
+      state: state,
+      city: city,
+      phone: phone
+    });
+  }
+
+  async function setPictureUser(file) {
+    const storageRef = ref(storage, auth.currentUser.uid + ".png");
+    await uploadBytes(storageRef, file)
+  }
+
+  const getPictureUser = async (setImgURL) => {
+      if(auth.currentUser) {
+        getDownloadURL(ref(storage, auth.currentUser.uid + ".png"))
+      .then((url) => {
+        setImgURL(url)
+      })  
+    }  
+  }
+
+  async function setRegisterUser(email, userName, state, city) {
+    try {
+      await setDoc(doc(db, "coders", auth.currentUser.uid), {
+        email: email, 
+        userName: userName,
+        state: state,
+        city: city,
+        phone: '',
+      });
+      console.log(auth.currentUser.uid)
+    } catch (error) {
+      console.log(error)
+      alert(error)
+    }
+
+    const storageRef = ref(storage, auth.currentUser.uid + ".png");
+    await uploadBytes(storageRef)
+    // ...
+  }
+  
   return (
     <AuthContext.Provider
       value={{
         ...state,
         signIn,
-        signOut
+        signOut,
+        getUserDetails,
+        setUserDetails,
+        setPictureUser,
+        getPictureUser,
+        setRegisterUser
       }}
     >
       {children}

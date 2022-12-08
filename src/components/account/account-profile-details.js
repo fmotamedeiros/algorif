@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useContext } from 'react';
 import {
   Box,
   Button,
@@ -9,41 +9,56 @@ import {
   Grid,
   TextField
 } from '@mui/material';
+import * as Yup from 'yup';
+import { useFormik } from 'formik';
 
-const states = [
-  {
-    value: 'alabama',
-    label: 'Alabama'
-  },
-  {
-    value: 'new-york',
-    label: 'New York'
-  },
-  {
-    value: 'san-francisco',
-    label: 'San Francisco'
-  }
-];
+import { AuthContext } from '../../contexts/auth-context';
+import { useRouter } from 'next/router';
 
 export const AccountProfileDetails = (props) => {
-  const [values, setValues] = useState({
-    firstName: 'Katarina',
-    lastName: 'Smith',
-    email: 'demo@devias.io',
-    phone: '',
-    state: 'Alabama',
-    country: 'USA'
+
+  const router = useRouter()
+
+  const authContext = useContext(AuthContext);
+  const formik = useFormik({
+    initialValues: {
+      userName: props.coders.userName,
+      email: props.coders.email,
+      phone: props.coders.phone,
+      state: props.coders.state,
+      city: props.coders.city
+    },
+    validationSchema: Yup.object({
+      email: Yup
+        .string()
+        .email('Must be a valid email')
+        .max(255)
+        .required(
+          'Email is required'),
+      userName: Yup
+        .string()
+        .max(255)
+        .required('UserName is required'),
+      state: Yup
+        .string()
+        .max(255)
+        .required('State is required'),
+      city: Yup
+        .string()
+        .max(255)
+        .required('City is required'),
+      phone: Yup
+        .number()
+        .max(11)
+    }),
+    onSubmit: async () => {
+      await authContext.setUserDetails(formik.values.email, formik.values.userName, formik.values.state, formik.values.city, formik.values.phone)
+      router.reload()
+    }
   });
 
-  const handleChange = (event) => {
-    setValues({
-      ...values,
-      [event.target.name]: event.target.value
-    });
-  };
-
   return (
-    <form
+    <form onSubmit={formik.handleSubmit}
       autoComplete="off"
       noValidate
       {...props}
@@ -61,32 +76,17 @@ export const AccountProfileDetails = (props) => {
           >
             <Grid
               item
-              md={6}
+              md={12}
               xs={12}
             >
               <TextField
                 fullWidth
-                helperText="Please specify the first name"
-                label="First name"
-                name="firstName"
-                onChange={handleChange}
+                helperText="Please specify the complete name"
+                label="Complete Name"
+                name="userName"
+                onChange={formik.handleChange}
                 required
-                value={values.firstName}
-                variant="outlined"
-              />
-            </Grid>
-            <Grid
-              item
-              md={6}
-              xs={12}
-            >
-              <TextField
-                fullWidth
-                label="Last name"
-                name="lastName"
-                onChange={handleChange}
-                required
-                value={values.lastName}
+                value={formik.values.userName}
                 variant="outlined"
               />
             </Grid>
@@ -99,9 +99,9 @@ export const AccountProfileDetails = (props) => {
                 fullWidth
                 label="Email Address"
                 name="email"
-                onChange={handleChange}
+                onChange={formik.handleChange}
                 required
-                value={values.email}
+                value={formik.values.email}
                 variant="outlined"
               />
             </Grid>
@@ -114,9 +114,9 @@ export const AccountProfileDetails = (props) => {
                 fullWidth
                 label="Phone Number"
                 name="phone"
-                onChange={handleChange}
+                onChange={formik.handleChange}
                 type="number"
-                value={values.phone}
+                value={formik.values.phone}
                 variant="outlined"
               />
             </Grid>
@@ -127,39 +127,28 @@ export const AccountProfileDetails = (props) => {
             >
               <TextField
                 fullWidth
-                label="Country"
-                name="country"
-                onChange={handleChange}
-                required
-                value={values.country}
-                variant="outlined"
-              />
-            </Grid>
-            <Grid
-              item
-              md={6}
-              xs={12}
-            >
-              <TextField
-                fullWidth
-                label="Select State"
+                label="State"
                 name="state"
-                onChange={handleChange}
+                onChange={formik.handleChange}
                 required
-                select
-                SelectProps={{ native: true }}
-                value={values.state}
+                value={formik.values.state}
                 variant="outlined"
-              >
-                {states.map((option) => (
-                  <option
-                    key={option.value}
-                    value={option.value}
-                  >
-                    {option.label}
-                  </option>
-                ))}
-              </TextField>
+              />
+            </Grid>
+            <Grid
+              item
+              md={6}
+              xs={12}
+            >
+              <TextField
+                fullWidth
+                label="Select City"
+                name="city"
+                onChange={formik.handleChange}
+                required
+                value={formik.values.city}
+                variant="outlined"
+              />
             </Grid>
           </Grid>
         </CardContent>
@@ -172,6 +161,8 @@ export const AccountProfileDetails = (props) => {
           }}
         >
           <Button
+            disabled={formik.isSubmitting}
+            type="submit"
             color="primary"
             variant="contained"
           >

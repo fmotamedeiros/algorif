@@ -3,54 +3,73 @@ import { Box, Container, Grid, Typography } from '@mui/material';
 import { AccountProfile } from '../components/account/account-profile';
 import { AccountProfileDetails } from '../components/account/account-profile-details';
 import { DashboardLayout } from '../components/dashboard-layout';
+import { useContext, useEffect, useState } from 'react';
+import { AuthContext } from '../contexts/auth-context';
 
-const Account = () => (
-  <>
-    <Head>
-      <title>
-        Account
-      </title>
-    </Head>
-    <Box
-      component="main"
-      sx={{
-        flexGrow: 1,
-        py: 8
-      }}
-    >
-      <Container maxWidth="lg">
-        <Typography
-          sx={{ mb: 3 }}
-          variant="h4"
-        >
+const Account = () => {
+  const [coders, setCoders] = useState(null)
+  const authContext = useContext(AuthContext);
+
+  const datasUsers = () => {
+    authContext.getUserDetails().then((value) =>
+      setCoders(value)
+    ).catch(console.error)
+
+  }
+
+  useEffect(() => {
+    datasUsers();
+
+  }, []);
+
+  if (coders) {
+    return(
+    <>
+      <Head>
+        <title>
           Account
-        </Typography>
-        <Grid
-          container
-          spacing={3}
-        >
-          <Grid
-            item
-            lg={4}
-            md={6}
-            xs={12}
+        </title>
+      </Head>
+      <Box
+        component="main"
+        sx={{
+          flexGrow: 1,
+          py: 8
+        }}
+      >
+        <Container maxWidth="lg">
+          <Typography
+            sx={{ mb: 3 }}
+            variant="h4"
           >
-            <AccountProfile />
-          </Grid>
+            Account
+          </Typography>
           <Grid
-            item
-            lg={8}
-            md={6}
-            xs={12}
+            container
+            spacing={3}
           >
-            <AccountProfileDetails />
+            <Grid
+              item
+              lg={4}
+              md={6}
+              xs={12}
+            >
+              <AccountProfile coders={coders} />
+            </Grid>
+            <Grid
+              item
+              lg={8}
+              md={6}
+              xs={12}
+            >
+              <AccountProfileDetails coders={coders} />
+            </Grid>
           </Grid>
-        </Grid>
-      </Container>
-    </Box>
-  </>
-);
-
+        </Container>
+      </Box>
+    </>
+  )} return <>Carregando</>
+}
 Account.getLayout = (page) => (
   <DashboardLayout>
     {page}
