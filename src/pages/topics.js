@@ -3,8 +3,9 @@ import { Box } from '@mui/material';
 import { DashboardLayout } from '../components/dashboard-layout';
 import { Topics } from '../components/quests/topics'
 
+const Settings = () => {
 
-const Settings = () => (
+  return(
   <>
     <Head>
       <title>
@@ -23,7 +24,8 @@ const Settings = () => (
       </div>
     </Box>
   </>
-);
+  )
+};
 
 Settings.getLayout = (page) => (
   <DashboardLayout>

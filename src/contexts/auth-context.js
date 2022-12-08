@@ -1,28 +1,27 @@
 import { createContext, useContext, useEffect, useReducer } from 'react';
 import PropTypes from 'prop-types';
 import { initializeApp } from "firebase/app";
-import { doc, getDoc, getFirestore, setDoc, updateDoc } from "firebase/firestore";
+import { collection, doc, getDoc, getDocs, getFirestore, query, setDoc, updateDoc } from "firebase/firestore";
 import { getAuth } from 'firebase/auth';
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyDawQyUAHfpmsg5939nMOoTG1bCE11wNwA",
-  authDomain: "algorif-eb555.firebaseapp.com",
-  databaseURL: "https://algorif-eb555-default-rtdb.firebaseio.com",
-  projectId: "algorif-eb555",
-  storageBucket: "algorif-eb555.appspot.com",
-  messagingSenderId: "617491934888",
-  appId: "1:617491934888:web:3058646b81b569d8e8dc9d",
-  measurementId: "G-HLV12L77SB"
+  apiKey: "AIzaSyCom5O7EmjXV7roCIpeCEu5o6kx4LMWSE4",
+  authDomain: "testealgorif.firebaseapp.com",
+  projectId: "testealgorif",
+  storageBucket: "testealgorif.appspot.com",
+  messagingSenderId: "937301089832",
+  appId: "1:937301089832:web:0281a11201314d95a51f1d",
+  measurementId: "G-CYSQPLSMXZ"
 };
 
 const app = initializeApp(firebaseConfig);
 
 export const db = getFirestore(app);
 
-const auth = getAuth(app);
+export const auth = getAuth(app);
 
-const storage = getStorage(app);
+export const storage = getStorage(app);
 
 const HANDLERS = {
   INITIALIZE: 'INITIALIZE',
@@ -135,13 +134,7 @@ export const AuthProvider = (props) => {
     });
   };
 
-  const getUserDetails = async () => {
-    const ref = doc(db, "coders", auth.currentUser.uid);
-    const data = await getDoc(ref)
-
-    //console.log(data)
-    return data.data();
-  }
+  
 
   async function setUserDetails(email, userName, state, city, phone) {
     const ref = doc(db, "coders", auth.currentUser.uid);
@@ -159,14 +152,7 @@ export const AuthProvider = (props) => {
     await uploadBytes(storageRef, file)
   }
 
-  const getPictureUser = async (setImgURL) => {
-      if(auth.currentUser) {
-        getDownloadURL(ref(storage, auth.currentUser.uid + ".png"))
-      .then((url) => {
-        setImgURL(url)
-      })  
-    }  
-  }
+  
 
   async function setRegisterUser(email, userName, state, city) {
     try {
@@ -185,8 +171,11 @@ export const AuthProvider = (props) => {
 
     const storageRef = ref(storage, auth.currentUser.uid + ".png");
     await uploadBytes(storageRef)
-    // ...
   }
+
+  
+
+  
   
   return (
     <AuthContext.Provider
@@ -194,11 +183,10 @@ export const AuthProvider = (props) => {
         ...state,
         signIn,
         signOut,
-        getUserDetails,
         setUserDetails,
         setPictureUser,
-        getPictureUser,
-        setRegisterUser
+        setRegisterUser,
+
       }}
     >
       {children}

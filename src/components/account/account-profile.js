@@ -10,13 +10,13 @@ import {
 } from '@mui/material';
 
 import { useContext, useState } from 'react';
-import { AuthContext } from '../../contexts/auth-context';
+import { GetContext } from '../../contexts/getFirebaseContext';
 import { useRouter } from 'next/router';
 
 
 export const AccountProfile = (props) => {
   const router = useRouter()
-  const authContext = useContext(AuthContext);
+  const getContext = useContext(GetContext);
   const [imgURL, setImgURL] = useState("")
 
   const handleUpload = async (event) => {
@@ -26,12 +26,12 @@ export const AccountProfile = (props) => {
 
     if (!file) return;
 
-    await authContext.setPictureUser(file)
+    await getContext.setPictureUser(file)
     
     router.reload()
   }
 
-  authContext.getPictureUser(setImgURL, imgURL)   
+  getContext.getPictureUser(setImgURL, imgURL)   
 
   return (
     //<form onSubmit={formik.handleSubmit}>

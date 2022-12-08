@@ -4,14 +4,14 @@ import { AccountProfile } from '../components/account/account-profile';
 import { AccountProfileDetails } from '../components/account/account-profile-details';
 import { DashboardLayout } from '../components/dashboard-layout';
 import { useContext, useEffect, useState } from 'react';
-import { AuthContext } from '../contexts/auth-context';
+import { GetContext } from '../contexts/getFirebaseContext';
 
 const Account = () => {
   const [coders, setCoders] = useState(null)
-  const authContext = useContext(AuthContext);
+  const getContext = useContext(GetContext);
 
   const datasUsers = () => {
-    authContext.getUserDetails().then((value) =>
+    getContext.getUserDetails().then((value) =>
       setCoders(value)
     ).catch(console.error)
 

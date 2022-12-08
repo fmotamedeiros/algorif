@@ -8,7 +8,7 @@ import { UserCircle as UserCircleIcon } from '../icons/user-circle';
 import { AccountPopover } from './account-popover';
 import { Logo } from './logo';
 import NextLink from 'next/link';
-import { AuthContext } from '../contexts/auth-context';
+import { GetContext } from '../contexts/getFirebaseContext';
 
 const DashboardNavbarRoot = styled(AppBar)(({ theme }) => ({
   backgroundColor: theme.palette.background.paper,
@@ -16,13 +16,13 @@ const DashboardNavbarRoot = styled(AppBar)(({ theme }) => ({
 }));
 
 export const DashboardNavbar = (props) => {
-  const authContext = useContext(AuthContext);
+  const getContext = useContext(GetContext);
   const [imgURL, setImgURL] = useState("")
   const { onSidebarOpen, ...other } = props;
   const settingsRef = useRef(null);
   const [openAccountPopover, setOpenAccountPopover] = useState(false);
 
-  authContext.getPictureUser(setImgURL)  
+  getContext.getPictureUser(setImgURL)  
 
   return (
     <>

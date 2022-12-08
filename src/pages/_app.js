@@ -10,6 +10,7 @@ import { createEmotionCache } from '../utils/create-emotion-cache';
 import { registerChartJs } from '../utils/register-chart-js';
 import { theme } from '../theme';
 import '../theme/globals.css'
+import { GetProvider } from '../contexts/getFirebaseContext';
 
 registerChartJs();
 
@@ -35,13 +36,15 @@ const App = (props) => {
         <ThemeProvider theme={theme}>
           <CssBaseline />
           <AuthProvider>
-            <AuthConsumer>
-              {
-                (auth) => auth.isLoading
-                  ? <Fragment />
-                  : getLayout(<Component {...pageProps} />)
-              }
-            </AuthConsumer>
+            <GetProvider>
+              <AuthConsumer>
+                {
+                  (auth) => auth.isLoading
+                    ? <Fragment />
+                    : getLayout(<Component {...pageProps} />)
+                }
+              </AuthConsumer>
+            </GetProvider>
           </AuthProvider>
         </ThemeProvider>
       </LocalizationProvider>

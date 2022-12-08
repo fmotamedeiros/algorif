@@ -2,15 +2,31 @@ import { Box, Popover } from "@mui/material";
 import Head from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { DashboardLayout } from "../../components/dashboard-layout";
-import questions from "../../data/questions.json";
 import { Topics } from "../../components/quests/topics"
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import Filter from "../../components/quests/filter";
+import { GetContext } from "../../contexts/getFirebaseContext";
 
 const Tasks = () => {
   const router = useRouter()
+
+  const [questions, setQuestions] = useState(null)
+
+  const getContext = useContext(GetContext);
+
+  async function allQuestions() {
+    getContext.getQuestions(router.query.name).then((value) =>
+      setQuestions(value)
+    ).catch(console.error)
+  }
+
+  useEffect(() => {
+    allQuestions();
+  }, []);
+
+
   const [isTopicsOpen, setTopicsOpen] = useState(null)
   const [isFilterOpen, setFilterOpen] = useState(null)
 
@@ -36,78 +52,79 @@ const Tasks = () => {
   const topics = openTopics ? 'simple-popover' : undefined;
   const filter = openFilter ? 'simple-popover' : undefined;
 
+  if (questions) {
+    return (
+      <>
+        <Head>
+          <title>
+            {router.query.name}
+          </title>
+        </Head>
+        <Box
+          component="main"
+          sx={{
+            flexGrow: 1,
+          }}
+        >
+          <Box className="bg-[#1F2937] w-full p-4 px-6">
+            <div className="text-[18px] md:text-[25px] lg:text-[1.7rem] font-semibold text-white flex justify-between">
+              <button aria-describedby={topics}
+                onClick={topicsClick}
+                className="hover:text-green-500">
+                {router.query.name}
+                <ExpandMoreIcon fontSize="20" />
+              </button>
+              <Popover
+                id={topics}
+                open={openTopics}
+                anchorEl={isTopicsOpen}
+                onClose={topicsClose}
+                anchorOrigin={{
+                  vertical: 'bottom',
+                  horizontal: 'left',
+                }}
+                transformOrigin={{
+                  vertical: 'top',
+                  horizontal: 'left',
+                }}
+              >
+                <Topics />
+              </Popover>
 
-  return(
-    <>
-      <Head>
-        <title>
-          {router.query.name}
-        </title>
-      </Head>
-      <Box
-        component="main"
-        sx={{
-          flexGrow: 1,
-        }}
-      >
-        <Box className="bg-[#1F2937] w-full p-4 px-6">
-          <div className="text-[18px] md:text-[25px] lg:text-[1.7rem] font-semibold text-white flex justify-between">
-            <button aria-describedby={topics} 
-            onClick={topicsClick} 
-            className="hover:text-green-500">
-              {router.query.name}
-              <ExpandMoreIcon fontSize="20" />
-            </button>           
-            <Popover
-              id={topics}
-              open={openTopics}
-              anchorEl={isTopicsOpen}
-              onClose={topicsClose}
-              anchorOrigin={{
-                vertical: 'bottom',
-                horizontal: 'left',
-              }}
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'left',
-              }}
-            >
-              <Topics />
-            </Popover>
+              <button
+                className="text-[15px]  text-[#21a87b] border border-[#3FC79A] px-2 lg:hidden rounded hover:bg-[#21a87b] hover:text-[#1F2937]"
+                aria-describedby={filter}
+                onClick={filterClick} >
+                Filtro
+              </button>
+              <Popover
+                id={filter}
+                open={openFilter}
+                anchorEl={isFilterOpen}
+                onClose={filterClose}
+                anchorOrigin={{
+                  vertical: 'bottom',
+                  horizontal: 'left',
+                }}
+                transformOrigin={{
+                  vertical: 'top',
+                  horizontal: 'left',
+                }}
+              >
+                <div className="mt-1 mb-1">
+                  <Filter />
+                </div>
 
-            <button
-            className="text-[15px]  text-[#21a87b] border border-[#3FC79A] px-2 lg:hidden rounded hover:bg-[#21a87b] hover:text-[#1F2937]" 
-            aria-describedby={filter} 
-            onClick={filterClick} >
-              Filtro
-            </button>
-            <Popover
-              id={filter}
-              open={openFilter}
-              anchorEl={isFilterOpen}
-              onClose={filterClose}
-              anchorOrigin={{
-                vertical: 'bottom',
-                horizontal: 'left',
-              }}
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'left',
-              }}
-            >
-              <div className="mt-1 mb-1">
-                <Filter />
-              </div>
-              
-            </Popover>
-            
-          </div>
-        </Box>
+              </Popover>
 
-        <div className="px-6">
-          <Box className="w-full flex flex-col lg:flex-row pt-5 justify-between gap-4 h-full">
-            <div className="lg:w-[80%]">
-            {questions[router.query.name.toLowerCase()]["questions"].map((question) => ( //Pega os dados de questions.json e faz uma box para cada questão
+            </div>
+          </Box>
+
+          <div className="px-6">
+            <Box className="w-full flex flex-col lg:flex-row pt-5 justify-between gap-4 h-full">
+              <div className="lg:w-[80%]">
+
+            {questions["questions"].map((question) => ( //Pega os dados de questions.json e faz uma box para cada questão
             <Link href={`/questions/${question.href}`} 
               key={question.task}>
               <div className="pb-3">
@@ -143,22 +160,24 @@ const Tasks = () => {
               </div>
             </Link>
             ))}
-            </div>
-            <Box className="w-[20%] lg:flex flex-col hidden">
-              <Filter />              
+              </div>
+              <Box className="w-[20%] lg:flex flex-col hidden">
+                <Filter />
+              </Box>
+
             </Box>
+          </div>
 
         </Box>
-      </div>
-        
-      </Box>
-    </>
-  )};
+      </>
+    )
+  };
+}
 
-  Tasks.getLayout = (page) => (
-    <DashboardLayout>
-      {page}
-    </DashboardLayout>
-  );
+Tasks.getLayout = (page) => (
+  <DashboardLayout>
+    {page}
+  </DashboardLayout>
+);
 
-  export default Tasks;
+export default Tasks;

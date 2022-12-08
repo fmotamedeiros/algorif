@@ -1,6 +1,5 @@
 {
-    "string": {
-        "name" : "String",
+    "Array": {
         "questions": [ 
             {
         "task": "Some dois numeros",
@@ -26,9 +25,7 @@
             }
         ]
     },
-
-    "função":{
-        "name" : "Função",
+    "Array bidimensional":{
         "questions": [ 
             {
         "task": "Crie uma função",
@@ -47,38 +44,52 @@
             }
         ]
     },
-    "estrutura de repetição":{
-        "name" : "Estrutura de Repetição",
+    "Decisão":{
         "questions": [ 
            
         ]
     },
-    "classes":{
-        "name" : "Classes",
+    "Geometria computacional":{
         "questions": [ 
             
         ]
     },
-    "operadores":{
-        "name" : "Operadores",
+    "Laço de repetição":{
         "questions": [ 
             
         ]
     },
-    "variáveis e tipos de dados":{
-        "name" : "Variáveis e Tipos de Dados",
+    "Lógica matemática":{
         "questions": [ 
             
         ]
     },
-    "arrays":{
-        "name" : "Arrays",
+    "Recursão":{
         "questions": [ 
             
         ]
     },
-    "estrutura condicional":{
-        "name" : "Estrutura Condicional",
+    "Formatação":{
+        "questions": [ 
+        
+        ]
+    },
+    "String":{
+        "questions": [ 
+        
+        ]
+    },
+    "Geral":{
+        "questions": [ 
+        
+        ]
+    },
+    "Variáveis":{
+        "questions": [ 
+        
+        ]
+    },
+    "Entrada e Saída":{
         "questions": [ 
         
         ]
