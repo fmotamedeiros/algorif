@@ -11,21 +11,24 @@ import { GetContext } from "../../contexts/getFirebaseContext";
 
 const Tasks = () => {
   const router = useRouter()
-
+  const loaded = false
   const [questions, setQuestions] = useState(null)
 
   const getContext = useContext(GetContext);
 
-  async function allQuestions() {
+  function allQuestions() {
     getContext.getQuestions(router.query.name).then((value) =>
       setQuestions(value)
     ).catch(console.error)
   }
 
   useEffect(() => {
+    if(loaded){
+      return
+    }
     allQuestions();
-  }, []);
-
+    loaded = true
+  }, [router.query.name]);
 
   const [isTopicsOpen, setTopicsOpen] = useState(null)
   const [isFilterOpen, setFilterOpen] = useState(null)

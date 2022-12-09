@@ -32,7 +32,6 @@ export const GetProvider = (props) => {
         const q = query(allTopics);
         const topics = []
         const querySnapshot = await getDocs(q)
-        console.log(querySnapshot.size)
         querySnapshot.forEach((doc) => {
             topics.push(doc.id);
             setTopics(topics)
@@ -42,9 +41,14 @@ export const GetProvider = (props) => {
     const getQuestions = async (topic) => {
         const ref = doc(db, "categories", topic);
         const data = await getDoc(ref)
-        console.log(JSON.stringify(data.data()))
-        const questions = JSON.stringify(data.data())
+        const questions = data.data()
         return questions;
+    }
+
+    const getDescription = async (nameQuestion) => {
+        const ref = doc(db, "descriptionQuestion", nameQuestion);
+        const data = await getDoc(ref)
+        return data.data();
     }
 
     return (
@@ -53,7 +57,8 @@ export const GetProvider = (props) => {
                 getUserDetails,
                 getPictureUser,
                 getTopics,
-                getQuestions
+                getQuestions,
+                getDescription
 
             }}
         >

@@ -9,6 +9,7 @@ import { GetContext } from '../contexts/getFirebaseContext';
 const Account = () => {
   const [coders, setCoders] = useState(null)
   const getContext = useContext(GetContext);
+  const loaded = false
 
   const datasUsers = () => {
     getContext.getUserDetails().then((value) =>
@@ -18,10 +19,13 @@ const Account = () => {
   }
 
   useEffect(() => {
+    if(loaded){
+      return
+    }
     datasUsers();
-
+    loaded = true
   }, []);
-
+  
   if (coders) {
     return(
     <>

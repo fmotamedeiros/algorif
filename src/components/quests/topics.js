@@ -6,13 +6,17 @@ import { GetContext } from '../../contexts/getFirebaseContext';
 export const Topics = () => {
   const [topics, setTopics] = useState([])
   const getContext = useContext(GetContext);
-
+  const loaded = false
   function allTopics() {
     getContext.getTopics(setTopics)
   }
   
   useEffect(() => {
+    if(loaded) {
+      return
+    }
     allTopics();
+    loaded = true
   }, []);
 
     if (topics) {
