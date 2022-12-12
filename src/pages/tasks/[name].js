@@ -128,15 +128,15 @@ const Tasks = () => {
               <div className="lg:w-[80%]">
 
             {questions["questions"].map((question) => ( //Pega os dados de questions.json e faz uma box para cada questão
-            <Link href={`/questions/${question.href}`} 
-              key={question.task}>
+            <Link href={`/questions/${question.titulo}`} 
+              key={question.titulo}>
               <div className="pb-3">
                 <Box className="group">
                   <button className="p-4 border mb-3 border-gray-500 group-hover:border-green-500 w-full rounded">
                     <Box className="font-semibold">
                       <Box className="p-2">
                         <div className="group-hover:text-green-500 flex text-[20px]">
-                          {question.task}
+                          {question.titulo}
                         </div>
                         <div className="text-[16px] flex">
                           <div className="flex">

@@ -65,7 +65,7 @@ const Register = () => {
       const auth = getAuth();
       createUserWithEmailAndPassword(auth, formik.values.email, formik.values.password)
         .then(async () => {
-          await setContext.setRegisterUser(formik.values.email, formik.values.userName, formik.values.state, formik.values.city)
+          await setContext.setRegisterUser(formik.values)
 
           Router
           .push('/login')

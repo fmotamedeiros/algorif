@@ -52,7 +52,7 @@ export const AccountProfileDetails = (props) => {
         .max(11)
     }),
     onSubmit: async () => {
-      await setContext.setUserDetails(formik.values.email, formik.values.userName, formik.values.state, formik.values.city, formik.values.phone)
+      await setContext.setUserDetails(formik.values)
       router.reload()
     }
   });

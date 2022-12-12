@@ -40,6 +40,11 @@ const items = [
     icon: (<CogIcon fontSize="small" />),
     title: 'Settings'
   },
+  {
+    href: '/createQuestion',
+    icon: (<UserAddIcon fontSize="small" />),
+    title: 'Create Question'
+  },
 ];
 
 export const DashboardSidebar = (props) => {

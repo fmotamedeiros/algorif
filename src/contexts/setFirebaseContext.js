@@ -1,6 +1,6 @@
 import { createContext } from "react";
 import { auth, db, storage } from "./auth-context";
-import { doc, setDoc, updateDoc } from "firebase/firestore";
+import { arrayUnion, doc, setDoc, updateDoc } from "firebase/firestore";
 import { ref, uploadBytes } from "firebase/storage";;
 
 export const SetContext = createContext({ undefined });
@@ -8,14 +8,14 @@ export const SetContext = createContext({ undefined });
 export const SetProvider = (props) => {
     const { children } = props;
 
-    async function setUserDetails(email, userName, state, city, phone) {
+    async function setUserDetails(detailsUser) {
         const ref = doc(db, "coders", auth.currentUser.uid);
         await updateDoc(ref, {
-            email: email,
-            userName: userName,
-            state: state,
-            city: city,
-            phone: phone
+            email: detailsUser.email,
+            userName: detailsUser.userName,
+            state: detailsUser.state,
+            city: detailsUser.city,
+            phone: detailsUser.phone
         });
     }
 
@@ -24,16 +24,15 @@ export const SetProvider = (props) => {
         await uploadBytes(storageRef, file)
     }
 
-    async function setRegisterUser(email, userName, state, city) {
+    async function setRegisterUser(detailsUser) {
         try {
             await setDoc(doc(db, "coders", auth.currentUser.uid), {
-                email: email,
-                userName: userName,
-                state: state,
-                city: city,
+                email: detailsUser.email,
+                userName: detailsUser.userName,
+                state: detailsUser.state,
+                city: detailsUser.city,
                 phone: '',
             });
-            console.log(auth.currentUser.uid)
         } catch (error) {
             console.log(error)
             alert(error)
@@ -43,13 +42,29 @@ export const SetProvider = (props) => {
         await uploadBytes(storageRef)
     }
 
+    async function setCreateQuestion(detailsUser) {
+        const categories = doc(db, "categories", detailsUser.topico)
+        await updateDoc(categories, {
+            questions: arrayUnion({
+                titulo: detailsUser.titulo,
+                descricao: detailsUser.descricao,
+                dificuldade: detailsUser.dificuldade
+            })
+        });
+
+        const detailsQuestions = doc(db, "descriptionQuestion", detailsUser.titulo)
+        await setDoc(detailsQuestions, {
+            descricaoDetalhada: detailsUser.descricaoDetalhada,
+        });
+    }
+
     return (
         <SetContext.Provider
             value={{
                 setUserDetails,
                 setPictureUser,
                 setRegisterUser,
-
+                setCreateQuestion
             }}
         >
             {children}

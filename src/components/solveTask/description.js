@@ -2,7 +2,7 @@ export const Description = (props) => {
     return(
     <div className="w-full flex-1 p-4">
         <div className="font-semibold leading-8 text-white">Tarefa</div>
-        <div>{props.descriptionData.tarefa}</div>
+        <div>{props.descriptionData.descricaoDetalhada}</div>
 
         <div className="font-semibold leading-8 text-white">Exemplo</div>
         <div>
