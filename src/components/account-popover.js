@@ -1,29 +1,19 @@
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useState } from 'react';
 import Router from 'next/router';
 import PropTypes from 'prop-types';
 import { Box, MenuItem, MenuList, Popover, Typography } from '@mui/material';
 import { getAuth } from "firebase/auth";
 import NextLink from 'next/link';
-import { GetContext } from '../contexts/getFirebaseContext';
 import { AuthContext } from '../contexts/auth-context';
+import { UserDetails } from '../contexts/userDetails';
 
 export const AccountPopover = (props) => {
   
-  const [coders, setCoders] = useState(null)
   const authContext = useContext(AuthContext);
-  const getContext = useContext(GetContext);
 
-  const datasUsers = () => {
-    getContext.getUserDetails().then((value) =>
-      setCoders(value)
-    ).catch(console.error)
+  const [coders, setCoders] = useState(null)
 
-  }
-
-  useEffect(() => {
-    datasUsers();
-
-  }, []);
+  UserDetails(setCoders)
 
   const auth = getAuth();
 

@@ -3,8 +3,6 @@ import { auth, db, storage } from "./auth-context";
 import { collection, doc, getDoc, getDocs, query } from "firebase/firestore";
 import { ref, getDownloadURL } from "firebase/storage";
 
-
-
 export const GetContext = createContext({ undefined });
 
 

@@ -3,28 +3,13 @@ import { Box, Container, Grid, Typography } from '@mui/material';
 import { AccountProfile } from '../components/account/account-profile';
 import { AccountProfileDetails } from '../components/account/account-profile-details';
 import { DashboardLayout } from '../components/dashboard-layout';
-import { useContext, useEffect, useState } from 'react';
-import { GetContext } from '../contexts/getFirebaseContext';
+import { useState } from 'react';
+import { UserDetails } from '../contexts/userDetails';
 
 const Account = () => {
   const [coders, setCoders] = useState(null)
-  const getContext = useContext(GetContext);
-  const loaded = false
 
-  const datasUsers = () => {
-    getContext.getUserDetails().then((value) =>
-      setCoders(value)
-    ).catch(console.error)
-
-  }
-
-  useEffect(() => {
-    if(loaded){
-      return
-    }
-    datasUsers();
-    loaded = true
-  }, []);
+  UserDetails(setCoders)
   
   if (coders) {
     return(

@@ -29,6 +29,7 @@ const Register = () => {
       password: '',
       city: '',
       state: '',
+      teacher: false,
       policy: false
     },
     validationSchema: Yup.object({
@@ -54,6 +55,8 @@ const Register = () => {
         .string()
         .max(255)
         .required('City is required'),
+      teacher: Yup
+        .boolean(),
       policy: Yup
         .boolean()
         .oneOf(
@@ -68,8 +71,8 @@ const Register = () => {
           await setContext.setRegisterUser(formik.values)
 
           Router
-          .push('/login')
-          .catch(console.error);
+            .push('/login')
+            .catch(console.error);
         })
         .catch((error) => {
           const errorCode = error.code;
@@ -173,7 +176,7 @@ const Register = () => {
                 onChange={formik.handleChange}
                 value={formik.values.state}
                 variant="outlined"
-              />    
+              />
               <TextField
                 error={Boolean(formik.touched.city && formik.errors.city)}
                 helperText={formik.touched.city && formik.errors.city}
@@ -194,6 +197,18 @@ const Register = () => {
                 ml: -1
               }}
             >
+              <Checkbox
+                checked={formik.values.teacher}
+                name="teacher"
+                onChange={formik.handleChange}
+              />
+              <Typography
+                color="textSecondary"
+                variant="body2"
+              >
+                Você é um professor 
+              </Typography>
+
               <Checkbox
                 checked={formik.values.policy}
                 name="policy"
@@ -219,6 +234,11 @@ const Register = () => {
                 </NextLink>
               </Typography>
             </Box>
+            {Boolean(formik.touched.teacher && formik.errors.teacher) && (
+              <FormHelperText error>
+                {formik.errors.teacher}
+              </FormHelperText>
+            )}
             {Boolean(formik.touched.policy && formik.errors.policy) && (
               <FormHelperText error>
                 {formik.errors.policy}
