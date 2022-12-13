@@ -197,42 +197,48 @@ const Register = () => {
                 ml: -1
               }}
             >
-              <Checkbox
-                checked={formik.values.teacher}
-                name="teacher"
-                onChange={formik.handleChange}
-              />
-              <Typography
-                color="textSecondary"
-                variant="body2"
-              >
-                Você é um professor 
-              </Typography>
-
-              <Checkbox
-                checked={formik.values.policy}
-                name="policy"
-                onChange={formik.handleChange}
-              />
-              <Typography
-                color="textSecondary"
-                variant="body2"
-              >
-                I have read the
-                {' '}
-                <NextLink
-                  href="#"
-                  passHref
-                >
-                  <Link
-                    color="primary"
-                    underline="always"
-                    variant="subtitle2"
+              <div>
+                <div className='flex items-center'>
+                  <Checkbox
+                    checked={formik.values.teacher}
+                    name="teacher"
+                    onChange={formik.handleChange}
+                  />
+                  <Typography
+                    color="textSecondary"
+                    variant="body2"
                   >
-                    Terms and Conditions
-                  </Link>
-                </NextLink>
-              </Typography>
+                    Você é um professor
+                  </Typography>
+                </div>
+                
+                <div className='flex items-center'>
+                  <Checkbox
+                    checked={formik.values.policy}
+                    name="policy"
+                    onChange={formik.handleChange}
+                  />
+                  <Typography
+                    color="textSecondary"
+                    variant="body2"
+                  >
+                    I have read the
+                    {' '}
+                    <NextLink
+                      href="#"
+                      passHref
+                    >
+                      <Link
+                        color="primary"
+                        underline="always"
+                        variant="subtitle2"
+                      >
+                        Terms and Conditions
+                      </Link>
+                    </NextLink>
+                  </Typography>
+                </div>
+              </div>
             </Box>
             {Boolean(formik.touched.teacher && formik.errors.teacher) && (
               <FormHelperText error>
