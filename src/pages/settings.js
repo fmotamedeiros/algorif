@@ -1,10 +1,12 @@
 import Head from 'next/head';
 import { Box, Container, Typography } from '@mui/material';
 import { DashboardLayout } from '../components/dashboard-layout';
-import { SettingsNotifications } from '../components/settings/settings-notifications';
+import { SettingsAccountDelete } from '../components/settings/settingsAccountDelete';
 import { SettingsPassword } from '../components/settings/settings-password';
 
-const Settings = () => (
+const Settings = () => {
+
+  return(
   <>
     <Head>
       <title>
@@ -25,14 +27,15 @@ const Settings = () => (
         >
           Settings
         </Typography>
-        <SettingsNotifications />
+        <SettingsPassword />
         <Box sx={{ pt: 3 }}>
-          <SettingsPassword />
+          <SettingsAccountDelete />
         </Box>
       </Container>
     </Box>
   </>
-);
+  )
+};
 
 Settings.getLayout = (page) => (
   <DashboardLayout>

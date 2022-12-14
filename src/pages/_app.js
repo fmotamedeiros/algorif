@@ -12,6 +12,8 @@ import { theme } from '../theme';
 import '../theme/globals.css'
 import { GetProvider } from '../contexts/getFirebaseContext';
 import { SetProvider } from '../contexts/setFirebaseContext';
+import { UpdateProvider } from '../contexts/updateFirebaseContext';
+import { DeleteProvider } from '../contexts/deleteFirebaseContext';
 
 registerChartJs();
 
@@ -39,13 +41,17 @@ const App = (props) => {
           <AuthProvider>
             <GetProvider>
               <SetProvider>
-                <AuthConsumer>
-                  {
-                    (auth) => auth.isLoading
-                      ? <Fragment />
-                      : getLayout(<Component {...pageProps} />)
-                  }
-                </AuthConsumer>
+                <UpdateProvider>
+                  <DeleteProvider>
+                    <AuthConsumer>
+                      {
+                        (auth) => auth.isLoading
+                          ? <Fragment />
+                          : getLayout(<Component {...pageProps} />)
+                      }
+                    </AuthConsumer>
+                  </DeleteProvider>
+                </UpdateProvider>
               </SetProvider>
             </GetProvider>
           </AuthProvider>

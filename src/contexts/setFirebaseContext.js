@@ -8,17 +8,6 @@ export const SetContext = createContext({ undefined });
 export const SetProvider = (props) => {
     const { children } = props;
 
-    async function setUserDetails(detailsUser) {
-        const ref = doc(db, "coders", auth.currentUser.uid);
-        await updateDoc(ref, {
-            email: detailsUser.email,
-            userName: detailsUser.userName,
-            state: detailsUser.state,
-            city: detailsUser.city,
-            phone: detailsUser.phone
-        });
-    }
-
     async function setPictureUser(file) {
         const storageRef = ref(storage, auth.currentUser.uid + ".png");
         await uploadBytes(storageRef, file)
@@ -62,7 +51,6 @@ export const SetProvider = (props) => {
     return (
         <SetContext.Provider
             value={{
-                setUserDetails,
                 setPictureUser,
                 setRegisterUser,
                 setCreateQuestion

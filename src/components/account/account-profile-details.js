@@ -11,15 +11,14 @@ import {
 } from '@mui/material';
 import * as Yup from 'yup';
 import { useFormik } from 'formik';
-
-import { SetContext } from '../../contexts/setFirebaseContext';
+import { UpdateContext } from '../../contexts/updateFirebaseContext';
 import { useRouter } from 'next/router';
 
 export const AccountProfileDetails = (props) => {
 
   const router = useRouter()
 
-  const setContext = useContext(SetContext);
+  const updateContext = useContext(UpdateContext);
   const formik = useFormik({
     initialValues: {
       userName: props.coders.userName,
@@ -29,12 +28,6 @@ export const AccountProfileDetails = (props) => {
       city: props.coders.city
     },
     validationSchema: Yup.object({
-      email: Yup
-        .string()
-        .email('Must be a valid email')
-        .max(255)
-        .required(
-          'Email is required'),
       userName: Yup
         .string()
         .max(255)
@@ -52,7 +45,7 @@ export const AccountProfileDetails = (props) => {
         .max(11)
     }),
     onSubmit: async () => {
-      await setContext.setUserDetails(formik.values)
+      await updateContext.updateUserDetails(formik.values)
       router.reload()
     }
   });
@@ -96,11 +89,13 @@ export const AccountProfileDetails = (props) => {
               xs={12}
             >
               <TextField
+              sx={{
+                color: 'white',
+              }}
+                disabled
                 fullWidth
                 label="Email Address"
                 name="email"
-                onChange={formik.handleChange}
-                required
                 value={formik.values.email}
                 variant="outlined"
               />

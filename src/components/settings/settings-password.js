@@ -1,7 +1,10 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { Box, Button, Card, CardContent, CardHeader, Divider, TextField } from '@mui/material';
+import { UpdateContext } from '../../contexts/updateFirebaseContext';
 
 export const SettingsPassword = (props) => {
+  const updateContext = useContext(UpdateContext);
+
   const [values, setValues] = useState({
     password: '',
     confirm: ''
@@ -14,9 +17,22 @@ export const SettingsPassword = (props) => {
     });
   };
 
+  const handleSubmit = async () => {
+    if (values.password == values.confirm) {
+      if (values.password.length >= 6) {
+        await updateContext.updatePasswordUser(values.password)
+      }
+      else {
+        alert("Senha muito curta")
+      }
+    } else {
+      alert("As senhas não coincidem")
+    }
+  }
+
   return (
     <form {...props}>
-      <Card sx={{ backgroundColor: '#1F2937'}}>
+      <Card sx={{ backgroundColor: '#1F2937' }}>
         <CardHeader
           subheader="Update password"
           title="Password"
@@ -40,6 +56,7 @@ export const SettingsPassword = (props) => {
             name="confirm"
             onChange={handleChange}
             type="password"
+            error={values.password != values.confirm}
             value={values.confirm}
             variant="outlined"
           />
@@ -53,6 +70,7 @@ export const SettingsPassword = (props) => {
           }}
         >
           <Button
+            onClick={handleSubmit}
             color="primary"
             variant="contained"
           >
