@@ -13,7 +13,13 @@ export const SettingsAccountDelete = (props) => {
   const deleteContext = useContext(DeleteContext);
 
   const handleSubmit = () =>{
-    deleteContext.deleteDataUser()
+    const confirmBox = window.confirm(
+      "Você realmente quer excluir sua conta?"
+    )
+    if (confirmBox === true) {
+      deleteContext.deleteDataUser()
+    }
+    
   }
 
   return(

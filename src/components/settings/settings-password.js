@@ -18,9 +18,15 @@ export const SettingsPassword = (props) => {
   };
 
   const handleSubmit = async () => {
+
     if (values.password == values.confirm) {
       if (values.password.length >= 6) {
-        await updateContext.updatePasswordUser(values.password)
+        const confirmBox = window.confirm(
+          "Você realmente quer alterar sua senha?"
+        )
+        if (confirmBox === true) {
+          await updateContext.updatePasswordUser(values.password)
+        }
       }
       else {
         alert("Senha muito curta")
