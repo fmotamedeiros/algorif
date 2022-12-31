@@ -49,7 +49,7 @@ const Question = () => {
                <Description descriptionData={descriptionData} />
               </div>     
               <Box className="lg:w-[60%] w-full">
-                <CodeEditor />
+                <CodeEditor descriptionData={descriptionData} />
               </Box>                  
           </Box>
   

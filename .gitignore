@@ -8,6 +8,8 @@
 # testing
 /coverage
 
+/src/components/solveTask/checkQuestion.test.js
+
 # production
 /build
 out
