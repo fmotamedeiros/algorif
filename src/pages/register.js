@@ -17,9 +17,12 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import { SetContext } from '../contexts/setFirebaseContext';
-import { useContext } from 'react';
+import { useContext, useRef } from 'react';
+
+import emailjs from '@emailjs/browser';
 
 const Register = () => {
+  const form = useRef();
   const setContext = useContext(SetContext);
 
   const formik = useFormik({
@@ -65,10 +68,20 @@ const Register = () => {
         )
     }),
     onSubmit: () => {
+
       const auth = getAuth();
       createUserWithEmailAndPassword(auth, formik.values.email, formik.values.password)
         .then(async () => {
           await setContext.setRegisterUser(formik.values)
+
+          if(formik.values.teacher == true){
+            emailjs.sendForm('service_1t2y2qd', 'template_i9ynk3d', form.current, 'o3FH4JUttrmR411Z4')
+            .then((result) => {
+              console.log(result.text);
+            }, (error) => {
+              console.log(error.text);
+            });
+          }
 
           Router
             .push('/login')
@@ -110,7 +123,7 @@ const Register = () => {
               Dashboard
             </Button>
           </NextLink>
-          <form onSubmit={formik.handleSubmit}>
+          <form onSubmit={formik.handleSubmit} ref={form}>
             <Box sx={{ my: 3 }}>
               <Typography
                 color="textPrimary"
@@ -211,7 +224,7 @@ const Register = () => {
                     Você é um professor
                   </Typography>
                 </div>
-                
+
                 <div className='flex items-center'>
                   <Checkbox
                     checked={formik.values.policy}

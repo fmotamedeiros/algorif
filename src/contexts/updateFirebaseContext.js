@@ -21,9 +21,9 @@ export const UpdateProvider = (props) => {
     async function updatePasswordUser(password) {
         updatePassword(auth.currentUser, password).then(() => {
             alert("Senha atualizada com sucesso")
-          }).catch((error) => {
+        }).catch((error) => {
             console.log(error)
-          });
+        });
     }
 
     return (

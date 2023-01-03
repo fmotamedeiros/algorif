@@ -7,7 +7,7 @@ import { DashboardLayout } from "../../components/dashboard-layout";
 import Description from "../../components/solveTask/description";
 import { GetContext } from "../../contexts/getFirebaseContext";
 
-const CodeEditor = dynamic(import('../../components/solveTask/codeEditor'), {ssr: false})
+const CodeEditor = dynamic(import('../../components/solveTask/codeEditor'), { ssr: false })
 
 const Question = () => {
   const router = useRouter()
@@ -18,20 +18,20 @@ const Question = () => {
 
   function descriptionQuestion() {
     getContext.getDescription(router.query.question).then((value) =>
-    setDescriptionData(value)
+      setDescriptionData(value)
     ).catch(console.error)
   }
 
   useEffect(() => {
-    if(loaded){
+    if (loaded) {
       return
     }
     descriptionQuestion();
     loaded = true
   }, []);
 
-  if(descriptionData){
-    return(
+  if (descriptionData) {
+    return (
       <>
         <Head>
           <title>
@@ -44,25 +44,26 @@ const Question = () => {
             flexGrow: 1,
           }}
         >
-           <Box className="w-full flex flex-col lg:flex-row h-full">
-              <div className="lg:w-[40%] lg:overflow-y-auto lg:h-[90vh]">
-               <Description descriptionData={descriptionData} />
-              </div>     
-              <Box className="lg:w-[60%] w-full">
-                <CodeEditor descriptionData={descriptionData} />
-              </Box>                  
+          <Box className="w-full flex flex-col lg:flex-row h-full">
+            <div className="lg:w-[40%] lg:overflow-y-auto lg:h-[90vh]">
+              <Description descriptionData={descriptionData} />
+            </div>
+            <Box className="lg:w-[60%] w-full">
+              <CodeEditor descriptionData={descriptionData} />
+            </Box>
           </Box>
-  
+
         </Box>
       </>
-    )} return <>Carregando</>
+    )
+  } return <>Carregando</>
 }
-  
 
-  Question.getLayout = (page) => (
-    <DashboardLayout>
-      {page}
-    </DashboardLayout>
-  );
 
-  export default Question;
+Question.getLayout = (page) => (
+  <DashboardLayout>
+    {page}
+  </DashboardLayout>
+);
+
+export default Question;

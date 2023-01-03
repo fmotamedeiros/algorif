@@ -23,7 +23,7 @@ const Tasks = () => {
   }
 
   useEffect(() => {
-    if(loaded){
+    if (loaded) {
       return
     }
     allQuestions();
@@ -127,42 +127,42 @@ const Tasks = () => {
             <Box className="w-full flex flex-col lg:flex-row pt-5 justify-between gap-4 h-full">
               <div className="lg:w-[80%]">
 
-            {questions["questions"].map((question) => ( //Pega os dados de questions.json e faz uma box para cada questão
-            <Link href={`/questions/${question.titulo}`} 
-              key={question.titulo}>
-              <div className="pb-3">
-                <Box className="group">
-                  <button className="p-4 border mb-3 border-gray-500 group-hover:border-green-500 w-full rounded">
-                    <Box className="font-semibold">
-                      <Box className="p-2">
-                        <div className="group-hover:text-green-500 flex text-[20px]">
-                          {question.titulo}
-                        </div>
-                        <div className="text-[16px] flex">
-                          <div className="flex">
-                            <div>Nível:&nbsp;</div>
-                            <div className="text-green-500">{question.dificuldade}</div>
-                          </div>
-                          <div>
-                          , Taxa de Acerto: {question.taxaSucesso}
-                          </div>
-                        </div>
-                      </Box>                   
-                    </Box>
-                    <Box className="font-semibold block lg:justify-between lg:flex lg:items-center w-full">
-                      <Box className="text-left text-gray-400 p-2 lg:w-[60%]">
-                        {question.descricao}
-                        </Box>
-                      
-                      <Box className="p-3 m-2 lg:m-0 border border-gray-300 bg-[#111827] group-hover:bg-green-500 group-hover:border-green-500 text-gray-300 group-hover:text-[#1F2937] rounded-lg lg:w-[20%] ">
-                          Resolver Desafio
+                {questions["questions"].map((question) => ( //Pega os dados de questions.json e faz uma box para cada questão
+                  <Link href={`/questions/${question.titulo}`}
+                    key={question.titulo}>
+                    <div className="pb-3">
+                      <Box className="group">
+                        <button className="p-4 border mb-3 border-gray-500 group-hover:border-green-500 w-full rounded">
+                          <Box className="font-semibold">
+                            <Box className="p-2">
+                              <div className="group-hover:text-green-500 flex text-[20px]">
+                                {question.titulo}
+                              </div>
+                              <div className="text-[16px] flex">
+                                <div className="flex">
+                                  <div>Nível:&nbsp;</div>
+                                  <div className="text-green-500">{question.dificuldade}</div>
+                                </div>
+                                <div>
+                                  , Taxa de Acerto: {question.taxaSucesso}
+                                </div>
+                              </div>
+                            </Box>
+                          </Box>
+                          <Box className="font-semibold block lg:justify-between lg:flex lg:items-center w-full">
+                            <Box className="text-left text-gray-400 p-2 lg:w-[60%]">
+                              {question.descricao}
+                            </Box>
+
+                            <Box className="p-3 m-2 lg:m-0 border border-gray-300 bg-[#111827] group-hover:bg-green-500 group-hover:border-green-500 text-gray-300 group-hover:text-[#1F2937] rounded-lg lg:w-[20%] ">
+                              Resolver Desafio
+                            </Box>
+                          </Box>
+                        </button>
                       </Box>
-                    </Box>
-                  </button>
-                </Box>
-              </div>
-            </Link>
-            ))}
+                    </div>
+                  </Link>
+                ))}
               </div>
               <Box className="w-[20%] lg:flex flex-col hidden">
                 <Filter />

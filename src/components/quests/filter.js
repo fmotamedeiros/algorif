@@ -1,5 +1,4 @@
 import { Box, Checkbox, FormControlLabel, Typography } from "@mui/material";
-import { useState } from "react";
 
 export default function Filter() {
     

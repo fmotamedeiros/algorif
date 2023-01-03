@@ -21,7 +21,7 @@ export const SetProvider = (props) => {
                 state: detailsUser.state,
                 city: detailsUser.city,
                 phone: '',
-                teacher: detailsUser.teacher,
+                teacher: false,
             });
         } catch (error) {
             console.log(error)
