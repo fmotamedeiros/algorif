@@ -32,7 +32,7 @@ export const SetProvider = (props) => {
         await uploadBytes(storageRef)
     }
 
-    async function setCreateQuestion(detailsUser) {
+    async function setCreateQuestion(detailsUser, code) {
         const categories = doc(db, "categories", detailsUser.topico)
         await updateDoc(categories, {
             questions: arrayUnion({
@@ -45,6 +45,8 @@ export const SetProvider = (props) => {
         const detailsQuestions = doc(db, "descriptionQuestion", detailsUser.titulo)
         await setDoc(detailsQuestions, {
             descricaoDetalhada: detailsUser.descricaoDetalhada,
+            codigo: code,
+            nameFunction: detailsUser.nameFunction
         });
     }
 

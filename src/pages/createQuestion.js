@@ -6,11 +6,13 @@ import {
     Typography
 } from '@mui/material';
 import { SetContext } from '../contexts/setFirebaseContext';
-import { useContext } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { DashboardLayout } from '../components/dashboard-layout';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import Router from 'next/router';
+import 'codemirror/lib/codemirror.css'
+import 'codemirror/theme/dracula.css'
 
 const dificuldades = [
     {
@@ -89,6 +91,49 @@ const topicos = [
 
 
 const CreateQuestion = (props) => {
+    const loaded = false
+    const [codigo, setCodigo] = useState("")
+
+    useEffect(() => {
+        if (loaded) {
+            return
+        }
+        async function init() {
+            require('codemirror/mode/javascript/javascript')
+            require('codemirror/addon/edit/closetag')
+            require('codemirror/addon/edit/closebrackets')
+            const CodeMirror = require('codemirror')
+            const instance = CodeMirror.fromTextArea(document.getElementById("code"), {
+                mode: 'javascript',
+                theme: 'dracula',
+                lineNumbers: true,
+                autoCloseTags: true,
+                autoCloseBrackets: true,
+
+            })
+            instance.setValue(
+                `function /* nome da função */ (/* variáveis de entradas */) {
+    return
+}
+
+console.log()`)
+
+            instance.setOption("autoCloseBrackets", true);
+            instance.setOption('autoCloseTags', true)
+
+            instance.on('change', (instance, changes) => {
+                const code = instance.getValue();
+                console.log(code)
+                try {
+                    setCodigo(code)
+                } catch (error) {
+                    console.log(error)
+                }
+            });
+        }
+        loaded = true
+        init();
+    }, []);
 
     const formik = useFormik({
         initialValues: {
@@ -97,6 +142,7 @@ const CreateQuestion = (props) => {
             descricao: '',
             descricaoDetalhada: '',
             dificuldade: '',
+            nameFunction: '',
         },
         validationSchema: Yup.object({
             topico: Yup
@@ -111,19 +157,21 @@ const CreateQuestion = (props) => {
                     'Título is required'),
             descricao: Yup
                 .string()
-                .max(255)
                 .required('Descricão is required'),
             descricaoDetalhada: Yup
                 .string()
-                .max(255)
                 .required('Descricão detalhada is required'),
             dificuldade: Yup
                 .string()
                 .max(255)
                 .required('Dificuldade is required'),
+            nameFunction: Yup
+                .string()
+                .max(255)
+                .required('Nome da função is required'),
         }),
         onSubmit: async () => {
-            await setContext.setCreateQuestion(formik.values)
+            await setContext.setCreateQuestion(formik.values, codigo)
             alert('Questão Cadastrada com Sucesso')
             Router.reload()
         }
@@ -200,6 +248,7 @@ const CreateQuestion = (props) => {
                                 fullWidth
                                 label="Descrição da Questão"
                                 name="descricao"
+                                multiline
                                 onChange={formik.handleChange}
                                 required
                                 margin="normal"
@@ -210,6 +259,7 @@ const CreateQuestion = (props) => {
                                 error={Boolean(formik.touched.descricaoDetalhada && formik.errors.descricaoDetalhada)}
                                 helperText={formik.touched.descricaoDetalhada && formik.errors.descricaoDetalhada}
                                 fullWidth
+                                multiline
                                 label="Descricão detalhada da Questão"
                                 name="descricaoDetalhada"
                                 onChange={formik.handleChange}
@@ -241,6 +291,21 @@ const CreateQuestion = (props) => {
                                     </option>
                                 ))}
                             </TextField>
+                            <TextField
+                                error={Boolean(formik.touched.nameFunction && formik.errors.nameFunction)}
+                                helperText={formik.touched.nameFunction && formik.errors.nameFunction}
+                                fullWidth
+                                label="Nome da função usada no código"
+                                name="nameFunction"
+                                onChange={formik.handleChange}
+                                required
+                                margin="normal"
+                                value={formik.values.nameFunction}
+                                variant="outlined"
+                            />
+                            <div className='my-2'>
+                                <textarea id='code'></textarea>
+                            </div>
                         </Box>
                         <Button
                             fullWidth

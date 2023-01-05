@@ -80,6 +80,7 @@ const CodeEditor = (props) => {
     <>
       <div id='content'>
         {props.descriptionData.codigo}
+        {props.descriptionData.descricaoDetalhada}
       </div>
       <div className='px-4 py-2 flex gap-4 justify-end'>
         <Button variant='outlined'
