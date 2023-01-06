@@ -47,7 +47,7 @@ export const SetProvider = (props) => {
             descricaoDetalhada: detailsUser.descricaoDetalhada,
             codigo: code,
             nameFunction: detailsUser.nameFunction,
-            test: {input: detailsUser.inputTest, output: detailsUser.outputTest}
+            test: [{input: detailsUser.inputTest, output: detailsUser.outputTest}]
         });
     }
 

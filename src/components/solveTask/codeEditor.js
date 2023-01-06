@@ -9,10 +9,9 @@ const MirrorConsole = require("../../../node_modules/codemirror-console/lib/mirr
 const editor = new MirrorConsole();
 
 const CodeEditor = (props) => {
-  const [show, setShow] = useState(false)
-  const [error, setError] = useState(false)
+  const [show, setShow] = useState("")
+  const [error, setError] = useState("")
   const [onConsole, setConsole] = useState([])
-
 
   var codeMirror = editor.editor;
 
@@ -21,7 +20,6 @@ const CodeEditor = (props) => {
   codeMirror.setOption("autoCloseBrackets", true);
   codeMirror.setOption('theme', 'dracula')
   codeMirror.setSize("100%", 520)
-
 
   function init() {
     try {
@@ -36,7 +34,6 @@ const CodeEditor = (props) => {
   useEffect(() => {
     init();
   }, []);
-
 
   const outputResult = () => {
     var consoleWritten = [];
@@ -54,24 +51,49 @@ const CodeEditor = (props) => {
   };
 
   const checkQuestion = () => {
-    const teste = 
-    `
-    var b = ${props.descriptionData.nameFunction}(${props.descriptionData.test.input}) 
+    var testsPassed = "\n var passed = 0"
+    const testArray =
+      props.descriptionData["test"].map((test) => {
+        return (
+          `
+      var b = ${props.descriptionData.nameFunction}(${test.input}) 
 
-    if(b === ${props.descriptionData.test.output}){
-      console.log("correto")
-      setShow(true)
-      setError(false)
+      if(b === ${test.output}){
+        passed += 1
+
+      }
+      `
+        )
+      })
+
+    const lengthTests = props.descriptionData.test.length
+
+    var tests = editor.getText("content")
+
+    tests = tests + testsPassed
+
+    for (var test of testArray) {
+      tests = tests + test
+    }
+
+    var testsPassedPercentage = ` 
+
+    // AVISO - talvez em produção isso nao funcione
+
+    var passedPercentage = (passed / ${lengthTests}) * 100 
+
+    if (passedPercentage === 100) {
+      setShow(passedPercentage + "%" + " correto")
+      setError("")
     } else {
-      Error("Deu ruim")
-      setShow(false)
-      setError(true)
+      setError(passedPercentage + "%" + " correto")
+      setShow("")
     }
     `
-    console.log(editor.getText("content"))
-    
+    tests += testsPassedPercentage
+
     try {
-      console.log(eval(`${editor.getText("content")} ${teste} `))
+      eval(tests)
     } catch (error) {
       console.log(error)
     }
@@ -90,13 +112,14 @@ const CodeEditor = (props) => {
           onClick={checkQuestion}
           href="#Verificado"> Verificar Resposta
         </Button>
+
       </div>
 
       <div id="output"
         className='bg-[#1F2937] border border-gray-700 lg:h-[280px] h-[200px] p-6'>{onConsole.map((item, indice) => (<div key={indice}>{item}</div>))}</div>
 
       <div id="Verificado">
-        {show && !error &&
+        {show &&
           <div
             className='flex flex-wrap py-2 gap-2 bg-[#1F2937] my-2 border border-gray-700'>
             {/* <div className='border border-green-600 bg-green-700 p-4 m-2 '></div>
@@ -104,14 +127,14 @@ const CodeEditor = (props) => {
             <div className='border border-green-600  bg-green-700 p-4 m-2'></div>
             <div className='border border-green-600 bg-green-700 p-4 m-2 '></div>
             <div className='border border-red-600 bg-red-700 p-4 m-2'></div> */}
-            <div className='p-2 text-green-600'>Questão Respondida com Sucesso</div>
+            <div className='p-2 text-green-600'>{show}</div>
           </div>
         }
-        {!show && error &&
+        {error &&
           <div
-          className='flex flex-wrap py-2 gap-2 bg-[#1F2937] my-2 border border-gray-700'>
-          <div className='p-2 text-red-600'>Questão Respondida Incorretamente</div>
-        </div>
+            className='flex flex-wrap py-2 gap-2 bg-[#1F2937] my-2 border border-gray-700'>
+            <div className='p-2 text-red-600'>{error}</div>
+          </div>
         }
       </div>
     </>

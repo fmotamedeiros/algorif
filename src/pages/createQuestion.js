@@ -112,11 +112,7 @@ const CreateQuestion = (props) => {
 
             })
             instance.setValue(
-                `function /* nome da função */ (/* variáveis de entradas */) {
-    return
-}
-
-console.log()`)
+                `function /*nomeDaFunção*/ (/*variáveisDeEntradas*/) {\n    return\n} \n\nconsole.log()`)
 
             instance.setOption("autoCloseBrackets", true);
             instance.setOption('autoCloseTags', true)
