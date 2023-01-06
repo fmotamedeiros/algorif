@@ -72,9 +72,13 @@ const CodeEditor = (props) => {
 
     tests = tests + testsPassed
 
-    for (var test of testArray) {
+    testArray.forEach(test => {
       tests = tests + test
-    }
+    });
+
+    // for (var test of testArray) {
+    //   tests = tests + test
+    // }
 
     var testsPassedPercentage = ` 
 
