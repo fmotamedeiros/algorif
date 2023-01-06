@@ -204,7 +204,7 @@ export const theme = createTheme({
     text: {
       primary: '#cccfd9',
       secondary: '#9b9ea3',
-      disabled: '#9b9ea3'
+      disabled: '#cccfd9'
     }
   },
   shape: {

@@ -143,6 +143,8 @@ console.log()`)
             descricaoDetalhada: '',
             dificuldade: '',
             nameFunction: '',
+            inputTest: '',
+            outputTest: ''
         },
         validationSchema: Yup.object({
             topico: Yup
@@ -169,6 +171,13 @@ console.log()`)
                 .string()
                 .max(255)
                 .required('Nome da função is required'),
+            inputTest: Yup
+                .string()
+                .max(255)
+                .required('Teste de entrada is required'),
+            outputTest: Yup
+                .number()
+                .required('Teste de saída is required'),
         }),
         onSubmit: async () => {
             await setContext.setCreateQuestion(formik.values, codigo)
@@ -296,6 +305,7 @@ console.log()`)
                                 helperText={formik.touched.nameFunction && formik.errors.nameFunction}
                                 fullWidth
                                 label="Nome da função usada no código"
+                                placeholder='Ex: multiply'
                                 name="nameFunction"
                                 onChange={formik.handleChange}
                                 required
@@ -306,6 +316,32 @@ console.log()`)
                             <div className='my-2'>
                                 <textarea id='code'></textarea>
                             </div>
+                            <TextField
+                                error={Boolean(formik.touched.inputTest && formik.errors.inputTest)}
+                                helperText={formik.touched.inputTest && formik.errors.inputTest}
+                                fullWidth
+                                label="Dados de entrada"
+                                placeholder='Ex: 2, 4'
+                                name="inputTest"
+                                onChange={formik.handleChange}
+                                required
+                                margin="normal"
+                                value={formik.values.inputTest}
+                                variant="outlined"
+                            />
+                            <TextField
+                                error={Boolean(formik.touched.outputTest && formik.errors.outputTest)}
+                                helperText={formik.touched.outputTest && formik.errors.outputTest}
+                                fullWidth
+                                label="Saída dos dados de entrada"
+                                placeholder='Ex: 8'
+                                name="outputTest"
+                                onChange={formik.handleChange}
+                                required
+                                margin="normal"
+                                value={formik.values.outputTest}
+                                variant="outlined"
+                            />
                         </Box>
                         <Button
                             fullWidth

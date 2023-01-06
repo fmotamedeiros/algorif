@@ -46,7 +46,8 @@ export const SetProvider = (props) => {
         await setDoc(detailsQuestions, {
             descricaoDetalhada: detailsUser.descricaoDetalhada,
             codigo: code,
-            nameFunction: detailsUser.nameFunction
+            nameFunction: detailsUser.nameFunction,
+            test: {input: detailsUser.inputTest, output: detailsUser.outputTest}
         });
     }
 
