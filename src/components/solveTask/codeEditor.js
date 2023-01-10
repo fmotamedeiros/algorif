@@ -4,6 +4,7 @@ import 'codemirror/theme/dracula.css'
 import 'codemirror/addon/edit/closetag';
 import 'codemirror/addon/edit/closebrackets';
 import { Button } from '@mui/material';
+import { UpdateContext } from '../../contexts/updateFirebaseContext';
 
 const MirrorConsole = require("../../../node_modules/codemirror-console/lib/mirror-console");
 const editor = new MirrorConsole();
@@ -36,6 +37,12 @@ const CodeEditor = (props) => {
   useEffect(() => {
     init();
   }, []);
+
+  useEffect(() => {
+    if(show) {
+      updateContext.updateScore()
+    }
+  }, [show]);
 
   const outputResult = () => {
     var consoleWritten = [];
@@ -91,7 +98,6 @@ const CodeEditor = (props) => {
     if (passedPercentage === 100) {
       setShow(passedPercentage + "%" + " correto")
       setError("")
-      updateContext.updateScore()
     } else {
       setError(passedPercentage + "%" + " correto")
       setShow("")
