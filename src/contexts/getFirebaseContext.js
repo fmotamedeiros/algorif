@@ -1,6 +1,6 @@
 import { createContext } from "react";
 import { auth, db, storage } from "./auth-context";
-import { collection, doc, getDoc, getDocs, query } from "firebase/firestore";
+import { collection, doc, getDoc, getDocs, orderBy, query, where } from "firebase/firestore";
 import { ref, getDownloadURL } from "firebase/storage";
 
 export const GetContext = createContext({ undefined });
@@ -49,6 +49,18 @@ export const GetProvider = (props) => {
         return data.data();
     }
 
+    const getRanking = async (setRanking) => {
+        const rankingRef = collection(db, "coders");
+        const q = query(rankingRef, orderBy("score", "desc"), where("score", ">", 0))
+        const ranking = []
+        const querySnapshot = await getDocs(q)
+
+        querySnapshot.forEach((doc) => {
+            ranking.push(doc.data());
+            setRanking(ranking)
+        })
+    }
+
     return (
         <GetContext.Provider
             value={{
@@ -56,7 +68,8 @@ export const GetProvider = (props) => {
                 getPictureUser,
                 getTopics,
                 getQuestions,
-                getDescription
+                getDescription,
+                getRanking
 
             }}
         >

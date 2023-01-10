@@ -11,26 +11,20 @@ import {
 
 import { useContext, useState } from 'react';
 import { GetContext } from '../../contexts/getFirebaseContext';
-import { useRouter } from 'next/router';
 import { SetContext } from '../../contexts/setFirebaseContext';
 
 
 export const AccountProfile = (props) => {
-  const router = useRouter()
   const setContext = useContext(SetContext);
   const getContext = useContext(GetContext);
   const [imgURL, setImgURL] = useState("")
 
   const handleUpload = async (event) => {
-    event.preventDefault()
-
     const file = event.target[0]?.files[0]
 
     if (!file) return;
 
     await setContext.setPictureUser(file)
-    
-    router.reload()
   }
 
   getContext.getPictureUser(setImgURL, imgURL)   

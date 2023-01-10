@@ -1,6 +1,6 @@
 import { createContext } from "react";
 import { auth, db } from "./auth-context";
-import { doc, updateDoc } from "firebase/firestore";
+import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { updatePassword } from "firebase/auth";
 
 export const UpdateContext = createContext({ undefined });
@@ -26,11 +26,21 @@ export const UpdateProvider = (props) => {
         });
     }
 
+    async function updateScore() {
+        const scoreRef = doc(db, "coders", auth.currentUser.uid);
+
+        const data = await getDoc(scoreRef)
+
+        const newScore = data.data().score + 1;
+        updateDoc(scoreRef, { score: newScore });
+    }
+
     return (
         <UpdateContext.Provider
             value={{
                 updateUserDetails,
-                updatePasswordUser
+                updatePasswordUser,
+                updateScore,
             }}
         >
             {children}

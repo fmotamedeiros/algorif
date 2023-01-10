@@ -9,8 +9,6 @@
 /coverage
 
 /src/components/solveTask/checkQuestion.test.js
-/src/components/solveTask/description.js
-
 
 # production
 /build

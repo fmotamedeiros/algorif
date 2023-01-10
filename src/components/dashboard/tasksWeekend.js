@@ -26,12 +26,12 @@ export const TasksWeekend = (props) => {
       {
         backgroundColor: '#22c55e',
         barPercentage: 0.5,
-        barThickness: 7,
+        barThickness: 10,
         borderRadius: 2,
         categoryPercentage: 0.5,
         data: [18, 5, 19, 27, 29, 19, 20],
         label: 'Desafios Completados',
-        maxBarThickness: 7
+        maxBarThickness: 10
       },
     ],
     labels: ['1° Semana', '2° Semana', '3° Semana', '4° Semana', '5° Semana', '6° Semana', '7° Semana']

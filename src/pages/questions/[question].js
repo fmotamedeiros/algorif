@@ -1,4 +1,4 @@
-import { Box, TextField } from "@mui/material";
+import { Box, Button, TextField } from "@mui/material";
 import dynamic from "next/dynamic";
 import Head from "next/head";
 import { useRouter } from "next/router";
@@ -44,11 +44,22 @@ const Question = () => {
           }}
         >
           <Box className="w-full flex flex-col lg:flex-row h-full">
-            <div className="lg:w-[40%] lg:overflow-y-auto lg:h-[90vh]">
-              <TextField fullWidth multiline defaultValue={descriptionData.descricaoDetalhada} variant="outlined" disabled />
+            <div className="lg:w-[40%]">
+              <div className="lg:overflow-y-auto lg:h-[85vh]">
+                <TextField fullWidth multiline defaultValue={descriptionData.descricaoDetalhada} variant="outlined" disabled />
+              </div>
+              <div className="py-2">
+                <Button
+                  margin="normal"
+                  type='submit'
+                  color="primary"
+                  variant="outlined"
+                  onClick={() => router.back()}>Voltar
+                </Button>
+              </div>
             </div>
             <Box className="lg:w-[60%] w-full">
-              <CodeEditor descriptionData={descriptionData} />
+              <CodeEditor descriptionData={descriptionData} nameQuestion={router.query.question} />
             </Box>
           </Box>
 

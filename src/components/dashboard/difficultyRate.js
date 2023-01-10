@@ -5,10 +5,11 @@ export const DifficultyRate = (props) => {
     const dataBar = {
       datasets: [
       {
+        borderRadius: 4,
         backgroundColor: ['rgba(0, 230, 0, 1)', 'rgba(0, 200, 0, 1)', 'rgba(0, 170, 0, 1)', 'rgba(0, 140, 0, 1)','rgba(0, 110, 0, 1)'],
         borderColor: ['rgba(0, 230, 0, 0.7)', 'rgba(0, 200, 0, 0.7)', 'rgba(0, 170, 0, 0.7)', 'rgba(0, 140, 0, 0.7)','rgba(0, 110, 0, 0.7)'],
         borderWidth: 1,
-        barThickness:30,
+        barThickness:20,
         label: 'Taxa de Acerto',
         hoverBackgroundColor: ['rgba(0, 230, 0, 0.5)', 'rgba(0, 200, 0, 0.5)', 'rgba(0, 170, 0, 0.5)', 'rgba(0, 140, 0, 0.5)','rgba(0, 110, 0, 0.5)'],
         hoverBorderColor: ['rgba(0, 230, 0, 0.8)', 'rgba(0, 200, 0, 0.8)', 'rgba(0, 170, 0, 0.8)', 'rgba(0, 140, 0, 0.8)','rgba(0, 110, 0, 0.8)'],

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import 'codemirror/lib/codemirror.css'
 import 'codemirror/theme/dracula.css'
 import 'codemirror/addon/edit/closetag';
@@ -13,6 +13,8 @@ const CodeEditor = (props) => {
   const [error, setError] = useState("")
   const [onConsole, setConsole] = useState([])
 
+  const updateContext = useContext(UpdateContext);
+  
   var codeMirror = editor.editor;
 
   codeMirror.setOption("lineNumbers", true);
@@ -89,9 +91,11 @@ const CodeEditor = (props) => {
     if (passedPercentage === 100) {
       setShow(passedPercentage + "%" + " correto")
       setError("")
+      updateContext.updateScore()
     } else {
       setError(passedPercentage + "%" + " correto")
       setShow("")
+      
     }
     `
     tests += testsPassedPercentage

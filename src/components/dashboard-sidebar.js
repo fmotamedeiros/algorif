@@ -59,11 +59,11 @@ const teacher_false = [
     icon: (<Clock fontSize="small" />),
     title: 'Exercícios'
   },
-  {
-    href: '/rankingTotal',
-    icon: (<UsersIcon fontSize="small" />),
-    title: 'Ranking'
-  },
+  // {
+  //   href: '/rankingTotal',
+  //   icon: (<UsersIcon fontSize="small" />),
+  //   title: 'Ranking'
+  // },
   {
     href: '/account',
     icon: (<UserIcon fontSize="small" />),
