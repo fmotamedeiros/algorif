@@ -6,7 +6,6 @@ import MenuIcon from '@mui/icons-material/Menu';
 import { Bell as BellIcon } from '../icons/bell';
 import { UserCircle as UserCircleIcon } from '../icons/user-circle';
 import { AccountPopover } from './account-popover';
-import { Logo } from './logo';
 import NextLink from 'next/link';
 import { GetContext } from '../contexts/getFirebaseContext';
 
@@ -55,7 +54,7 @@ export const DashboardNavbar = (props) => {
               passHref
             >
               <a>
-                <Logo />
+                <img src='logo.png' width={230} />
               </a>
           </NextLink>
           <Box sx={{ flexGrow: 1 }} />

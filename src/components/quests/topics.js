@@ -57,6 +57,6 @@ export const Topics = () => {
         </CardContent>
       </Card>
       )
-    } return <>Carregando</>
+    } return <div className="flex justify-center p-4"><span className="loader"></span></div>
   
 };

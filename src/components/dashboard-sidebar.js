@@ -5,12 +5,9 @@ import PropTypes from 'prop-types';
 import { Box, Divider, Drawer, Typography } from '@mui/material';
 import { ChartBar as ChartBarIcon } from '../icons/chart-bar';
 import { Cog as CogIcon } from '../icons/cog';
-import { Lock as LockIcon } from '../icons/lock';
 import { Selector as SelectorIcon } from '../icons/selector';
 import { User as UserIcon } from '../icons/user';
 import { UserAdd as UserAddIcon } from '../icons/user-add';
-import { Users as UsersIcon } from '../icons/users';
-import { Logo } from './logo';
 import { NavItem } from './nav-item';
 import { Clock } from '../icons/clock';
 import { UserDetails } from '../contexts/userDetails';
@@ -137,7 +134,7 @@ export const DashboardSidebar = (props) => {
                   passHref
                 >
                   <a>
-                    <Logo
+                    <img src='/logo.png'
                       sx={{
                         height: 50,
                         width: 100
