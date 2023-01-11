@@ -4,29 +4,27 @@ import Router, { useRouter } from 'next/router';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { Box, Button, Container, Grid, Link, TextField, Typography } from '@mui/material';
-import { Google as GoogleIcon } from '../icons/google';
+//import { Google as GoogleIcon } from '../icons/google';
 import { getAuth, signInWithEmailAndPassword, signInWithPopup, } from "firebase/auth";
 import { auth, AuthContext } from '../contexts/auth-context';
 import { useContext } from 'react';
-import { Logo } from '../components/logo';
-
 
 const Login = () => {
   const authContext = useContext(AuthContext);
   //const provider = new GoogleAuthProvider()
   const router = useRouter()
 
-  function handleGoogleSignIn() {
+  // function handleGoogleSignIn() {
   
-    signInWithPopup(auth, provider)
-    .then((response) => {
-      authContext.signIn(response.user)
-      router.push('/')
-    })
-    .catch((error) => {
-      console.log(error)
-    })
-  }
+  //   signInWithPopup(auth, provider)
+  //   .then((response) => {
+  //     authContext.signIn(response.user)
+  //     router.push('/')
+  //   })
+  //   .catch((error) => {
+  //     console.log(error)
+  //   })
+  // }
 
   const formik = useFormik({
     initialValues: {
@@ -79,12 +77,12 @@ const Login = () => {
       >
         <Container maxWidth="sm">
           <form onSubmit={formik.handleSubmit}>
-            <Box sx={{ my: 3 }}>
+            <Box sx={{ my: 1 }}>
               <Typography
                 color="textPrimary"
                 variant="h4"
               >
-                <Logo />
+                <img src='/logo.png' className='w-full p-5'/>
               </Typography>
               <Typography
                 color="textSecondary"
@@ -94,7 +92,7 @@ const Login = () => {
                 Faça Login no Plataforma do Algorif
               </Typography>
             </Box>
-            <Grid
+            {/* <Grid
               item
               xs={12}
               md={6}
@@ -109,7 +107,7 @@ const Login = () => {
               >
                 Entre com o Google
               </Button>
-            </Grid>
+            </Grid> 
             <Box
               sx={{
                 pb: 1,
@@ -123,7 +121,7 @@ const Login = () => {
               >
                 ou entre com seu endereço de email
               </Typography>
-            </Box>
+            </Box> */}
             <TextField
               error={Boolean(formik.touched.email && formik.errors.email)}
               fullWidth
