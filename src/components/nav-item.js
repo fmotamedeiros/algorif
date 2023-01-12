@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { Box, Button, ListItem } from '@mui/material';
 
 export const NavItem = (props) => {
-  const { href, icon, title, ...others } = props;
+  const { href, icon, title, titleLabel,...others } = props;
   const router = useRouter();
   const active = href ? (router.pathname === href) : false;
 
@@ -15,7 +15,7 @@ export const NavItem = (props) => {
         display: 'flex',
         mb: 0.5,
         py: 0,
-        px: 2
+        px: 0.5
       }}
       {...others}
     >
@@ -27,13 +27,14 @@ export const NavItem = (props) => {
           component="a"
           startIcon={icon}
           disableRipple
+          title={titleLabel}
           sx={{
             backgroundColor: active && 'rgba(255,255,255, 0.08)',
             borderRadius: 1,
             color: active ? 'primary.main' : 'neutral.300',
             fontWeight: active && 'fontWeightBold',
             justifyContent: 'flex-start',
-            px: 3,
+            px: 3.5,
             textAlign: 'left',
             textTransform: 'none',
             width: '100%',

@@ -54,7 +54,7 @@ export const DashboardNavbar = (props) => {
               passHref
             >
               <a>
-                <img src='logo.png' width={230} />
+                <img src='logo.png' width={170} />
               </a>
           </NextLink>
           <Box sx={{ flexGrow: 1 }} />

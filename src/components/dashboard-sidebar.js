@@ -5,12 +5,11 @@ import PropTypes from 'prop-types';
 import { Box, Divider, Drawer, Typography } from '@mui/material';
 import { ChartBar as ChartBarIcon } from '../icons/chart-bar';
 import { Cog as CogIcon } from '../icons/cog';
-import { Selector as SelectorIcon } from '../icons/selector';
 import { User as UserIcon } from '../icons/user';
-import { UserAdd as UserAddIcon } from '../icons/user-add';
 import { NavItem } from './nav-item';
-import { Clock } from '../icons/clock';
+import AddTaskIcon from '@mui/icons-material/AddTask';
 import { UserDetails } from '../contexts/userDetails';
+import TaskIcon from '@mui/icons-material/Task';
 
 const teacher_true = [
   {
@@ -20,14 +19,9 @@ const teacher_true = [
   },
   {
     href: '/topics',
-    icon: (<Clock fontSize="small" />),
+    icon: (<TaskIcon fontSize="small" />),
     title: 'Exercícios'
   },
-  // {
-  //   href: '/rankingTotal',
-  //   icon: (<UsersIcon fontSize="small" />),
-  //   title: 'Ranking'
-  // },
   {
     href: '/account',
     icon: (<UserIcon fontSize="small" />),
@@ -40,7 +34,7 @@ const teacher_true = [
   },
   {
     href: '/createQuestion',
-    icon: (<UserAddIcon fontSize="small" />),
+    icon: (<AddTaskIcon fontSize="small" />),
     title: 'Create Question'
   },
 ];
@@ -53,14 +47,9 @@ const teacher_false = [
   },
   {
     href: '/topics',
-    icon: (<Clock fontSize="small" />),
+    icon: (<TaskIcon fontSize="small" />),
     title: 'Exercícios'
   },
-  // {
-  //   href: '/rankingTotal',
-  //   icon: (<UsersIcon fontSize="small" />),
-  //   title: 'Ranking'
-  // },
   {
     href: '/account',
     icon: (<UserIcon fontSize="small" />),
@@ -156,24 +145,17 @@ export const DashboardSidebar = (props) => {
                       color="inherit"
                       variant="subtitle1"
                     >
-                      Acme Inc
+                      {coders.userName}
                     </Typography>
                     <Typography
                       color="neutral.400"
                       variant="body2"
                     >
-                      Your tier
+                      Conquistou
                       {' '}
-                      : Premium
+                      : {coders.score} Pontos
                     </Typography>
                   </div>
-                  <SelectorIcon
-                    sx={{
-                      color: 'neutral.500',
-                      width: 14,
-                      height: 14
-                    }}
-                  />
                 </Box>
               </Box>
             </div>
