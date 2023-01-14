@@ -2,33 +2,19 @@ import { Box, Popover } from "@mui/material";
 import Head from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useContext, useEffect, useState } from "react";
+import { useState } from "react";
 import { DashboardLayout } from "../../components/dashboard-layout";
 import { Topics } from "../../components/quests/topics"
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import Filter from "../../components/quests/filter";
-import { GetContext } from "../../contexts/getFirebaseContext";
+import { Loader } from "../../requestsFirebase/loader";
+import { GetQuestions } from "../../requestsFirebase/allGetRequests";
 
 const Tasks = () => {
   const router = useRouter()
-  const loaded = false
   const [questions, setQuestions] = useState(null)
 
-  const getContext = useContext(GetContext);
-
-  function allQuestions() {
-    getContext.getQuestions(router.query.name).then((value) =>
-      setQuestions(value)
-    ).catch(console.error)
-  }
-
-  useEffect(() => {
-    if (loaded) {
-      return
-    }
-    allQuestions();
-    loaded = true
-  }, [router.query.name]);
+  GetQuestions(router.query.name, setQuestions)
 
   const [isTopicsOpen, setTopicsOpen] = useState(null)
   const [isFilterOpen, setFilterOpen] = useState(null)
@@ -174,7 +160,7 @@ const Tasks = () => {
         </Box>
       </>
     )
-  } return <div className="flex justify-center p-4"><span className="loader"></span></div>
+  } return <Loader />
 }
 
 Tasks.getLayout = (page) => (

@@ -33,7 +33,7 @@ export const DashboardLayout = (props) => {
         </Box>
       </DashboardLayoutRoot>
       <DashboardNavbar onSidebarOpen={() => setSidebarOpen(true)} />
-      <div className='hidden mdMui:block'>
+      <div className='hidden lg:block'>
       <DashboardMinimalSideBar onSidebarOpen={() => setSidebarOpen(true)} /> 
       </div>
       <DashboardSidebar

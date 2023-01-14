@@ -4,13 +4,14 @@ import { AccountProfile } from '../components/account/account-profile';
 import { AccountProfileDetails } from '../components/account/account-profile-details';
 import { DashboardLayout } from '../components/dashboard-layout';
 import { useState } from 'react';
-import { UserDetails } from '../contexts/userDetails';
+import { UserDetails } from '../requestsFirebase/allGetRequests';
+import { Loader } from '../requestsFirebase/loader';
 
 const Account = () => {
   const [coders, setCoders] = useState(null)
 
   UserDetails(setCoders)
-  
+
   if (coders) {
     return(
     <>
@@ -57,7 +58,7 @@ const Account = () => {
         </Container>
       </Box>
     </>
-  )} return <div className="flex justify-center p-4"><span className="loader"></span></div>
+  )} return <Loader />
 }
 Account.getLayout = (page) => (
   <DashboardLayout>

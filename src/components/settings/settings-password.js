@@ -1,6 +1,6 @@
 import { useContext, useState } from 'react';
 import { Box, Button, Card, CardContent, CardHeader, Divider, TextField } from '@mui/material';
-import { UpdateContext } from '../../contexts/updateFirebaseContext';
+import { UpdateContext } from '../../contexts/updateFirebase';
 
 export const SettingsPassword = (props) => {
   const updateContext = useContext(UpdateContext);

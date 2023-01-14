@@ -16,7 +16,7 @@ import {
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
-import { SetContext } from '../contexts/setFirebaseContext';
+import { SetContext } from '../contexts/setFirebase';
 import { useContext, useRef } from 'react';
 
 import emailjs from '@emailjs/browser';
@@ -68,7 +68,6 @@ const Register = () => {
         )
     }),
     onSubmit: () => {
-
       const auth = getAuth();
       createUserWithEmailAndPassword(auth, formik.values.email, formik.values.password)
         .then(async () => {

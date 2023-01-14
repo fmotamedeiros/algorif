@@ -12,8 +12,8 @@ import {
 } from '@mui/material';
 
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
-import { useContext, useEffect, useState } from 'react';
-import { GetContext } from '../../contexts/getFirebaseContext';
+import { useState } from 'react';
+import { AllRanking } from '../../requestsFirebase/allGetRequests';
 
 export const Ranking = (props) => {
 
@@ -21,15 +21,7 @@ export const Ranking = (props) => {
 
   const [ranking, setRanking] = useState([])
 
-  const getContext = useContext(GetContext);
-
-  const allRanking = () => {
-    getContext.getRanking(setRanking)
-  }
-
-  useEffect(() => {
-    allRanking();
-  }, []);
+  AllRanking(setRanking)
 
   const [anchorEl, setAnchorEl] = useState(null);
 

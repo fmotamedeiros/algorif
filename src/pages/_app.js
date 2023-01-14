@@ -10,10 +10,10 @@ import { createEmotionCache } from '../utils/create-emotion-cache';
 import { registerChartJs } from '../utils/register-chart-js';
 import { theme } from '../theme';
 import '../theme/globals.css'
-import { GetProvider } from '../contexts/getFirebaseContext';
-import { SetProvider } from '../contexts/setFirebaseContext';
-import { UpdateProvider } from '../contexts/updateFirebaseContext';
-import { DeleteProvider } from '../contexts/deleteFirebaseContext';
+import { GetProvider } from '../contexts/getFirebase';
+import { SetProvider } from '../contexts/setFirebase';
+import { UpdateProvider } from '../contexts/updateFirebase';
+import { DeleteProvider } from '../contexts/deleteFirebase';
 
 registerChartJs();
 

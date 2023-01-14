@@ -10,13 +10,13 @@ import {
 } from '@mui/material';
 
 import { useContext, useState } from 'react';
-import { GetContext } from '../../contexts/getFirebaseContext';
-import { SetContext } from '../../contexts/setFirebaseContext';
+import { SetContext } from '../../contexts/setFirebase';
+import { Loader } from '../../requestsFirebase/loader';
+import { PictureUser } from '../../requestsFirebase/allGetRequests';
 
 
 export const AccountProfile = (props) => {
   const setContext = useContext(SetContext);
-  const getContext = useContext(GetContext);
   const [imgURL, setImgURL] = useState("")
 
   const handleUpload = async (event) => {
@@ -27,7 +27,7 @@ export const AccountProfile = (props) => {
     await setContext.setPictureUser(file)
   }
 
-  getContext.getPictureUser(setImgURL, imgURL)   
+  PictureUser(setImgURL)
 
   return (
     //<form onSubmit={formik.handleSubmit}>
@@ -41,7 +41,8 @@ export const AccountProfile = (props) => {
             flexDirection: 'column',
           }}
         >
-          <Avatar
+          {imgURL ?
+            <Avatar
             src={imgURL}
             sx={{
               height: 64,
@@ -49,6 +50,7 @@ export const AccountProfile = (props) => {
               width: 64
             }}
           />
+          : <Loader /> }
           <Typography
             gutterBottom
             variant="h5"

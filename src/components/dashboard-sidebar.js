@@ -3,66 +3,10 @@ import NextLink from 'next/link';
 import { useRouter } from 'next/router';
 import PropTypes from 'prop-types';
 import { Box, Divider, Drawer, Typography } from '@mui/material';
-import { ChartBar as ChartBarIcon } from '../icons/chart-bar';
-import { Cog as CogIcon } from '../icons/cog';
-import { User as UserIcon } from '../icons/user';
 import { NavItem } from './nav-item';
-import AddTaskIcon from '@mui/icons-material/AddTask';
-import { UserDetails } from '../contexts/userDetails';
-import TaskIcon from '@mui/icons-material/Task';
-
-const teacher_true = [
-  {
-    href: '/',
-    icon: (<ChartBarIcon fontSize="small" />),
-    title: 'Dashboard'
-  },
-  {
-    href: '/topics',
-    icon: (<TaskIcon fontSize="small" />),
-    title: 'Exercícios'
-  },
-  {
-    href: '/account',
-    icon: (<UserIcon fontSize="small" />),
-    title: 'Account'
-  },
-  {
-    href: '/settings',
-    icon: (<CogIcon fontSize="small" />),
-    title: 'Settings'
-  },
-  {
-    href: '/createQuestion',
-    icon: (<AddTaskIcon fontSize="small" />),
-    title: 'Create Question'
-  },
-];
-
-const teacher_false = [
-  {
-    href: '/',
-    icon: (<ChartBarIcon fontSize="small" />),
-    title: 'Dashboard'
-  },
-  {
-    href: '/topics',
-    icon: (<TaskIcon fontSize="small" />),
-    title: 'Exercícios'
-  },
-  {
-    href: '/account',
-    icon: (<UserIcon fontSize="small" />),
-    title: 'Account'
-  },
-  {
-    href: '/settings',
-    icon: (<CogIcon fontSize="small" />),
-    title: 'Settings'
-  },
-
-];
-
+import { UserDetails } from '../requestsFirebase/allGetRequests';
+import { Logo } from './logo';
+import { getNavLinks } from './datas/navLinks';
 
 export const DashboardSidebar = (props) => {
   const { open, onClose } = props;
@@ -87,13 +31,7 @@ export const DashboardSidebar = (props) => {
   );
 
   if (coders) {
-    const items = []
-    if (coders.teacher == true) {
-      items = teacher_true
-    } else {
-      items = teacher_false
-    }
-
+    const navLinks = getNavLinks(coders.teacher)
     return (
       <>
         <Drawer
@@ -123,7 +61,7 @@ export const DashboardSidebar = (props) => {
                   passHref
                 >
                   <a>
-                    <img src='/logo.png' />
+                    <Logo viewWidth={500} width={210} height={120} imageWidth={550} />
                   </a>
                 </NextLink>
               </Box>
@@ -166,7 +104,7 @@ export const DashboardSidebar = (props) => {
               }}
             />
             <Box sx={{ flexGrow: 1 }}>
-              {items.map((item) => (
+              {navLinks.map((item) => (
                 <NavItem
                   key={item.title}
                   icon={item.icon}

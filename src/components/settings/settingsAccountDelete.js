@@ -6,7 +6,7 @@ import {
   Divider,
 } from '@mui/material';
 import { useContext } from 'react';
-import { DeleteContext } from '../../contexts/deleteFirebaseContext';
+import { DeleteContext } from '../../contexts/deleteFirebase';
 
 export const SettingsAccountDelete = (props) => {
   

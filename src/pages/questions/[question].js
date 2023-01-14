@@ -2,32 +2,18 @@ import { Box, Button, TextField } from "@mui/material";
 import dynamic from "next/dynamic";
 import Head from "next/head";
 import { useRouter } from "next/router";
-import { useContext, useEffect, useState } from "react";
+import { useState } from "react";
 import { DashboardLayout } from "../../components/dashboard-layout";
-import { GetContext } from "../../contexts/getFirebaseContext";
+import { DescriptionTask } from "../../requestsFirebase/allRequests";
+import { Loader } from "../../requestsFirebase/loader";
 
 const CodeEditor = dynamic(import('../../components/solveTask/codeEditor'), { ssr: false })
 
 const Question = () => {
   const router = useRouter()
-  const loaded = false
   const [descriptionData, setDescriptionData] = useState(null)
 
-  const getContext = useContext(GetContext);
-
-  function descriptionQuestion() {
-    getContext.getDescription(router.query.question).then((value) =>
-      setDescriptionData(value)
-    ).catch(console.error)
-  }
-
-  useEffect(() => {
-    if (loaded) {
-      return
-    }
-    descriptionQuestion();
-    loaded = true
-  }, []);
+  DescriptionTask(router.query.question, setDescriptionData)
 
   if (descriptionData) {
     return (
@@ -66,7 +52,7 @@ const Question = () => {
         </Box>
       </>
     )
-  } return <div className="flex justify-center p-4"><span className="loader"></span></div>
+  } return <Loader />
 }
 
 

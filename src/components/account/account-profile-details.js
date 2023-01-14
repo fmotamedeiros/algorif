@@ -11,7 +11,7 @@ import {
 } from '@mui/material';
 import * as Yup from 'yup';
 import { useFormik } from 'formik';
-import { UpdateContext } from '../../contexts/updateFirebaseContext';
+import { UpdateContext } from '../../contexts/updateFirebase';
 import { useRouter } from 'next/router';
 
 export const AccountProfileDetails = (props) => {

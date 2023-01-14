@@ -8,6 +8,7 @@ import { Box, Button, Container, Grid, Link, TextField, Typography } from '@mui/
 import { getAuth, signInWithEmailAndPassword, signInWithPopup, } from "firebase/auth";
 import { auth, AuthContext } from '../contexts/auth-context';
 import { useContext } from 'react';
+import { Logo } from '../components/logo';
 
 const Login = () => {
   const authContext = useContext(AuthContext);
@@ -15,7 +16,7 @@ const Login = () => {
   const router = useRouter()
 
   // function handleGoogleSignIn() {
-  
+
   //   signInWithPopup(auth, provider)
   //   .then((response) => {
   //     authContext.signIn(response.user)
@@ -82,7 +83,9 @@ const Login = () => {
                 color="textPrimary"
                 variant="h4"
               >
-                <img src='/logo.png' className='w-full p-5'/>
+                <div className='flex'>
+                  <Logo viewWidth={1660} width={552} height={150} imageWidth={800} />
+                </div>
               </Typography>
               <Typography
                 color="textSecondary"

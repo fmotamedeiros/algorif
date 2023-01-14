@@ -4,7 +4,7 @@ import 'codemirror/theme/dracula.css'
 import 'codemirror/addon/edit/closetag';
 import 'codemirror/addon/edit/closebrackets';
 import { Button } from '@mui/material';
-import { UpdateContext } from '../../contexts/updateFirebaseContext';
+import { UpdateContext } from '../../contexts/updateFirebase';
 
 const MirrorConsole = require("../../../node_modules/codemirror-console/lib/mirror-console");
 const editor = new MirrorConsole();

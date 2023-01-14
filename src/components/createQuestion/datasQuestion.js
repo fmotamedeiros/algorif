@@ -4,7 +4,7 @@ import {
     TextField,
     Typography
 } from '@mui/material';
-import { SetContext } from '../../contexts/setFirebaseContext';
+import { SetContext } from '../../contexts/setFirebase';
 import { useContext, useEffect, useState } from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
@@ -221,7 +221,7 @@ const DatasQuestion = () => {
                             >
                                 Criar uma nova questão
                             </Typography>
-                            <Box className='flex gap-4'>
+                            <Box className='grid grid-cols-2 gap-x-4'>
                                 <TextField
                                     error={Boolean(formik.touched.topico && formik.errors.topico)}
                                     helperText={formik.touched.topico && formik.errors.topico}
@@ -257,8 +257,6 @@ const DatasQuestion = () => {
                                     value={formik.values.titulo}
                                     variant="outlined"
                                 />
-                            </Box>
-                            <Box className='flex gap-4'>
                                 <TextField
                                     error={Boolean(formik.touched.dificuldade && formik.errors.dificuldade)}
                                     helperText={formik.touched.dificuldade && formik.errors.dificuldade}
@@ -295,8 +293,6 @@ const DatasQuestion = () => {
                                     value={formik.values.descricao}
                                     variant="outlined"
                                 />
-                            </Box>
-                            <Box className='flex gap-4'>
                                 <TextField
                                     error={Boolean(formik.touched.nameFunction && formik.errors.nameFunction)}
                                     helperText={formik.touched.nameFunction && formik.errors.nameFunction}
@@ -340,32 +336,34 @@ const DatasQuestion = () => {
                                     </div>
                                 </div>
                             </div>
-                            <TextField
-                                error={Boolean(formik.touched.inputTest && formik.errors.inputTest)}
-                                helperText={formik.touched.inputTest && formik.errors.inputTest}
-                                fullWidth
-                                label="Dados de entrada"
-                                placeholder='Ex: 2, 4'
-                                name="inputTest"
-                                onChange={formik.handleChange}
-                                required
-                                margin="normal"
-                                value={formik.values.inputTest}
-                                variant="outlined"
-                            />
-                            <TextField
-                                error={Boolean(formik.touched.outputTest && formik.errors.outputTest)}
-                                helperText={formik.touched.outputTest && formik.errors.outputTest}
-                                fullWidth
-                                label="Saída dos dados de entrada"
-                                placeholder='Ex: 8'
-                                name="outputTest"
-                                onChange={formik.handleChange}
-                                required
-                                margin="normal"
-                                value={formik.values.outputTest}
-                                variant="outlined"
-                            />
+                            <Box className='grid grid-cols-2 gap-x-4'>
+                                <TextField
+                                    error={Boolean(formik.touched.inputTest && formik.errors.inputTest)}
+                                    helperText={formik.touched.inputTest && formik.errors.inputTest}
+                                    fullWidth
+                                    label="Dados de entrada"
+                                    placeholder='Ex: 2, 4'
+                                    name="inputTest"
+                                    onChange={formik.handleChange}
+                                    required
+                                    margin="normal"
+                                    value={formik.values.inputTest}
+                                    variant="outlined"
+                                />
+                                <TextField
+                                    error={Boolean(formik.touched.outputTest && formik.errors.outputTest)}
+                                    helperText={formik.touched.outputTest && formik.errors.outputTest}
+                                    fullWidth
+                                    label="Saída dos dados de entrada"
+                                    placeholder='Ex: 8'
+                                    name="outputTest"
+                                    onChange={formik.handleChange}
+                                    required
+                                    margin="normal"
+                                    value={formik.values.outputTest}
+                                    variant="outlined"
+                                />
+                            </Box>
                             {/* <Button variant='outlined' type='button' onClick={addVariables}>Adicionar</Button> */}
                         </Box>
                         <Button

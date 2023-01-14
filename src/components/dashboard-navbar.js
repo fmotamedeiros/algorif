@@ -1,4 +1,4 @@
-import { useContext, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import styled from '@emotion/styled';
 import { AppBar, Avatar, Badge, Box, IconButton, Toolbar, Tooltip } from '@mui/material';
@@ -7,7 +7,8 @@ import { Bell as BellIcon } from '../icons/bell';
 import { UserCircle as UserCircleIcon } from '../icons/user-circle';
 import { AccountPopover } from './account-popover';
 import NextLink from 'next/link';
-import { GetContext } from '../contexts/getFirebaseContext';
+import { PictureUser } from '../requestsFirebase/allGetRequests';
+import { Logo } from './logo';
 
 const DashboardNavbarRoot = styled(AppBar)(({ theme }) => ({
   backgroundColor: theme.palette.background.paper,
@@ -15,17 +16,16 @@ const DashboardNavbarRoot = styled(AppBar)(({ theme }) => ({
 }));
 
 export const DashboardNavbar = (props) => {
-  const getContext = useContext(GetContext);
   const [imgURL, setImgURL] = useState("")
   const { onSidebarOpen, ...other } = props;
   const settingsRef = useRef(null);
   const [openAccountPopover, setOpenAccountPopover] = useState(false);
 
-  getContext.getPictureUser(setImgURL)  
+  PictureUser(setImgURL)
 
   return (
     <>
-    <DashboardNavbarRoot
+      <DashboardNavbarRoot
         {...other}>
         <Toolbar
           disableGutters
@@ -38,31 +38,32 @@ export const DashboardNavbar = (props) => {
           <IconButton
             onClick={onSidebarOpen}
             sx={{
-              color:"neutral.200",
+              color: "neutral.200",
               display: {
                 xs: 'inline-flex',
-                
+
               }
             }}
           >
             <MenuIcon fontSize="medium" />
           </IconButton>
-  
-          <Box sx={{ px:1 }} />
+
+          <Box sx={{ px: 1 }} />
           <NextLink
-              href="/"
-              passHref
-            >
-              <a>
-                <img src='logo.png' width={170} />
-              </a>
+            href="/"
+            passHref
+          >
+            <a className='hidden xs:block'>
+              <Logo viewWidth={490} width={190} height={135} imageWidth={453} />
+            </a>
           </NextLink>
           <Box sx={{ flexGrow: 1 }} />
-          
+
           <Tooltip title="Notifications">
-            <IconButton sx={{ 
-              color:"neutral.200",
-              ml: 1 }}>
+            <IconButton sx={{
+              color: "neutral.200",
+              ml: 1
+            }}>
               <Badge
                 badgeContent={4}
                 color="primary"
@@ -87,7 +88,7 @@ export const DashboardNavbar = (props) => {
           </Avatar>
         </Toolbar>
       </DashboardNavbarRoot>
-      
+
       <AccountPopover
         anchorEl={settingsRef.current}
         open={openAccountPopover}

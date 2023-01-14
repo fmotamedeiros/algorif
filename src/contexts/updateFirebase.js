@@ -1,6 +1,6 @@
 import { createContext } from "react";
 import { auth, db } from "./auth-context";
-import { arrayUnion, doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
+import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { updatePassword } from "firebase/auth";
 
 export const UpdateContext = createContext({ undefined });

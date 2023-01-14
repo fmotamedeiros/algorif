@@ -1,65 +1,9 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Box, Drawer } from '@mui/material';
-import { ChartBar as ChartBarIcon } from '../icons/chart-bar';
-import { Cog as CogIcon } from '../icons/cog';
-import { User as UserIcon } from '../icons/user';
 import { NavItem } from './nav-item';
-import TaskIcon from '@mui/icons-material/Task';
-import AddTaskIcon from '@mui/icons-material/AddTask';
-import { UserDetails } from '../contexts/userDetails';
-
-const teacher_true = [
-  {
-    href: '/',
-    icon: (<ChartBarIcon fontSize="small" />),
-    title: 'Dashboard'
-  },
-  {
-    href: '/topics',
-    icon: (<TaskIcon fontSize="small" />),
-    title: 'Exercícios'
-  },
-  {
-    href: '/account',
-    icon: (<UserIcon fontSize="small" />),
-    title: 'Account'
-  },
-  {
-    href: '/settings',
-    icon: (<CogIcon fontSize="small" />),
-    title: 'Settings'
-  },
-  {
-    href: '/createQuestion',
-    icon: (<AddTaskIcon fontSize="small" />),
-    title: 'Create Question'
-  },
-];
-
-const teacher_false = [
-  {
-    href: '/',
-    icon: (<ChartBarIcon fontSize="small" />),
-    title: 'Dashboard'
-  },
-  {
-    href: '/topics',
-    icon: (<TaskIcon fontSize="small" />),
-    title: 'Exercícios'
-  },
-  {
-    href: '/account',
-    icon: (<UserIcon fontSize="small" />),
-    title: 'Account'
-  },
-  {
-    href: '/settings',
-    icon: (<CogIcon fontSize="small" />),
-    title: 'Settings'
-  },
-
-];
+import { UserDetails } from '../requestsFirebase/allGetRequests';
+import { getNavLinks } from './datas/navLinks';
 
 export const DashboardMinimalSideBar = () => {
 
@@ -68,12 +12,7 @@ export const DashboardMinimalSideBar = () => {
     UserDetails(setCoders)
   
     if (coders) {
-      const items = []
-      if (coders.teacher == true) {
-        items = teacher_true
-      } else {
-        items = teacher_false
-      }
+      const navLinks = getNavLinks(coders.teacher)
   
       return (
         <div className='fixed'>
@@ -97,7 +36,7 @@ export const DashboardMinimalSideBar = () => {
               <div className='my-[64px]'
               />
               <Box sx={{ flexGrow: 1 }}>
-                {items.map((item) => (
+                {navLinks.map((item) => (
                   <NavItem
                     key={item.title}
                     icon={item.icon}

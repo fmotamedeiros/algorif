@@ -4,13 +4,15 @@ module.exports = {
   theme: {
     extend: {},
     screens: {
+      'xs': '400px',
+      
       'smMui': '600px',
 
       'sm': '640px',
 
       'md': '768px',
 
-      'mdMui': '1000px',
+      'mdMui': '1024px',
 
       'lg': '1024px',
 
