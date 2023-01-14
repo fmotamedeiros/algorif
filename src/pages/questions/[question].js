@@ -4,7 +4,7 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { DashboardLayout } from "../../components/dashboard-layout";
-import { DescriptionTask } from "../../requestsFirebase/allRequests";
+import { DescriptionTask } from "../../requestsFirebase/allGetRequests";
 import { Loader } from "../../requestsFirebase/loader";
 
 const CodeEditor = dynamic(import('../../components/solveTask/codeEditor'), { ssr: false })
