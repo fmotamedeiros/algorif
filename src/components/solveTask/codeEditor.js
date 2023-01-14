@@ -119,7 +119,7 @@ const CodeEditor = (props) => {
         {props.descriptionData.codigo}
       </div>
       <div className='px-4 py-2 flex gap-4 justify-end'>
-        <Button variant='outlined'
+        <Button variant='outlined' href="#output"
           onClick={outputResult}>Executar</Button>
 
         <Button variant='outlined'
