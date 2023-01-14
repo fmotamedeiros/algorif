@@ -31,10 +31,7 @@ const Question = () => {
         >
           <Box className="w-full flex flex-col lg:flex-row h-full">
             <div className="lg:w-[40%]">
-              <div className="lg:overflow-y-auto lg:h-[85vh]">
-                <TextField fullWidth multiline defaultValue={descriptionData.descricaoDetalhada} variant="outlined" disabled />
-              </div>
-              <div className="py-2">
+              <div className="p-2">
                 <Button
                   margin="normal"
                   type='submit'
@@ -42,6 +39,9 @@ const Question = () => {
                   variant="outlined"
                   onClick={() => router.back()}>Voltar
                 </Button>
+              </div>
+              <div className="lg:overflow-y-auto lg:h-[85vh]">
+                <TextField fullWidth multiline defaultValue={descriptionData.descricaoDetalhada} variant="outlined" disabled />
               </div>
             </div>
             <Box className="lg:w-[60%] w-full">

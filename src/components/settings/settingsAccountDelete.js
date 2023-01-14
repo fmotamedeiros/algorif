@@ -5,21 +5,22 @@ import {
   CardHeader,
   Divider,
 } from '@mui/material';
+import { useRouter } from 'next/router';
 import { useContext } from 'react';
 import { DeleteContext } from '../../contexts/deleteFirebase';
 
 export const SettingsAccountDelete = (props) => {
-  
+  const router = useRouter()
   const deleteContext = useContext(DeleteContext);
 
-  const handleSubmit = () =>{
+  const handleSubmit = async () =>{
     const confirmBox = window.confirm(
       "Você realmente quer excluir sua conta?"
     )
     if (confirmBox === true) {
-      deleteContext.deleteDataUser()
+      await deleteContext.deleteDataUser()
     }
-    
+    router.reload()
   }
 
   return(
