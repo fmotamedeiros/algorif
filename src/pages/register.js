@@ -17,13 +17,15 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import { SetContext } from '../contexts/setFirebase';
-import { useContext, useRef } from 'react';
+import { useContext, useRef, useState } from 'react';
 
 import emailjs from '@emailjs/browser';
 
 const Register = () => {
   const form = useRef();
   const setContext = useContext(SetContext);
+
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const formik = useFormik({
     initialValues: {
@@ -89,7 +91,13 @@ const Register = () => {
         .catch((error) => {
           const errorCode = error.code;
           const errorMessage = error.message;
-          // ..
+          if (errorCode == 'auth/email-already-in-use') {
+            document.querySelector("#error-message").innerHTML = "Email já está em uso";
+          } if (errorCode == 'auth/invalid-email'){
+            document.querySelector("#error-message").innerHTML = "Email inválido";
+          } if (errorCode == 'auth/weak-password'){
+            document.querySelector("#error-message").innerHTML = "Senha muito fraca";
+          }
         });
     }
   });
@@ -122,7 +130,7 @@ const Register = () => {
               Dashboard
             </Button>
           </NextLink>
-          <form onSubmit={formik.handleSubmit} ref={form}>
+          <form ref={form}>
             <Box sx={{ my: 3 }}>
               <Typography
                 color="textPrimary"
@@ -202,6 +210,7 @@ const Register = () => {
                 variant="outlined"
               />
             </div>
+            <div id="error-message" className='text-red-500 p-1'></div>
             <Box
               sx={{
                 alignItems: 'center',
@@ -265,11 +274,18 @@ const Register = () => {
             <Box sx={{ py: 2 }}>
               <Button
                 color="primary"
-                disabled={formik.isSubmitting}
+                disabled={isSubmitting}
                 fullWidth
                 size="large"
                 type="submit"
                 variant="contained"
+                onClick={() => {
+                  formik.handleSubmit();
+                  setIsSubmitting(true);
+                  setTimeout(() => {
+                      setIsSubmitting(false);
+                  }, 3000);
+                }}
               >
                 Sign Up Now
               </Button>

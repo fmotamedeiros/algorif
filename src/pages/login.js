@@ -1,19 +1,19 @@
 import Head from 'next/head';
 import NextLink from 'next/link';
-import Router, { useRouter } from 'next/router';
+import Router from 'next/router';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { Box, Button, Container, Grid, Link, TextField, Typography } from '@mui/material';
 //import { Google as GoogleIcon } from '../icons/google';
 import { getAuth, signInWithEmailAndPassword, signInWithPopup, } from "firebase/auth";
 import { auth, AuthContext } from '../contexts/auth-context';
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { Logo } from '../components/logo';
 
 const Login = () => {
   const authContext = useContext(AuthContext);
   //const provider = new GoogleAuthProvider()
-  const router = useRouter()
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   // function handleGoogleSignIn() {
 
@@ -56,8 +56,7 @@ const Login = () => {
         })
         .catch((error) => {
           console.log(error);
-          router.reload()
-          alert('Email e/ou Senha Incorretos')
+          document.querySelector("#error-message").innerHTML = "Email e/ou Senha Incorretos";
         });
     }
   });
@@ -77,7 +76,7 @@ const Login = () => {
         }}
       >
         <Container maxWidth="sm">
-          <form onSubmit={formik.handleSubmit}>
+          <form>
             <Box sx={{ my: 1 }}>
               <Typography
                 color="textPrimary"
@@ -151,14 +150,22 @@ const Login = () => {
               value={formik.values.password}
               variant="outlined"
             />
+            <div id="error-message" className='text-red-500 p-1'></div>
             <Box sx={{ py: 2 }}>
               <Button
                 color="primary"
-                disabled={formik.isSubmitting}
+                disabled={isSubmitting}
                 fullWidth
                 size="large"
                 type="submit"
                 variant="contained"
+                onClick={() => {
+                  formik.handleSubmit();
+                  setIsSubmitting(true);
+                  setTimeout(() => {
+                      setIsSubmitting(false);
+                  }, 2000);
+                }}
               >
                 Entrar
               </Button>

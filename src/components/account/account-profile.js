@@ -21,9 +21,9 @@ export const AccountProfile = (props) => {
   const setContext = useContext(SetContext);
   const [imgURL, setImgURL] = useState("")
 
-  const handleUpload = async (event) => {
+  const handleFileUpload = async (event) => {
     event.preventDefault()
-    const file = event.target[0]?.files[0]
+    const file = event.target.files[0]
 
     if (!file) return;
 
@@ -70,7 +70,6 @@ export const AccountProfile = (props) => {
         </Box>
       </CardContent>
       <Divider />
-      <form onSubmit={handleUpload}>
       <CardActions >     
           <Button
             fullWidth
@@ -80,19 +79,13 @@ export const AccountProfile = (props) => {
           >
             Carregar foto
             <input
+              onChange={handleFileUpload}
               hidden
               type="file"
             />
           </Button>
-          <Button
-          fullWidth
-            color="primary"
-            variant="text"
-            type='submit'>
-            Enviar
-          </Button>
       </CardActions>
-      </form>
+
 
     </Card>
     //</form>

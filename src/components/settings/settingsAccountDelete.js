@@ -19,8 +19,8 @@ export const SettingsAccountDelete = (props) => {
     )
     if (confirmBox === true) {
       await deleteContext.deleteDataUser()
+      router.push("/login")
     }
-    router.reload()
   }
 
   return(
