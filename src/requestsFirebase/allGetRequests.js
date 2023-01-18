@@ -95,3 +95,22 @@ export const GetQuestions = (nameQuestion, setQuestions) => {
         loaded = true
       }, [nameQuestion]);
 }
+
+export const GetTaskSolved = (setTaskSolved) => {
+    const getContext = useContext(GetContext);
+    const loaded = false
+
+    const allTasksSolved = () => {
+        getContext.getTaskSolved().then((value) =>
+            setTaskSolved(value)
+        ).catch(console.error)
+      }
+    
+      useEffect(() => {
+        if (loaded) {
+          return
+        }
+        allTasksSolved();
+        loaded = true
+      }, []);
+}

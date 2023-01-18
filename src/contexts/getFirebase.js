@@ -61,6 +61,14 @@ export const GetProvider = (props) => {
         })
     }
 
+    const getTaskSolved = async () => {
+        const taskRef = doc(db, "taskSolved", auth.currentUser.uid);
+
+        const data = await getDoc(taskRef)
+        const tasksSolved = data.data()
+        return tasksSolved;
+    }
+
     return (
         <GetContext.Provider
             value={{
@@ -69,8 +77,8 @@ export const GetProvider = (props) => {
                 getTopics,
                 getQuestions,
                 getDescription,
-                getRanking
-
+                getRanking,
+                getTaskSolved,
             }}
         >
             {children}

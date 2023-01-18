@@ -4,7 +4,7 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { DashboardLayout } from "../../components/dashboard-layout";
-import { DescriptionTask } from "../../requestsFirebase/allGetRequests";
+import { DescriptionTask, GetTaskSolved } from "../../requestsFirebase/allGetRequests";
 import { Loader } from "../../requestsFirebase/loader";
 
 const CodeEditor = dynamic(import('../../components/solveTask/codeEditor'), { ssr: false })
@@ -12,10 +12,12 @@ const CodeEditor = dynamic(import('../../components/solveTask/codeEditor'), { ss
 const Question = () => {
   const router = useRouter()
   const [descriptionData, setDescriptionData] = useState(null)
+  const [taskSolved, setTaskSolved] = useState()
 
   DescriptionTask(router.query.question, setDescriptionData)
+  GetTaskSolved(setTaskSolved)
 
-  if (descriptionData) {
+  if (descriptionData && taskSolved) {
     return (
       <>
         <Head>
@@ -36,7 +38,7 @@ const Question = () => {
               </div>
             </div>
             <Box className="lg:w-[60%] w-full">
-              <CodeEditor descriptionData={descriptionData} nameQuestion={router.query.question} />
+              <CodeEditor descriptionData={descriptionData} nameQuestion={router.query.question} taskSolved={taskSolved} />
             </Box>
           </Box>
 

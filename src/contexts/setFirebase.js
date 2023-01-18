@@ -51,13 +51,22 @@ export const SetProvider = (props) => {
             test: [{input: detailsUser.inputTest, output: detailsUser.outputTest}]
         });
     }
+    
+    async function taskSolved(nameQuestion) {
+        const ref = doc(db, "taskSolved", auth.currentUser.uid)
+
+        await updateDoc(ref, {
+            [nameQuestion]: true
+        })
+    }
 
     return (
         <SetContext.Provider
             value={{
                 setPictureUser,
                 setRegisterUser,
-                setCreateQuestion
+                setCreateQuestion,
+                taskSolved,
             }}
         >
             {children}

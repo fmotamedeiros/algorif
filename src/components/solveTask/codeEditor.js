@@ -5,17 +5,20 @@ import 'codemirror/addon/edit/closetag';
 import 'codemirror/addon/edit/closebrackets';
 import { Button } from '@mui/material';
 import { UpdateContext } from '../../contexts/updateFirebase';
+import { SetContext } from '../../contexts/setFirebase';
 
 const MirrorConsole = require("../../../node_modules/codemirror-console/lib/mirror-console");
 const editor = new MirrorConsole();
 
 const CodeEditor = (props) => {
+
+  //setShow e SetError são chamados na variável testsPassedPercentage
   const [show, setShow] = useState("")
   const [error, setError] = useState("")
   const [onConsole, setConsole] = useState([])
 
   const updateContext = useContext(UpdateContext);
-  
+  const setContext = useContext(SetContext);
   var codeMirror = editor.editor;
 
   codeMirror.setOption("lineNumbers", true);
@@ -39,7 +42,9 @@ const CodeEditor = (props) => {
   }, []);
 
   useEffect(() => {
-    if(show) {
+    //Confere se a questão já foi respondida corretamente
+    if (show && props.taskSolved[props.nameQuestion] != true) {
+      setContext.taskSolved(props.nameQuestion)
       updateContext.updateScore()
     }
   }, [show]);
