@@ -8,13 +8,16 @@ import { Topics } from "../../components/quests/topics"
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import Filter from "../../components/quests/filter";
 import { Loader } from "../../requestsFirebase/loader";
-import { GetQuestions } from "../../requestsFirebase/allGetRequests";
+import { GetQuestions, GetTaskSolved } from "../../requestsFirebase/allGetRequests";
+import CheckIcon from '@mui/icons-material/Check';
 
 const Tasks = () => {
   const router = useRouter()
   const [questions, setQuestions] = useState(null)
+  const [taskSolved, setTaskSolved] = useState(null)
 
   GetQuestions(router.query.name, setQuestions)
+  GetTaskSolved(setTaskSolved)
 
   const [isTopicsOpen, setTopicsOpen] = useState(null)
   const [isFilterOpen, setFilterOpen] = useState(null)
@@ -41,7 +44,7 @@ const Tasks = () => {
   const topics = openTopics ? 'simple-popover' : undefined;
   const filter = openFilter ? 'simple-popover' : undefined;
 
-  if (questions) {
+  if (questions && taskSolved) {
     return (
       <>
         <Head>
@@ -113,42 +116,58 @@ const Tasks = () => {
             <Box className="w-full flex flex-col lg:flex-row pt-5 justify-between gap-4 h-full">
               <div className="lg:w-[80%]">
 
-                {questions["questions"].map((question) => ( //Pega os dados de questions.json e faz uma box para cada questão
-                  <Link href={`/questions/${question.titulo}`}
-                    key={question.titulo}>
-                    <div className="pb-3">
-                      <Box className="group">
-                        <button className="p-4 border mb-3 border-gray-500 group-hover:border-green-500 w-full rounded">
-                          <Box className="font-semibold">
-                            <Box className="p-2">
-                              <div className="group-hover:text-green-500 flex text-[20px]">
-                                {question.titulo}
-                              </div>
-                              <div className="text-[16px] flex">
-                                <div className="flex">
-                                  <div>Nível:&nbsp;</div>
-                                  <div className="text-green-500">{question.dificuldade}</div>
+                {questions["questions"].map((question) => { //Pega os dados de questions.json e faz uma box para cada questão
+                  const solved = false;
+                  return (
+                    <Link href={`/questions/${question.titulo}`}
+                      key={question.titulo}>
+                      <div className="pb-3">
+                        <Box className="group">
+                          <button className="p-4 border mb-3 border-gray-500 group-hover:border-green-500 w-full rounded">
+                            <Box className="font-semibold">
+                              <Box className="p-2">
+                                <div className="group-hover:text-green-500 flex text-[20px]">
+                                  {question.titulo}
                                 </div>
-                                <div>
-                                  , Taxa de Acerto: {question.taxaSucesso}
+                                <div className="text-[16px] flex">
+                                  <div className="flex">
+                                    <div>Nível:&nbsp;</div>
+                                    <div className="text-green-500">{question.dificuldade}</div>
+                                  </div>
+                                  <div>
+                                    , Taxa de Acerto: {question.taxaSucesso}
+                                  </div>
                                 </div>
-                              </div>
+                              </Box>
                             </Box>
-                          </Box>
-                          <Box className="font-semibold block lg:justify-between lg:flex lg:items-center w-full">
-                            <Box className="text-left text-gray-400 p-2 lg:w-[60%]">
-                              {question.descricao}
+                            <Box className="font-semibold block lg:justify-between lg:flex lg:items-center w-full">
+                              <Box className="text-left text-gray-400 p-2 lg:w-[60%]">
+                                {question.descricao}
+                              </Box>
+                              {
+                                Object.entries(taskSolved).map(([key, value]) => {
+                                  if (question.titulo === key && value[key] === true) {
+                                    solved = true
+                                  }
+                                })
+                              }
+                              {solved ?
+                                <Box
+                                  className="p-3 m-2 lg:m-0 border border-green-500 bg-[#111827]  text-gray-300 group-hover:text-[#1F2937] rounded-lg lg:w-[20%]">
+                                  <CheckIcon color="primary" />
+                                </Box>
+                                :
+                                <Box className="p-3 m-2 lg:m-0 border border-gray-300 bg-[#111827] group-hover:bg-green-500 group-hover:border-green-500 text-gray-300 group-hover:text-[#1F2937] rounded-lg lg:w-[20%] ">
+                                  Resolver Desafio
+                                </Box>
+                              }
                             </Box>
-
-                            <Box className="p-3 m-2 lg:m-0 border border-gray-300 bg-[#111827] group-hover:bg-green-500 group-hover:border-green-500 text-gray-300 group-hover:text-[#1F2937] rounded-lg lg:w-[20%] ">
-                              Resolver Desafio
-                            </Box>
-                          </Box>
-                        </button>
-                      </Box>
-                    </div>
-                  </Link>
-                ))}
+                          </button>
+                        </Box>
+                      </div>
+                    </Link>
+                  )
+                })}
               </div>
               <Box className="w-[20%] lg:flex flex-col hidden">
                 <Filter />

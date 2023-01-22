@@ -1,6 +1,6 @@
 import { createContext } from "react";
 import { auth, db, storage } from "./auth-context";
-import { arrayUnion, doc, setDoc, updateDoc } from "firebase/firestore";
+import { arrayUnion, doc, FieldValue, getDoc, increment, setDoc, updateDoc } from "firebase/firestore";
 import { ref, uploadBytes } from "firebase/storage";;
 
 export const SetContext = createContext({ undefined });
@@ -29,6 +29,9 @@ export const SetProvider = (props) => {
             alert(error)
         }
 
+        const taskRef = doc(db, "taskSolved", auth.currentUser.uid)
+        await setDoc(taskRef, {})
+
         const storageRef = ref(storage, auth.currentUser.uid + ".png");
         await uploadBytes(storageRef)
     }
@@ -45,6 +48,8 @@ export const SetProvider = (props) => {
 
         const detailsQuestions = doc(db, "descriptionQuestion", detailsUser.titulo)
         await setDoc(detailsQuestions, {
+            topico: detailsUser.topico,
+            difficultQuestion: detailsUser.dificuldade,
             descricaoDetalhada: detailsUser.descricaoDetalhada,
             codigo: code,
             nameFunction: detailsUser.nameFunction,
@@ -52,11 +57,15 @@ export const SetProvider = (props) => {
         });
     }
     
-    async function taskSolved(nameQuestion) {
+    async function taskSolved(nameQuestion, topico, difficultQuestion, status) {
         const ref = doc(db, "taskSolved", auth.currentUser.uid)
 
         await updateDoc(ref, {
-            [nameQuestion]: true
+            [nameQuestion]: ({
+                [nameQuestion]: status,
+                topico: topico,
+                difficultQuestion: difficultQuestion,
+            }),
         })
     }
 

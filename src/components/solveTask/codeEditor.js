@@ -43,11 +43,15 @@ const CodeEditor = (props) => {
 
   useEffect(() => {
     //Confere se a questão já foi respondida corretamente
-    if (show && props.taskSolved[props.nameQuestion] != true) {
-      setContext.taskSolved(props.nameQuestion)
+    if (show && props?.taskSolved?.[props.nameQuestion]?.[props.nameQuestion] != true) {
+      setContext.taskSolved(props.nameQuestion, props.descriptionData.topico, props.descriptionData.difficultQuestion, true)
+      
       updateContext.updateScore()
     }
-  }, [show]);
+    else if (error && props?.taskSolved?.[props.nameQuestion]?.[props.nameQuestion] != true) {
+      setContext.taskSolved(props.nameQuestion, props.descriptionData.topico, props.descriptionData.difficultQuestion, false)
+    }
+  }, [show, error]);
 
   const outputResult = () => {
     var consoleWritten = [];

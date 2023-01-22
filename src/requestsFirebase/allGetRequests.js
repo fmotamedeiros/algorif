@@ -114,3 +114,37 @@ export const GetTaskSolved = (setTaskSolved) => {
         loaded = true
       }, []);
 }
+
+export const GetDifficultRate = (setPercentage) => {
+    const getContext = useContext(GetContext);
+    const loaded = false
+
+    const DifficultRate = () => {
+        getContext.getDifficultRate(setPercentage)
+    }
+    
+      useEffect(() => {
+        if (loaded) {
+          return
+        }
+        DifficultRate();
+        loaded = true
+      }, []);
+}
+
+export const GetTasksTopic = (setPercentage) => {
+    const getContext = useContext(GetContext);
+    const loaded = false
+
+    const DifficultRate = () => {
+        getContext.getTasksTopic(setPercentage)
+    }
+    
+      useEffect(() => {
+        if (loaded) {
+          return
+        }
+        DifficultRate();
+        loaded = true
+      }, []);
+}

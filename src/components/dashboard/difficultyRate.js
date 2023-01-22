@@ -1,23 +1,17 @@
 import { Box, Card, CardHeader } from '@mui/material';
+import { useState } from 'react';
 import { Bar } from 'react-chartjs-2';
+import { GetDifficultRate } from '../../requestsFirebase/allGetRequests';
+import { Loader } from '../../requestsFirebase/loader';
 
 export const DifficultyRate = (props) => {
-    const dataBar = {
-      datasets: [
-      {
-        borderRadius: 4,
-        backgroundColor: ['rgba(0, 230, 0, 1)', 'rgba(0, 200, 0, 1)', 'rgba(0, 170, 0, 1)', 'rgba(0, 140, 0, 1)','rgba(0, 110, 0, 1)'],
-        borderColor: ['rgba(0, 230, 0, 0.7)', 'rgba(0, 200, 0, 0.7)', 'rgba(0, 170, 0, 0.7)', 'rgba(0, 140, 0, 0.7)','rgba(0, 110, 0, 0.7)'],
-        borderWidth: 1,
-        barThickness:20,
-        label: 'Taxa de Acerto',
-        hoverBackgroundColor: ['rgba(0, 230, 0, 0.5)', 'rgba(0, 200, 0, 0.5)', 'rgba(0, 170, 0, 0.5)', 'rgba(0, 140, 0, 0.5)','rgba(0, 110, 0, 0.5)'],
-        hoverBorderColor: ['rgba(0, 230, 0, 0.8)', 'rgba(0, 200, 0, 0.8)', 'rgba(0, 170, 0, 0.8)', 'rgba(0, 140, 0, 0.8)','rgba(0, 110, 0, 0.8)'],
-        data: [65, 59, 91, 41, 20]
-      },
-    ],
-    labels: ['Iniciante', 'Fácil', 'Médio', 'Difícil', 'Expert'],
-  };
+  const [percentage, setPercentage] = useState()
+
+  GetDifficultRate(setPercentage)
+  
+  if (!percentage) {
+    return <Box className='h-full flex items-center justify-center bg-[#1F2937] rounded-lg'><Loader /></Box>;
+  }
 
   const options = {
     animation: false,
@@ -30,7 +24,7 @@ export const DifficultyRate = (props) => {
     },
     scales: {
       y: {
-        ticks: { color: '#bbbec7', beginAtZero: true }
+        ticks: { color: '#bbbec7', beginAtZero: true, callback: (value) => `${value}%` }
       },
       x: {
         ticks: { color: '#bbbec7', beginAtZero: true }
@@ -39,17 +33,16 @@ export const DifficultyRate = (props) => {
   };
 
 
-  return(
+  return (
     <Card {...props}
     >
       <CardHeader title="Taxa de Acerto dos Exercícios" />
-      
-      <Box className='p-2 px-6' 
-        sx={{height: 300, position: 'relative'}}>
-        <Bar data={dataBar} 
-        options={options}
-        width={360} />
-        
+
+      <Box className='p-2 px-6'
+        sx={{ height: 300, position: 'relative' }}>
+        <Bar data={percentage}
+          options={options}
+          width={360} />
       </Box>
     </Card>
   );

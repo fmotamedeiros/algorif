@@ -15,81 +15,12 @@ import 'codemirror/addon/edit/closetag';
 import 'codemirror/addon/edit/closebrackets';
 import 'codemirror/mode/javascript/javascript'
 import CodeMirror from 'codemirror';
+import { getNavTopics } from '../datas/navTopics';
+import { getNavDifficulties } from '../datas/navdifficulties';
 
-const dificuldades = [
-    {
-        value: '',
-        label: ''
-    },
-    {
-        label: 'Iniciante'
-    },
-    {
-        label: 'Fácil'
-    },
-    {
-        label: 'Médio'
-    },
-    {
-        label: 'Difícil'
-    },
-    {
-        label: 'Expert'
-    }
-];
+const navDifficulties = getNavDifficulties()
 
-const topicos = [
-    {
-        label: ''
-    },
-    {
-
-        label: 'Array'
-    },
-    {
-
-        label: 'Array bidimensional'
-    },
-    {
-
-        label: 'Decisão'
-    },
-    {
-
-        label: 'Entrada e Saída'
-    },
-    {
-
-        label: 'Formatação'
-    },
-    {
-        label: 'Geometria computacional'
-    },
-    {
-
-        label: 'Geral'
-    },
-    {
-
-        label: 'Laço de repetição'
-    },
-    {
-
-        label: 'Lógica matemática'
-    },
-    {
-
-        label: 'Recursão'
-    },
-    {
-
-        label: 'String'
-    },
-    {
-
-        label: 'Variáveis'
-    }
-];
+const navTopics = getNavTopics()
 
 
 const DatasQuestion = () => {
@@ -236,7 +167,7 @@ const DatasQuestion = () => {
                                     value={formik.values.topico}
                                     variant="outlined"
                                 >
-                                    {topicos.map((option) => (
+                                    {navTopics.map((option) => (
                                         <option
                                             key={option.label}
                                             value={option.label}
@@ -271,7 +202,7 @@ const DatasQuestion = () => {
                                     value={formik.values.dificuldade}
                                     variant="outlined"
                                 >
-                                    {dificuldades.map((option) => (
+                                    {navDifficulties.map((option) => (
                                         <option
                                             key={option.label}
                                             value={option.label}

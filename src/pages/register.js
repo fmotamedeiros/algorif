@@ -51,6 +51,7 @@ const Register = () => {
       password: Yup
         .string()
         .max(255)
+        .min(6, "Senha muito fraca")
         .required('Password is required'),
       state: Yup
         .string()
@@ -95,8 +96,6 @@ const Register = () => {
             document.querySelector("#error-message").innerHTML = "Email já está em uso";
           } if (errorCode == 'auth/invalid-email'){
             document.querySelector("#error-message").innerHTML = "Email inválido";
-          } if (errorCode == 'auth/weak-password'){
-            document.querySelector("#error-message").innerHTML = "Senha muito fraca";
           }
         });
     }
