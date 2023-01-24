@@ -5,11 +5,11 @@ import { GetDifficultRate } from '../../requestsFirebase/allGetRequests';
 import { Loader } from '../../requestsFirebase/loader';
 
 export const DifficultyRate = (props) => {
-  const [percentage, setPercentage] = useState()
+  const [barData, setBarData] = useState()
 
-  GetDifficultRate(setPercentage)
+  GetDifficultRate(setBarData)
   
-  if (!percentage) {
+  if (!barData) {
     return <Box className='h-full flex items-center justify-center bg-[#1F2937] rounded-lg'><Loader /></Box>;
   }
 
@@ -40,7 +40,7 @@ export const DifficultyRate = (props) => {
 
       <Box className='p-2 px-6'
         sx={{ height: 300, position: 'relative' }}>
-        <Bar data={percentage}
+        <Bar data={barData}
           options={options}
           width={360} />
       </Box>

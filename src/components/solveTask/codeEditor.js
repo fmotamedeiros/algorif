@@ -43,7 +43,7 @@ const CodeEditor = (props) => {
 
   useEffect(() => {
     //Confere se a questão já foi respondida corretamente
-    if (show && props?.taskSolved?.[props.nameQuestion]?.[props.nameQuestion] != true) {
+    if (show && props?.taskSolved?.[props.nameQuestion]?.[completed] != true) {
       setContext.taskSolved(props.nameQuestion, props.descriptionData.topico, props.descriptionData.difficultQuestion, true)
       
       updateContext.updateScore()

@@ -29,6 +29,7 @@
     "codemirror": "^5.65.9",
     "codemirror-console": "^3.0.4",
     "date-fns": "2.29.3",
+    "dayjs": "^1.11.7",
     "firebase": "^9.14.0",
     "formik": "2.2.9",
     "next": "12.3.0",

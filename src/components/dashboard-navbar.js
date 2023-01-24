@@ -58,21 +58,6 @@ export const DashboardNavbar = (props) => {
             </a>
           </NextLink>
           <Box sx={{ flexGrow: 1 }} />
-
-          <Tooltip title="Notifications">
-            <IconButton sx={{
-              color: "neutral.200",
-              ml: 1
-            }}>
-              <Badge
-                badgeContent={4}
-                color="primary"
-                variant="dot"
-              >
-                <BellIcon fontSize="small" />
-              </Badge>
-            </IconButton>
-          </Tooltip>
           <Avatar
             onClick={() => setOpenAccountPopover(true)}
             ref={settingsRef}

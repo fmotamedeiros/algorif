@@ -6,7 +6,7 @@ import { useState } from 'react';
 export const TasksWeekend = (props) => {
   const theme = useTheme();
 
-  const [time, setTime] = useState("Semanal");
+  //const [time, setTime] = useState("Semanal");
 
   const [anchorEl, setAnchorEl] = useState(null);
 
@@ -63,37 +63,37 @@ export const TasksWeekend = (props) => {
   return (
     <Card {...props}>
       <CardHeader
-        action={(
-          <>
-            <Button
-              aria-describedby={id} 
-              onClick={handleClick}
-              endIcon={<ArrowDropDownIcon fontSize="small" />}
-              size="small"
-            >
-              {time}
-            </Button>
-            <Popover
-            id={id}
-            open={open}
-            anchorEl={anchorEl}
-            onClose={handleClose}
-            anchorOrigin={{
-              vertical: 'bottom',
-              horizontal: 'center',
-            }}
-            transformOrigin={{
-              vertical: 'top',
-              horizontal: 'center',
-            }}
-          >
-            <Button onClick={() => setTime("Mensal")} 
-            className='p-2 text-green-400'>Mensal</Button>
-            <Button onClick={() => setTime("Semanal")} 
-            className='p-2 text-green-400'>Semanal</Button>
-          </Popover>
-          </>
-        )}
+        // action={(
+        //   <>
+        //     <Button
+        //       aria-describedby={id} 
+        //       onClick={handleClick}
+        //       endIcon={<ArrowDropDownIcon fontSize="small" />}
+        //       size="small"
+        //     >
+        //       {time}
+        //     </Button>
+        //     <Popover
+        //     id={id}
+        //     open={open}
+        //     anchorEl={anchorEl}
+        //     onClose={handleClose}
+        //     anchorOrigin={{
+        //       vertical: 'bottom',
+        //       horizontal: 'center',
+        //     }}
+        //     transformOrigin={{
+        //       vertical: 'top',
+        //       horizontal: 'center',
+        //     }}
+        //   >
+        //     <Button onClick={() => setTime("Mensal")} 
+        //     className='p-2 text-green-400'>Mensal</Button>
+        //     <Button onClick={() => setTime("Semanal")} 
+        //     className='p-2 text-green-400'>Semanal</Button>
+        //   </Popover>
+        //   </>
+        // )}
         title="Exercícios Concluídos"
       />
       <CardContent>

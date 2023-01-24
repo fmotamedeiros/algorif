@@ -18,7 +18,7 @@ import { Loader } from '../../requestsFirebase/loader';
 
 export const Ranking = (props) => {
 
-  const [time, setTime] = useState("Semanal");
+  //const [time, setTime] = useState("Semanal");
 
   const [ranking, setRanking] = useState([])
 
@@ -44,37 +44,37 @@ export const Ranking = (props) => {
   return (
     <Card {...props}>
       <CardHeader
-        action={(
-          <>
-            <Button
-              aria-describedby={id}
-              onClick={handleClick}
-              endIcon={<ArrowDropDownIcon fontSize="small" />}
-              size="small"
-            >
-              {time}
-            </Button>
-            <Popover
-              id={id}
-              open={open}
-              anchorEl={anchorEl}
-              onClose={handleClose}
-              anchorOrigin={{
-                vertical: 'bottom',
-                horizontal: 'center',
-              }}
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'center',
-              }}
-            >
-              <Button onClick={() => setTime("Mensal")}
-                className='p-2 text-green-400'>Mensal</Button>
-              <Button onClick={() => setTime("Semanal")}
-                className='p-2 text-green-400'>Semanal</Button>
-            </Popover>
-          </>
-        )}
+        // action={(
+        //   <>
+        //     <Button
+        //       aria-describedby={id}
+        //       onClick={handleClick}
+        //       endIcon={<ArrowDropDownIcon fontSize="small" />}
+        //       size="small"
+        //     >
+        //       {time}
+        //     </Button>
+        //     <Popover
+        //       id={id}
+        //       open={open}
+        //       anchorEl={anchorEl}
+        //       onClose={handleClose}
+        //       anchorOrigin={{
+        //         vertical: 'bottom',
+        //         horizontal: 'center',
+        //       }}
+        //       transformOrigin={{
+        //         vertical: 'top',
+        //         horizontal: 'center',
+        //       }}
+        //     >
+        //       <Button onClick={() => setTime("Mensal")}
+        //         className='p-2 text-green-400'>Mensal</Button>
+        //       <Button onClick={() => setTime("Semanal")}
+        //         className='p-2 text-green-400'>Semanal</Button>
+        //     </Popover>
+        //   </>
+        // )}
         title="Ranking"
       />
       <Box className='overflow-y-auto h-[38vh]'>
@@ -101,9 +101,17 @@ export const Ranking = (props) => {
                 <TableCell>
                   {indice + 1}°
                 </TableCell>
-                <TableCell>
-                  {ranking.userName}
-                </TableCell>
+
+                {indice === 0 ?
+                  <TableCell style={{ color: '#22c55e' }}>
+                    {ranking.userName}
+                  </TableCell>
+                  :
+                  <TableCell>
+                    {ranking.userName}
+                  </TableCell>
+                }
+
                 <TableCell style={{ color: '#9b9ea3' }}>
                   {ranking.score}
                 </TableCell>

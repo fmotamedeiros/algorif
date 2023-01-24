@@ -115,12 +115,12 @@ export const GetTaskSolved = (setTaskSolved) => {
       }, []);
 }
 
-export const GetDifficultRate = (setPercentage) => {
+export const GetDifficultRate = (setBarData) => {
     const getContext = useContext(GetContext);
     const loaded = false
 
     const DifficultRate = () => {
-        getContext.getDifficultRate(setPercentage)
+        getContext.getDifficultRate(setBarData)
     }
     
       useEffect(() => {
@@ -132,12 +132,12 @@ export const GetDifficultRate = (setPercentage) => {
       }, []);
 }
 
-export const GetTasksTopic = (setPercentage) => {
+export const GetTasksTopic = (setChartData) => {
     const getContext = useContext(GetContext);
     const loaded = false
 
     const DifficultRate = () => {
-        getContext.getTasksTopic(setPercentage)
+        getContext.getTasksTopic(setChartData)
     }
     
       useEffect(() => {

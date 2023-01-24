@@ -1,6 +1,6 @@
 import { createContext } from "react";
 import { auth, db, storage } from "./auth-context";
-import { arrayUnion, doc, FieldValue, getDoc, increment, setDoc, updateDoc } from "firebase/firestore";
+import { arrayUnion, doc, FieldValue, getDoc, increment, serverTimestamp, setDoc, updateDoc } from "firebase/firestore";
 import { ref, uploadBytes } from "firebase/storage";;
 
 export const SetContext = createContext({ undefined });
@@ -59,12 +59,13 @@ export const SetProvider = (props) => {
     
     async function taskSolved(nameQuestion, topico, difficultQuestion, status) {
         const ref = doc(db, "taskSolved", auth.currentUser.uid)
-
+        const timestamp = serverTimestamp()
         await updateDoc(ref, {
             [nameQuestion]: ({
-                [nameQuestion]: status,
+                completed: status,
                 topico: topico,
                 difficultQuestion: difficultQuestion,
+                date: timestamp,
             }),
         })
     }

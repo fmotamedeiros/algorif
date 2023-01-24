@@ -2,6 +2,7 @@ import { createContext } from "react";
 import { auth, db, storage } from "./auth-context";
 import { collection, doc, getDoc, getDocs, orderBy, query, where } from "firebase/firestore";
 import { ref, getDownloadURL } from "firebase/storage";
+import dayjs from "dayjs";
 
 export const GetContext = createContext({ undefined });
 
@@ -69,7 +70,24 @@ export const GetProvider = (props) => {
         return tasksSolved;
     }
 
-    const getDifficultRate = async (setPercentage) => {
+    // const getTasksWeekend = async () => {
+    //     const rankingRef = collection(db, "taskSolved", auth.currentUser.uid, "raiz");
+
+    //     const currentDate = dayjs();
+    //     const startOfWeek = currentDate.startOf('week');
+    //     const endOfWeek = currentDate.endOf('week');
+
+    //     const q = query(rankingRef,
+    //         where("date", ">=", startOfWeek.toDate()),
+    //         where("date", "<=", endOfWeek.toDate()),
+    //         where("completed", "==", true),
+    //     )
+    //     const querySnapshot = await getDocs(q);
+
+    //     console.log(querySnapshot)
+    // }
+
+    const getDifficultRate = async (setBarData) => {
         const rankingRef = doc(db, "taskSolved", auth.currentUser.uid)
 
         const data = await getDoc(rankingRef)
@@ -86,7 +104,7 @@ export const GetProvider = (props) => {
         };
 
         for (let key in taskData) {
-            if (taskData.hasOwnProperty(key) && taskData[key].difficultQuestion && taskData[key][key] == true) {
+            if (taskData.hasOwnProperty(key) && taskData[key].difficultQuestion && taskData[key]["completed"] == true) {
                 difficultQuestions[taskData[key].difficultQuestion].total++;
                 difficultQuestions[taskData[key].difficultQuestion].correct++;
             } else if (taskData.hasOwnProperty(key) && taskData[key].difficultQuestion) {
@@ -102,25 +120,25 @@ export const GetProvider = (props) => {
 
         const dataBar = {
             datasets: [
-              {
-                borderRadius: 4,
-                backgroundColor: ['rgba(0, 230, 0, 1)', 'rgba(0, 200, 0, 1)', 'rgba(0, 170, 0, 1)', 'rgba(0, 140, 0, 1)', 'rgba(0, 110, 0, 1)'],
-                borderColor: ['rgba(0, 230, 0, 0.7)', 'rgba(0, 200, 0, 0.7)', 'rgba(0, 170, 0, 0.7)', 'rgba(0, 140, 0, 0.7)', 'rgba(0, 110, 0, 0.7)'],
-                borderWidth: 1,
-                barThickness: 20,
-                label: 'Taxa de Acerto',
-                hoverBackgroundColor: ['rgba(0, 230, 0, 0.5)', 'rgba(0, 200, 0, 0.5)', 'rgba(0, 170, 0, 0.5)', 'rgba(0, 140, 0, 0.5)', 'rgba(0, 110, 0, 0.5)'],
-                hoverBorderColor: ['rgba(0, 230, 0, 0.8)', 'rgba(0, 200, 0, 0.8)', 'rgba(0, 170, 0, 0.8)', 'rgba(0, 140, 0, 0.8)', 'rgba(0, 110, 0, 0.8)'],
-                data: percentage.map(p => Math.round(p))
-              },
+                {
+                    borderRadius: 4,
+                    backgroundColor: ['rgba(0, 230, 0, 1)', 'rgba(0, 200, 0, 1)', 'rgba(0, 170, 0, 1)', 'rgba(0, 140, 0, 1)', 'rgba(0, 110, 0, 1)'],
+                    borderColor: ['rgba(0, 230, 0, 0.7)', 'rgba(0, 200, 0, 0.7)', 'rgba(0, 170, 0, 0.7)', 'rgba(0, 140, 0, 0.7)', 'rgba(0, 110, 0, 0.7)'],
+                    borderWidth: 1,
+                    barThickness: 20,
+                    label: 'Taxa de Acerto',
+                    hoverBackgroundColor: ['rgba(0, 230, 0, 0.5)', 'rgba(0, 200, 0, 0.5)', 'rgba(0, 170, 0, 0.5)', 'rgba(0, 140, 0, 0.5)', 'rgba(0, 110, 0, 0.5)'],
+                    hoverBorderColor: ['rgba(0, 230, 0, 0.8)', 'rgba(0, 200, 0, 0.8)', 'rgba(0, 170, 0, 0.8)', 'rgba(0, 140, 0, 0.8)', 'rgba(0, 110, 0, 0.8)'],
+                    data: percentage.map(p => Math.round(p))
+                },
             ],
             labels: topics,
-          };
+        };
 
-        return setPercentage(dataBar)
+        return setBarData(dataBar)
     }
 
-    const getTasksTopic = async (setPercentage) => {
+    const getTasksTopic = async (setChartData) => {
         const rankingRef = doc(db, "taskSolved", auth.currentUser.uid)
         const data = await getDoc(rankingRef)
         const taskData = data.data();
@@ -138,8 +156,8 @@ export const GetProvider = (props) => {
         }
 
         for (let key in taskData) {
-            if (taskData.hasOwnProperty(key) && taskData[key].topico && taskData[key][key] == true) {
-                if(!topicTask[taskData[key].topico]) topicTask[taskData[key].topico] = { correct: 0};
+            if (taskData.hasOwnProperty(key) && taskData[key].topico && taskData[key]["completed"] == true) {
+                if (!topicTask[taskData[key].topico]) topicTask[taskData[key].topico] = { correct: 0 };
                 topicTask[taskData[key].topico].correct++;
                 total++;
             }
@@ -156,20 +174,20 @@ export const GetProvider = (props) => {
 
         const chartData = {
             datasets: [
-              {
-                data: percentage.map(p => Math.round(p)),
-                backgroundColor: Array(topics.length).fill().map(() => randomColor()),
-                borderWidth: 4,
-                cutout: 60,
-                borderColor: '#1F2937',
-                hoverBorderColor: '#111827',
-                hoverOffset: 10,
-              }
+                {
+                    data: percentage.map(p => Math.round(p)),
+                    backgroundColor: Array(topics.length).fill().map(() => randomColor()),
+                    borderWidth: 4,
+                    cutout: 60,
+                    borderColor: '#1F2937',
+                    hoverBorderColor: '#111827',
+                    hoverOffset: 10,
+                }
             ],
-            
+
             labels: topics,
-          };
-        return setPercentage(chartData);
+        };
+        return setChartData(chartData);
     }
 
 
@@ -185,6 +203,7 @@ export const GetProvider = (props) => {
                 getTaskSolved,
                 getDifficultRate,
                 getTasksTopic,
+                //getTasksWeekend,
             }}
         >
             {children}
