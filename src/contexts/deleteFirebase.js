@@ -14,6 +14,9 @@ export const DeleteProvider = (props) => {
         const dataUser = doc(db, "coders", auth.currentUser.uid);
         await deleteDoc(dataUser);
 
+        const userQuestions = doc(db, "taskSolved", auth.currentUser.uid);
+        await deleteDoc(userQuestions);
+
         const storageRef = ref(storage, auth.currentUser.uid + ".png");
         deleteObject(storageRef)
 
