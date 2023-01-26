@@ -113,7 +113,7 @@ export const GetProvider = (props) => {
         }
 
         for (let key in difficultQuestions) {
-            difficultQuestions[key].percentage = (difficultQuestions[key].correct / difficultQuestions[key].total) * 100;
+            difficultQuestions[key].percentage = (difficultQuestions[key].correct / taskData[key+"Submissions"]) * 100;
             percentage.push(difficultQuestions[key].percentage)
             topics.push(key)
         }
@@ -126,7 +126,7 @@ export const GetProvider = (props) => {
                     borderColor: ['rgba(0, 230, 0, 0.7)', 'rgba(0, 200, 0, 0.7)', 'rgba(0, 170, 0, 0.7)', 'rgba(0, 140, 0, 0.7)', 'rgba(0, 110, 0, 0.7)'],
                     borderWidth: 1,
                     barThickness: 20,
-                    label: 'Taxa de Acerto',
+                    label: 'Taxa de Acerto (%)',
                     hoverBackgroundColor: ['rgba(0, 230, 0, 0.5)', 'rgba(0, 200, 0, 0.5)', 'rgba(0, 170, 0, 0.5)', 'rgba(0, 140, 0, 0.5)', 'rgba(0, 110, 0, 0.5)'],
                     hoverBorderColor: ['rgba(0, 230, 0, 0.8)', 'rgba(0, 200, 0, 0.8)', 'rgba(0, 170, 0, 0.8)', 'rgba(0, 140, 0, 0.8)', 'rgba(0, 110, 0, 0.8)'],
                     data: percentage.map(p => Math.round(p))

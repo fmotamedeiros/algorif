@@ -67,6 +67,7 @@ export const SetProvider = (props) => {
                 difficultQuestion: difficultQuestion,
                 date: timestamp,
             }),
+            [difficultQuestion+"Submissions"]: increment(1)
         })
     }
 

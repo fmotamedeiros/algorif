@@ -8,7 +8,7 @@ export const DifficultyRate = (props) => {
   const [barData, setBarData] = useState()
 
   GetDifficultRate(setBarData)
-  
+
   if (!barData) {
     return <Box className='h-full flex items-center justify-center bg-[#1F2937] rounded-lg'><Loader /></Box>;
   }
@@ -24,7 +24,14 @@ export const DifficultyRate = (props) => {
     },
     scales: {
       y: {
-        ticks: { color: '#bbbec7', beginAtZero: true, callback: (value) => `${value}%` }
+        ticks: {
+          min: 0,
+          max: 100,
+          callback: (value) => `${value}%`,
+          color: '#bbbec7',
+          beginAtZero: true,
+          maxTicksLimit: 6
+        }
       },
       x: {
         ticks: { color: '#bbbec7', beginAtZero: true }

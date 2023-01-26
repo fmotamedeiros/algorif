@@ -16,6 +16,8 @@ const CodeEditor = (props) => {
   const [show, setShow] = useState("")
   const [error, setError] = useState("")
   const [onConsole, setConsole] = useState([])
+  const [solved, setSolved] = useState(false)
+  const [verificationTask, setVerificationTask] = useState(false)
 
   const updateContext = useContext(UpdateContext);
   const setContext = useContext(SetContext);
@@ -43,15 +45,18 @@ const CodeEditor = (props) => {
 
   useEffect(() => {
     //Confere se a questão já foi respondida corretamente
-    if (show && props?.taskSolved?.[props.nameQuestion]?.[completed] != true) {
+    if (show && props.taskSolved[props.nameQuestion]?.["completed"] != true && !solved) {
+      setSolved(true)
+
       setContext.taskSolved(props.nameQuestion, props.descriptionData.topico, props.descriptionData.difficultQuestion, true)
       
       updateContext.updateScore()
     }
-    else if (error && props?.taskSolved?.[props.nameQuestion]?.[props.nameQuestion] != true) {
+    else if (error && props.taskSolved[props.nameQuestion]?.["completed"] != true && !solved) {
+
       setContext.taskSolved(props.nameQuestion, props.descriptionData.topico, props.descriptionData.difficultQuestion, false)
     }
-  }, [show, error]);
+  }, [verificationTask]);
 
   const outputResult = () => {
     var consoleWritten = [];
@@ -69,6 +74,7 @@ const CodeEditor = (props) => {
   };
 
   const checkQuestion = () => {
+    setVerificationTask(!verificationTask)
     var testsPassed = "\n var passed = 0"
     const testArray =
       props.descriptionData["test"].map((test) => {
