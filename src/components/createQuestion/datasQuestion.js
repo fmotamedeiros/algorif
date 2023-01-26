@@ -46,10 +46,10 @@ const DatasQuestion = () => {
 
         // redefinir console.log para adicionar saída ao elemento de saída
         var consoleWritten = []
-        console.log = function (output) {
-            consoleWritten.push(output)
-            setConsole(consoleWritten)
-        }
+        console.log = (output) => {
+            consoleWritten.push(output);
+            setConsole(consoleWritten);
+        };
 
         const runCode = () => {
             try {

@@ -1,7 +1,6 @@
 import { Box, Checkbox, FormControlLabel, Typography } from "@mui/material";
 
-export default function Filter() {
-    
+const Filter = () => {
     return(
         <Box className="p-2 border rounded border-gray-500">
             <div className="flex flex-col border-b border-gray-500 px-4 py-3">
@@ -53,3 +52,5 @@ export default function Filter() {
         </Box>
     )
 }
+
+export default Filter;

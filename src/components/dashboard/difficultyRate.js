@@ -27,6 +27,7 @@ export const DifficultyRate = (props) => {
         ticks: {
           min: 0,
           max: 100,
+          stepSize: 20,
           callback: (value) => `${value}%`,
           color: '#bbbec7',
           beginAtZero: true,

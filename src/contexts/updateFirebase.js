@@ -8,7 +8,7 @@ export const UpdateContext = createContext({ undefined });
 export const UpdateProvider = (props) => {
     const { children } = props;
 
-    async function updateUserDetails(detailsUser) {
+    const updateUserDetails = async (detailsUser) => {
         const ref = doc(db, "coders", auth.currentUser.uid);
         await updateDoc(ref, {
             userName: detailsUser.userName,
@@ -18,7 +18,7 @@ export const UpdateProvider = (props) => {
         });
     }
 
-    async function updatePasswordUser(password) {
+    const updatePasswordUser = async (password) => {
         updatePassword(auth.currentUser, password).then(() => {
             alert("Senha atualizada com sucesso")
         }).catch((error) => {
@@ -26,7 +26,7 @@ export const UpdateProvider = (props) => {
         });
     }
 
-    async function updateScore() {
+    const updateScore = async () => {
         const scoreRef = doc(db, "coders", auth.currentUser.uid);
 
         const data = await getDoc(scoreRef)

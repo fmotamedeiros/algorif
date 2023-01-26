@@ -8,12 +8,12 @@ export const SetContext = createContext({ undefined });
 export const SetProvider = (props) => {
     const { children } = props;
 
-    async function setPictureUser(file) {
+    const setPictureUser = async (file) => {
         const storageRef = ref(storage, auth.currentUser.uid + ".png");
         await uploadBytes(storageRef, file)
     }
 
-    async function setRegisterUser(detailsUser) {
+    const setRegisterUser = async (detailsUser) => {
         try {
             await setDoc(doc(db, "coders", auth.currentUser.uid), {
                 email: detailsUser.email,
@@ -36,7 +36,7 @@ export const SetProvider = (props) => {
         await uploadBytes(storageRef)
     }
 
-    async function setCreateQuestion(detailsUser, code) {
+    const setCreateQuestion = async (detailsUser, code) => {
         const categories = doc(db, "categories", detailsUser.topico)
         await updateDoc(categories, {
             questions: arrayUnion({
@@ -57,7 +57,7 @@ export const SetProvider = (props) => {
         });
     }
     
-    async function taskSolved(nameQuestion, topico, difficultQuestion, status) {
+    const taskSolved = async (nameQuestion, topico, difficultQuestion, status) => {
         const ref = doc(db, "taskSolved", auth.currentUser.uid)
         const timestamp = serverTimestamp()
         await updateDoc(ref, {

@@ -148,7 +148,7 @@ export const GetProvider = (props) => {
         let total = 0;
         let topicTask = {};
 
-        function randomColor() {
+        const randomColor = () => {
             let r = Math.floor(Math.random() * 256);
             let g = Math.floor(Math.random() * 256);
             let b = Math.floor(Math.random() * 256);

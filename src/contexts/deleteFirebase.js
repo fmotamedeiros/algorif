@@ -9,8 +9,7 @@ export const DeleteContext = createContext({ undefined });
 export const DeleteProvider = (props) => {
     const { children } = props;
 
-    async function deleteDataUser() {
-
+    const deleteDataUser = async () => {
         const dataUser = doc(db, "coders", auth.currentUser.uid);
         await deleteDoc(dataUser);
 
