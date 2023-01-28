@@ -8,8 +8,7 @@ import { UserDetails } from '../requestsFirebase/allGetRequests';
 import { Logo } from './logo';
 import { getNavLinks } from './datas/navLinks';
 
-export const DashboardSidebar = (props) => {
-  const { open, onClose } = props;
+export const DashboardSidebar = ({ open, onClose }) => {
   const router = useRouter();
 
   const [coders, setCoders] = useState(null)

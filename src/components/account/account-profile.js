@@ -16,7 +16,7 @@ import { PictureUser } from '../../requestsFirebase/allGetRequests';
 import { useRouter } from 'next/router';
 
 
-export const AccountProfile = (props) => {
+export const AccountProfile = ({ coders }) => {
   const router = useRouter()
   const setContext = useContext(SetContext);
   const [imgURL, setImgURL] = useState("")
@@ -35,7 +35,7 @@ export const AccountProfile = (props) => {
 
   return (
     //<form onSubmit={formik.handleSubmit}>
-    <Card {...props}
+    <Card
       sx={{ backgroundColor: 'background.dark' }}>
       <CardContent>
         <Box
@@ -59,13 +59,13 @@ export const AccountProfile = (props) => {
             gutterBottom
             variant="h5"
           >
-            {props.coders.userName}
+            {coders.userName}
           </Typography>
           <Typography
             color="neutral.400"
             variant="body2"
           >
-            {`${props.coders.city} - ${props.coders.state}`}
+            {`${coders.city} - ${coders.state}`}
           </Typography>
         </Box>
       </CardContent>

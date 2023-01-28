@@ -4,7 +4,7 @@ import { Bar } from 'react-chartjs-2';
 import { GetDifficultRate } from '../../requestsFirebase/allGetRequests';
 import { Loader } from '../../requestsFirebase/loader';
 
-export const DifficultyRate = (props) => {
+export const DifficultyRate = () => {
   const [barData, setBarData] = useState()
 
   GetDifficultRate(setBarData)
@@ -42,7 +42,7 @@ export const DifficultyRate = (props) => {
 
 
   return (
-    <Card {...props}
+    <Card
     >
       <CardHeader title="Taxa de Acerto dos Exercícios" />
 

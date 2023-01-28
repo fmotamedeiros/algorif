@@ -2,7 +2,7 @@ import { useContext, useState } from 'react';
 import { Box, Button, Card, CardContent, CardHeader, Divider, TextField } from '@mui/material';
 import { UpdateContext } from '../../contexts/updateFirebase';
 
-export const SettingsPassword = (props) => {
+export const SettingsPassword = () => {
   const updateContext = useContext(UpdateContext);
 
   const [values, setValues] = useState({
@@ -37,7 +37,7 @@ export const SettingsPassword = (props) => {
   }
 
   return (
-    <form {...props}>
+    <form>
       <Card sx={{ backgroundColor: '#1F2937' }}>
         <CardHeader
           subheader="Update password"

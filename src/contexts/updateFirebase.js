@@ -5,9 +5,7 @@ import { updatePassword } from "firebase/auth";
 
 export const UpdateContext = createContext({ undefined });
 
-export const UpdateProvider = (props) => {
-    const { children } = props;
-
+export const UpdateProvider = ({ children }) => {
     const updateUserDetails = async (detailsUser) => {
         const ref = doc(db, "coders", auth.currentUser.uid);
         await updateDoc(ref, {

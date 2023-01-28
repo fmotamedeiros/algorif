@@ -6,9 +6,7 @@ import { deleteUser } from "firebase/auth";
 
 export const DeleteContext = createContext({ undefined });
 
-export const DeleteProvider = (props) => {
-    const { children } = props;
-
+export const DeleteProvider = ({ children }) => {
     const deleteDataUser = async () => {
         const dataUser = doc(db, "coders", auth.currentUser.uid);
         await deleteDoc(dataUser);

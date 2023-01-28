@@ -61,7 +61,7 @@ const DatasQuestion = () => {
         };
 
         codeEditor.setValue(
-            `function /*nomeDaFunção*/ (/*variáveisDeEntradas*/) {\n    return\n} \n\nconsole.log()`)
+            `function main (/*variáveisDeEntradas*/) {\n    return\n} \n\nconsole.log(main())`)
 
         codeEditor.on('change', (instance, changes) => {
             const code = instance.getValue();
@@ -85,7 +85,6 @@ const DatasQuestion = () => {
             descricao: '',
             descricaoDetalhada: '',
             dificuldade: '',
-            nameFunction: '',
             inputTest: '',
             outputTest: ''
         },
@@ -110,10 +109,6 @@ const DatasQuestion = () => {
                 .string()
                 .max(255)
                 .required('Dificuldade is required'),
-            nameFunction: Yup
-                .string()
-                .max(255)
-                .required('Nome da função is required'),
             inputTest: Yup
                 .string()
                 .max(255)
@@ -224,33 +219,20 @@ const DatasQuestion = () => {
                                     value={formik.values.descricao}
                                     variant="outlined"
                                 />
-                                <TextField
-                                    error={Boolean(formik.touched.nameFunction && formik.errors.nameFunction)}
-                                    helperText={formik.touched.nameFunction && formik.errors.nameFunction}
-                                    fullWidth
-                                    label="Nome da função usada no código"
-                                    placeholder='Ex: multiply'
-                                    name="nameFunction"
-                                    onChange={formik.handleChange}
-                                    required
-                                    margin="normal"
-                                    value={formik.values.nameFunction}
-                                    variant="outlined"
-                                />
-                                <TextField
-                                    error={Boolean(formik.touched.descricaoDetalhada && formik.errors.descricaoDetalhada)}
-                                    helperText={formik.touched.descricaoDetalhada && formik.errors.descricaoDetalhada}
-                                    fullWidth
-                                    multiline
-                                    label="Descricão detalhada da Questão"
-                                    name="descricaoDetalhada"
-                                    onChange={formik.handleChange}
-                                    required
-                                    margin="normal"
-                                    value={formik.values.descricaoDetalhada}
-                                    variant="outlined"
-                                />
                             </Box>
+                            <TextField
+                                error={Boolean(formik.touched.descricaoDetalhada && formik.errors.descricaoDetalhada)}
+                                helperText={formik.touched.descricaoDetalhada && formik.errors.descricaoDetalhada}
+                                fullWidth
+                                multiline
+                                label="Descricão detalhada da Questão"
+                                name="descricaoDetalhada"
+                                onChange={formik.handleChange}
+                                required
+                                margin="normal"
+                                value={formik.values.descricaoDetalhada}
+                                variant="outlined"
+                            />
                             <div className='flex mt-2'>
                                 <textarea id='code-editor'></textarea>
                                 <div className='w-[40%]'>

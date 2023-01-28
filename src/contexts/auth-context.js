@@ -80,11 +80,8 @@ export const AuthContext = createContext({ undefined });
 
 
 
-export const AuthProvider = (props) => {
-  const { children } = props;
+export const AuthProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
-
-
 
   const initialize = async () => {
     //const localStorage = localStorage()

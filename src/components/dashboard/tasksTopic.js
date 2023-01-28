@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { GetTasksTopic } from '../../requestsFirebase/allGetRequests';
 import { Loader } from '../../requestsFirebase/loader';
 
-export const TasksTopic = (props) => {
+export const TasksTopic = () => {
 
   const [chartData, setChartData] = useState()
 
@@ -38,7 +38,7 @@ export const TasksTopic = (props) => {
   }
 
   return (
-    <Card {...props}
+    <Card
       sx={{ height: '100%', backgroundColor: '#1F2937' }} >
       <CardHeader title="Assunto das Tarefas Realizadas" />
 

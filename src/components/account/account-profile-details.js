@@ -14,18 +14,18 @@ import { useFormik } from 'formik';
 import { UpdateContext } from '../../contexts/updateFirebase';
 import { useRouter } from 'next/router';
 
-export const AccountProfileDetails = (props) => {
+export const AccountProfileDetails = ({ coders }) => {
 
   const router = useRouter()
 
   const updateContext = useContext(UpdateContext);
   const formik = useFormik({
     initialValues: {
-      userName: props.coders.userName,
-      email: props.coders.email,
-      phone: props.coders.phone,
-      state: props.coders.state,
-      city: props.coders.city
+      userName: coders.userName,
+      email: coders.email,
+      phone: coders.phone,
+      state: coders.state,
+      city: coders.city
     },
     validationSchema: Yup.object({
       userName: Yup
@@ -54,7 +54,6 @@ export const AccountProfileDetails = (props) => {
     <form onSubmit={formik.handleSubmit}
       autoComplete="off"
       noValidate
-      {...props}
     >
       <Card>
         <CardHeader

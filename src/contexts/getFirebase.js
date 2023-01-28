@@ -7,9 +7,7 @@ import dayjs from "dayjs";
 export const GetContext = createContext({ undefined });
 
 
-export const GetProvider = (props) => {
-    const { children } = props;
-
+export const GetProvider = ({ children }) => {
     const getUserDetails = async () => {
         const ref = doc(db, "coders", auth.currentUser.uid);
         const data = await getDoc(ref)

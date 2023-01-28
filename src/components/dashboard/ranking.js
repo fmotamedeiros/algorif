@@ -16,7 +16,7 @@ import { useState } from 'react';
 import { AllRanking } from '../../requestsFirebase/allGetRequests';
 import { Loader } from '../../requestsFirebase/loader';
 
-export const Ranking = (props) => {
+export const Ranking = () => {
 
   //const [time, setTime] = useState("Semanal");
 
@@ -42,7 +42,7 @@ export const Ranking = (props) => {
   }
 
   return (
-    <Card {...props}>
+    <Card>
       <CardHeader
         // action={(
         //   <>

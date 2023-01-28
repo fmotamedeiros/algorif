@@ -9,7 +9,7 @@ import { useRouter } from 'next/router';
 import { useContext } from 'react';
 import { DeleteContext } from '../../contexts/deleteFirebase';
 
-export const SettingsAccountDelete = (props) => {
+export const SettingsAccountDelete = () => {
   const router = useRouter()
   const deleteContext = useContext(DeleteContext);
 
@@ -24,7 +24,7 @@ export const SettingsAccountDelete = (props) => {
   }
 
   return(
-  <form {...props}>
+  <form>
     <Card sx={{ backgroundColor: '#1F2937' }}>
       <CardHeader
         subheader="Excluir todos os dados da conta"

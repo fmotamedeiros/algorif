@@ -52,7 +52,6 @@ export const SetProvider = (props) => {
             difficultQuestion: detailsUser.dificuldade,
             descricaoDetalhada: detailsUser.descricaoDetalhada,
             codigo: code,
-            nameFunction: detailsUser.nameFunction,
             test: [{input: detailsUser.inputTest, output: detailsUser.outputTest}]
         });
     }

@@ -3,7 +3,7 @@ import { Box, Button, Card, CardContent, CardHeader, Popover, useTheme } from '@
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import { useState } from 'react';
 
-export const TasksWeekend = (props) => {
+export const TasksWeekend = () => {
   const theme = useTheme();
 
   //const [time, setTime] = useState("Semanal");
@@ -61,7 +61,7 @@ export const TasksWeekend = (props) => {
   };
 
   return (
-    <Card {...props}>
+    <Card>
       <CardHeader
         // action={(
         //   <>

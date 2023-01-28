@@ -15,9 +15,8 @@ const DashboardNavbarRoot = styled(AppBar)(({ theme }) => ({
   boxShadow: theme.shadows[3]
 }));
 
-export const DashboardNavbar = (props) => {
+export const DashboardNavbar = ({ onSidebarOpen, ...other }) => {
   const [imgURL, setImgURL] = useState("")
-  const { onSidebarOpen, ...other } = props;
   const settingsRef = useRef(null);
   const [openAccountPopover, setOpenAccountPopover] = useState(false);
 

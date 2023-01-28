@@ -7,7 +7,7 @@ import NextLink from 'next/link';
 import { AuthContext } from '../contexts/auth-context';
 import { UserDetails } from '../requestsFirebase/allGetRequests';
 
-export const AccountPopover = (props) => {
+export const AccountPopover = ({ anchorEl, onClose, open, ...other }) => {
   
   const authContext = useContext(AuthContext);
 
@@ -16,8 +16,6 @@ export const AccountPopover = (props) => {
   UserDetails(setCoders)
 
   const auth = getAuth();
-
-  const { anchorEl, onClose, open, ...other } = props;
 
   const handleSignOut = async () => {
     onClose?.();

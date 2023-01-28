@@ -19,9 +19,7 @@ registerChartJs();
 
 const clientSideEmotionCache = createEmotionCache();
 
-const App = (props) => {
-  const { Component, emotionCache = clientSideEmotionCache, pageProps } = props;
-
+const App = ({ Component, emotionCache = clientSideEmotionCache, pageProps }) => {
   const getLayout = Component.getLayout ?? ((page) => page);
 
   return (

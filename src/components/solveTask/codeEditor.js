@@ -10,15 +10,14 @@ import { SetContext } from '../../contexts/setFirebase';
 const MirrorConsole = require("../../../node_modules/codemirror-console/lib/mirror-console");
 const editor = new MirrorConsole();
 
-const CodeEditor = (props) => {
+const CodeEditor = ({ descriptionData, nameQuestion, taskSolved }) => {
   const [show, setShow] = useState(false);
   const [error, setError] = useState(false);
   const [solved, setSolved] = useState(false);
   const [verificationTask, setVerificationTask] = useState(false);
   const [onConsole, setConsole] = useState([]);
   const [testResults, setTestResults] = useState([]);
-  const passedTests = []
-
+  
   const updateContext = useContext(UpdateContext);
   const setContext = useContext(SetContext);
   const codeMirror = editor.editor;
@@ -40,13 +39,13 @@ const CodeEditor = (props) => {
   useEffect(() => {
     //Confere se a questão já foi respondida corretamente
     if (!solved) {
-      const isCompleted = props.taskSolved[props.nameQuestion]?.["completed"];
+      const isCompleted = taskSolved[nameQuestion]?.["completed"];
       if (show && !isCompleted) {
         setSolved(true);
-        setContext.taskSolved(props.nameQuestion, props.descriptionData.topico, props.descriptionData.difficultQuestion, true);
+        setContext.taskSolved(nameQuestion, descriptionData.topico, descriptionData.difficultQuestion, true);
         updateContext.updateScore();
       } else if (error && !isCompleted) {
-        setContext.taskSolved(props.nameQuestion, props.descriptionData.topico, props.descriptionData.difficultQuestion, false);
+        setContext.taskSolved(nameQuestion, descriptionData.topico, descriptionData.difficultQuestion, false);
       }
     }
   }, [verificationTask]);
@@ -69,16 +68,17 @@ const CodeEditor = (props) => {
   const checkQuestion = () => {
     setVerificationTask(!verificationTask);
 
-    let testsPassed = "\n let passed = 0"
+    let testsPassed = "\n let passedTests = []"
+    let passed = "\n let passed = true"
 
-    const testArray = props.descriptionData["test"].map((test) => {
+    const testArray = descriptionData["test"].map((test) => {
       return (
         `
-      var b = ${props.descriptionData.nameFunction}(${test.input}); 
+      var b = main(${test.input}); 
       if(b === ${test.output}){
         passedTests.push(true) 
-        passed += 1
       } else {
+        passed = false
         passedTests.push(false) 
       }
       setTestResults(passedTests)
@@ -86,30 +86,24 @@ const CodeEditor = (props) => {
       )
     });
 
-    const lengthTests = props.descriptionData.test.length
-
     var tests = editor.getText("content");
 
-    tests = tests + testsPassed
+    tests = tests + testsPassed + passed
 
     testArray.forEach(test => {
       tests = tests + test
     });
-    console.log(testResults)
 
     var testsPassedPercentage = ` 
     // AVISO - talvez em produção isso nao funcione
 
-    var passedPercentage = (passed / ${lengthTests}) * 100 
-    
-    if (passedPercentage === 100) {
+    if (passed === true) {
       setShow(true)
     } else {
       setError(true)
     }
     `
     tests += testsPassedPercentage
-
 
     try {
       eval(tests)
@@ -121,7 +115,7 @@ const CodeEditor = (props) => {
   return (
     <>
       <div id='content'>
-        {props.descriptionData.codigo}
+        {descriptionData.codigo}
       </div>
       <div className='px-4 py-2 flex gap-4 justify-end'>
         <Button variant='outlined' href="#output"
