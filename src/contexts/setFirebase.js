@@ -53,7 +53,7 @@ export const SetProvider = ({ children }) => {
             descricao: detailsUser.descricao,
             descricaoDetalhada: detailsUser.descricaoDetalhada,
             codigo: code,
-            test: [{input: detailsUser.inputTest, output: detailsUser.outputTest}],
+            test: detailsUser.tests.map(test => ({input: test.inputTest, output: test.outputTest})),
             date: timestamp,
             creator: auth.currentUser.uid,
         });

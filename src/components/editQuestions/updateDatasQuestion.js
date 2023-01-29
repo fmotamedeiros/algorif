@@ -86,8 +86,7 @@ const UpdateDatasQuestion = ({ descriptionData }) => {
             descricao: descriptionData.descricao,
             descricaoDetalhada: descriptionData.descricaoDetalhada,
             dificuldade: descriptionData.difficulty,
-            inputTest: descriptionData.test[0].input,
-            outputTest: descriptionData.test[0].output
+            tests: descriptionData.test.map(tests => ({ inputTest: tests.input, outputTest: tests.output })),
         },
         validationSchema: Yup.object({
             topico: Yup
@@ -110,20 +109,32 @@ const UpdateDatasQuestion = ({ descriptionData }) => {
                 .string()
                 .max(255)
                 .required('Dificuldade is required'),
-            inputTest: Yup
-                .string()
-                .max(255)
-                .required('Teste de entrada is required'),
-            outputTest: Yup
-                .string()
-                .required('Teste de saída is required'),
+            tests: Yup.array().of(
+                Yup.object({
+                    inputTest: Yup
+                        .string()
+                        .max(255)
+                        .required('Teste de entrada é obrigatório'),
+                    outputTest: Yup
+                        .string()
+                        .required('Teste de saída é obrigatório'),
+                })
+            ),
         }),
         onSubmit: async () => {
+            console.log("a")
             await updateContext.updateDatasQuestion(formik.values, isCode, descriptionData.descricao, descriptionData.difficulty)
             alert('Questão Cadastrada com Sucesso')
             Router.back()
         }
     })
+
+    const addTest = () => {
+        formik.setValues({
+            ...formik.values,
+            tests: [...formik.values.tests, { inputTest: '', outputTest: '' }]
+        });
+    };
 
     return (
         <>
@@ -246,40 +257,40 @@ const UpdateDatasQuestion = ({ descriptionData }) => {
                                             </Button>
                                         </div>
                                         <div className='p-6'>
-                                            {onConsole.map((item, indice) => (<div key={indice}>{item}</div>))}
+                                            {onConsole.map((item, indice) => (<div key={`${item}-${indice}`}>{item}</div>))}
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <Box className='grid grid-cols-2 gap-x-4'>
-                                <TextField
-                                    error={Boolean(formik.touched.inputTest && formik.errors.inputTest)}
-                                    helperText={formik.touched.inputTest && formik.errors.inputTest}
-                                    fullWidth
-                                    label="Dados de entrada"
-                                    placeholder='Ex: 2, 4'
-                                    name="inputTest"
-                                    onChange={formik.handleChange}
-                                    required
-                                    margin="normal"
-                                    value={formik.values.inputTest}
-                                    variant="outlined"
-                                />
-                                <TextField
-                                    error={Boolean(formik.touched.outputTest && formik.errors.outputTest)}
-                                    helperText={formik.touched.outputTest && formik.errors.outputTest}
-                                    fullWidth
-                                    label="Saída dos dados de entrada"
-                                    placeholder='Ex: 8'
-                                    name="outputTest"
-                                    onChange={formik.handleChange}
-                                    required
-                                    margin="normal"
-                                    value={formik.values.outputTest}
-                                    variant="outlined"
-                                />
-                            </Box>
-                            {/* <Button variant='outlined' type='button' onClick={addVariables}>Adicionar</Button> */}
+                            {formik.values.tests && formik.values.tests.map((test, index) => (
+                                <Box className='grid grid-cols-2 gap-x-4' key={`${test}-${index}`}>
+                                    <TextField
+                                        fullWidth
+                                        label={`Dados de entrada ${index + 1}`}
+                                        placeholder='Ex: 2, 4'
+                                        name={`tests.${index}.inputTest`}
+                                        onChange={formik.handleChange}
+                                        required
+                                        margin="normal"
+                                        value={test.inputTest}
+                                        variant="outlined"
+                                    />
+                                    <TextField
+                                        fullWidth
+                                        label={`Saída dos dados de entrada ${index + 1}`}
+                                        placeholder='Ex: 8'
+                                        name={`tests.${index}.outputTest`}
+                                        onChange={formik.handleChange}
+                                        required
+                                        margin="normal"
+                                        value={test.outputTest}
+                                        variant="outlined"
+                                    />
+                                </Box>
+                            ))}
+                            <div className='flex justify-center mt-4 mb-6'>
+                                <Button sx={{ width: "50%" }} variant='outlined' type='button' onClick={addTest}>Adicionar mais testes</Button>
+                            </div>
                         </Box>
                         <Button
                             fullWidth
