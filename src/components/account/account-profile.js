@@ -47,14 +47,14 @@ export const AccountProfile = ({ coders }) => {
         >
           {imgURL ?
             <Avatar
-            src={imgURL}
-            sx={{
-              height: 64,
-              mb: 2,
-              width: 64
-            }}
-          />
-          : <Loader /> }
+              src={imgURL}
+              sx={{
+                height: 64,
+                mb: 2,
+                width: 64
+              }}
+            />
+            : <Loader />}
           <Typography
             gutterBottom
             variant="h5"
@@ -70,20 +70,20 @@ export const AccountProfile = ({ coders }) => {
         </Box>
       </CardContent>
       <Divider />
-      <CardActions >     
-          <Button
-            fullWidth
-            color="primary"
-            variant="text"
-            component="label"
-          >
-            Carregar foto
-            <input
-              onChange={handleFileUpload}
-              hidden
-              type="file"
-            />
-          </Button>
+      <CardActions >
+        <Button
+          fullWidth
+          color="primary"
+          variant="text"
+          component="label"
+        >
+          Carregar foto
+          <input
+            onChange={handleFileUpload}
+            hidden
+            type="file"
+          />
+        </Button>
       </CardActions>
 
 

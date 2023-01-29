@@ -17,6 +17,7 @@ import 'codemirror/mode/javascript/javascript'
 import CodeMirror from 'codemirror';
 import { getNavTopics } from '../datas/navTopics';
 import { getNavDifficulties } from '../datas/navdifficulties';
+import CustomTextField from '../customTextField';
 
 const navDifficulties = getNavDifficulties()
 
@@ -160,90 +161,37 @@ const DatasQuestion = () => {
                                 Criar uma nova questão
                             </Typography>
                             <Box className='grid grid-cols-2 gap-x-4'>
-                                <TextField
-                                    error={Boolean(formik.touched.topico && formik.errors.topico)}
-                                    helperText={formik.touched.topico && formik.errors.topico}
-                                    fullWidth
+                                <CustomTextField
+                                    formik={formik}
                                     label="Selecione o Tópico"
                                     name="topico"
-                                    onChange={formik.handleChange}
-                                    required
-                                    margin="normal"
                                     select
-                                    SelectProps={{ native: true }}
-                                    value={formik.values.topico}
-                                    variant="outlined"
-                                >
-                                    {navTopics.map((option) => (
-                                        <option
-                                            key={option.label}
-                                            value={option.label}
-                                        >
-                                            {option.label}
-                                        </option>
-                                    ))}
-                                </TextField>
-                                <TextField
-                                    error={Boolean(formik.touched.titulo && formik.errors.titulo)}
-                                    helperText={formik.touched.titulo && formik.errors.titulo}
-                                    fullWidth
+                                    options={navTopics}
+                                />
+                                <CustomTextField
+                                    formik={formik}
                                     label="Título da Questão"
                                     name="titulo"
-                                    margin="normal"
-                                    onChange={formik.handleChange}
-                                    required
-                                    value={formik.values.titulo}
-                                    variant="outlined"
                                 />
-                                <TextField
-                                    error={Boolean(formik.touched.dificuldade && formik.errors.dificuldade)}
-                                    helperText={formik.touched.dificuldade && formik.errors.dificuldade}
-                                    fullWidth
+                                <CustomTextField
+                                    formik={formik}
                                     label="Selecione a dificuldade"
                                     name="dificuldade"
-                                    onChange={formik.handleChange}
-                                    required
-                                    margin="normal"
                                     select
-                                    SelectProps={{ native: true }}
-                                    value={formik.values.dificuldade}
-                                    variant="outlined"
-                                >
-                                    {navDifficulties.map((option) => (
-                                        <option
-                                            key={option.label}
-                                            value={option.label}
-                                        >
-                                            {option.label}
-                                        </option>
-                                    ))}
-                                </TextField>
-                                <TextField
-                                    error={Boolean(formik.touched.descricao && formik.errors.descricao)}
-                                    helperText={formik.touched.descricao && formik.errors.descricao}
-                                    fullWidth
+                                    options={navDifficulties}
+                                />
+                                <CustomTextField
+                                    formik={formik}
                                     label="Descrição da Questão"
                                     name="descricao"
                                     multiline
-                                    onChange={formik.handleChange}
-                                    required
-                                    margin="normal"
-                                    value={formik.values.descricao}
-                                    variant="outlined"
                                 />
                             </Box>
-                            <TextField
-                                error={Boolean(formik.touched.descricaoDetalhada && formik.errors.descricaoDetalhada)}
-                                helperText={formik.touched.descricaoDetalhada && formik.errors.descricaoDetalhada}
-                                fullWidth
-                                multiline
+                            <CustomTextField
+                                formik={formik}
                                 label="Descricão detalhada da Questão"
                                 name="descricaoDetalhada"
-                                onChange={formik.handleChange}
-                                required
-                                margin="normal"
-                                value={formik.values.descricaoDetalhada}
-                                variant="outlined"
+                                multiline
                             />
                             <div className='flex mt-2'>
                                 <textarea id='code-editor'></textarea>
@@ -264,6 +212,8 @@ const DatasQuestion = () => {
                             {formik.values.tests && formik.values.tests.map((test, index) => (
                                 <Box className='grid grid-cols-2 gap-x-4' key={`${test}-${index}`}>
                                     <TextField
+                                        error={Boolean(formik.touched[`tests.${index}.inputTest`] && formik.errors[`tests.${index}.inputTest`])}
+                                        helperText={formik.touched[`tests.${index}.inputTest`] && formik.errors[`tests.${index}.inputTest`]}
                                         fullWidth
                                         label={`Dados de entrada ${index + 1}`}
                                         placeholder='Ex: 2, 4'
@@ -275,6 +225,8 @@ const DatasQuestion = () => {
                                         variant="outlined"
                                     />
                                     <TextField
+                                        error={Boolean(formik.touched[`tests.${index}.outputTest`] && formik.errors[`tests.${index}.outputTest`])}
+                                        helperText={formik.touched[`tests.${index}.outputTest`] && formik.errors[`tests.${index}.outputTest`]}
                                         fullWidth
                                         label={`Saída dos dados de entrada ${index + 1}`}
                                         placeholder='Ex: 8'
