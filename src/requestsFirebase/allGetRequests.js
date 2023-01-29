@@ -83,17 +83,17 @@ export const GetQuestions = (nameQuestion, setQuestions) => {
 
     const allQuestions = () => {
         getContext.getQuestions(nameQuestion).then((value) =>
-          setQuestions(value)
+            setQuestions(value)
         ).catch(console.error)
-      }
-    
-      useEffect(() => {
+    }
+
+    useEffect(() => {
         if (loaded) {
-          return
+            return
         }
         allQuestions();
         loaded = true
-      }, [nameQuestion]);
+    }, [nameQuestion]);
 }
 
 export const GetTaskSolved = (setTaskSolved) => {
@@ -104,15 +104,15 @@ export const GetTaskSolved = (setTaskSolved) => {
         getContext.getTaskSolved().then((value) =>
             setTaskSolved(value)
         ).catch(console.error)
-      }
-    
-      useEffect(() => {
+    }
+
+    useEffect(() => {
         if (loaded) {
-          return
+            return
         }
         allTasksSolved();
         loaded = true
-      }, []);
+    }, []);
 }
 
 export const GetDifficultRate = (setBarData) => {
@@ -122,14 +122,14 @@ export const GetDifficultRate = (setBarData) => {
     const DifficultRate = () => {
         getContext.getDifficultRate(setBarData)
     }
-    
-      useEffect(() => {
+
+    useEffect(() => {
         if (loaded) {
-          return
+            return
         }
         DifficultRate();
         loaded = true
-      }, []);
+    }, []);
 }
 
 export const GetTasksTopic = (setChartData) => {
@@ -139,12 +139,29 @@ export const GetTasksTopic = (setChartData) => {
     const DifficultRate = () => {
         getContext.getTasksTopic(setChartData)
     }
-    
-      useEffect(() => {
+
+    useEffect(() => {
         if (loaded) {
-          return
+            return
         }
         DifficultRate();
         loaded = true
-      }, []);
+    }, []);
+}
+
+export const GetDatasQuestion = (setCreatedQuestions) => {
+    const getContext = useContext(GetContext);
+    const loaded = false
+
+    const createdQuestions = () => {
+        getContext.getCreatedQuestions(setCreatedQuestions)
+    }
+
+    useEffect(() => {
+        if (loaded) {
+            return
+        }
+        createdQuestions();
+        loaded = true
+    }, []);
 }

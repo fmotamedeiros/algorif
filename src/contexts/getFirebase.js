@@ -188,6 +188,19 @@ export const GetProvider = ({ children }) => {
         return setChartData(chartData);
     }
 
+    const getCreatedQuestions = async (setCreatedQuestions) => {
+        const rankingRef = collection(db, "descriptionQuestion");
+        const q = query(rankingRef, orderBy("date", "desc"), where("creator", "==", auth.currentUser.uid))
+        const questions = []
+        const querySnapshot = await getDocs(q)
+
+        querySnapshot.forEach((doc) => {
+            questions.push(doc.data());
+            setCreatedQuestions(questions)
+        })
+
+    }
+
 
     return (
         <GetContext.Provider
@@ -201,6 +214,7 @@ export const GetProvider = ({ children }) => {
                 getTaskSolved,
                 getDifficultRate,
                 getTasksTopic,
+                getCreatedQuestions,
                 //getTasksWeekend,
             }}
         >

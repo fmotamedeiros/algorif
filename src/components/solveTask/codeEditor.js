@@ -42,10 +42,10 @@ const CodeEditor = ({ descriptionData, nameQuestion, taskSolved }) => {
       const isCompleted = taskSolved[nameQuestion]?.["completed"];
       if (show && !isCompleted) {
         setSolved(true);
-        setContext.taskSolved(nameQuestion, descriptionData.topico, descriptionData.difficultQuestion, true);
+        setContext.taskSolved(nameQuestion, descriptionData.topico, descriptionData.difficulty, true);
         updateContext.updateScore();
       } else if (error && !isCompleted) {
-        setContext.taskSolved(nameQuestion, descriptionData.topico, descriptionData.difficultQuestion, false);
+        setContext.taskSolved(nameQuestion, descriptionData.topico, descriptionData.difficulty, false);
       }
     }
   }, [verificationTask]);

@@ -5,9 +5,7 @@ import { ref, uploadBytes } from "firebase/storage";;
 
 export const SetContext = createContext({ undefined });
 
-export const SetProvider = (props) => {
-    const { children } = props;
-
+export const SetProvider = ({ children }) => {
     const setPictureUser = async (file) => {
         const storageRef = ref(storage, auth.currentUser.uid + ".png");
         await uploadBytes(storageRef, file)
@@ -38,21 +36,26 @@ export const SetProvider = (props) => {
 
     const setCreateQuestion = async (detailsUser, code) => {
         const categories = doc(db, "categories", detailsUser.topico)
+        const timestamp = serverTimestamp()
         await updateDoc(categories, {
             questions: arrayUnion({
                 titulo: detailsUser.titulo,
                 descricao: detailsUser.descricao,
-                dificuldade: detailsUser.dificuldade
+                difficulty: detailsUser.dificuldade
             })
         });
 
         const detailsQuestions = doc(db, "descriptionQuestion", detailsUser.titulo)
         await setDoc(detailsQuestions, {
             topico: detailsUser.topico,
-            difficultQuestion: detailsUser.dificuldade,
+            titulo: detailsUser.titulo,
+            difficulty: detailsUser.dificuldade,
+            descricao: detailsUser.descricao,
             descricaoDetalhada: detailsUser.descricaoDetalhada,
             codigo: code,
-            test: [{input: detailsUser.inputTest, output: detailsUser.outputTest}]
+            test: [{input: detailsUser.inputTest, output: detailsUser.outputTest}],
+            date: timestamp,
+            creator: auth.currentUser.uid,
         });
     }
     

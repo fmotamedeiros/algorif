@@ -132,7 +132,7 @@ const Tasks = () => {
                                 <div className="text-[16px] flex">
                                   <div className="flex">
                                     <div>Nível:&nbsp;</div>
-                                    <div className="text-green-500">{question.dificuldade}</div>
+                                    <div className="text-green-500">{question.difficulty}</div>
                                   </div>
                                   <div>
                                     , Taxa de Acerto: {question.taxaSucesso}

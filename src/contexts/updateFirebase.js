@@ -1,6 +1,6 @@
 import { createContext } from "react";
 import { auth, db } from "./auth-context";
-import { doc, getDoc, updateDoc } from "firebase/firestore";
+import { arrayRemove, arrayUnion, doc, getDoc, serverTimestamp, updateDoc } from "firebase/firestore";
 import { updatePassword } from "firebase/auth";
 
 export const UpdateContext = createContext({ undefined });
@@ -33,6 +33,39 @@ export const UpdateProvider = ({ children }) => {
         updateDoc(scoreRef, { score: newScore });
     }
 
+    const updateDatasQuestion = async (detailsUser, code, description, difficulty) => {
+        const categories = doc(db, "categories", detailsUser.topico)
+        const timestamp = serverTimestamp()
+        await updateDoc(categories, {
+            questions: arrayRemove({
+                titulo: detailsUser.titulo,
+                descricao: description,
+                difficulty: difficulty
+            })
+        });
+        await updateDoc(categories, {
+            questions: arrayUnion({
+                titulo: detailsUser.titulo,
+                descricao: detailsUser.descricao,
+                difficulty: detailsUser.dificuldade
+            })
+        });
+
+        const detailsQuestions = doc(db, "descriptionQuestion", detailsUser.titulo)
+        await updateDoc(detailsQuestions, {
+            topico: detailsUser.topico,
+            titulo: detailsUser.titulo,
+            difficulty: detailsUser.dificuldade,
+            descricao: detailsUser.descricao,
+            descricaoDetalhada: detailsUser.descricaoDetalhada,
+            codigo: code,
+            test: [{input: detailsUser.inputTest, output: detailsUser.outputTest}],
+            date: timestamp,
+            creator: auth.currentUser.uid,
+        });
+
+    }
+
     // async function updateStatusQuestion(nameQuestion) {
     //     const replySent = doc(db, "coders", auth.currentUser.uid)
 
@@ -51,6 +84,7 @@ export const UpdateProvider = ({ children }) => {
                 updateUserDetails,
                 updatePasswordUser,
                 updateScore,
+                updateDatasQuestion,
                 // updateStatusQuestion
             }}
         >
