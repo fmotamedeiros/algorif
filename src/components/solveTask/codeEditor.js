@@ -75,7 +75,7 @@ const CodeEditor = ({ descriptionData, nameQuestion, taskSolved }) => {
       return (
         `
       var b = main(${test.input}); 
-      if(b === "${test.output}"){
+      if(b == "${test.output}"){
         passedTests.push(true) 
       } else {
         passed = false
