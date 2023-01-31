@@ -146,6 +146,21 @@ export const GetProvider = ({ children }) => {
         let total = 0;
         let topicTask = {};
 
+        const colors = {
+            "Array": "#00e378",
+            "Array bidimensional": "#00e33d",
+            "Decisão": "#00e3a0",
+            "Entrada e Saída": "#70e300",
+            "Formatação": "#a3e300",
+            "Geometria computacional": "#18ae71",
+            "Geral": "#a8e361",
+            "Laço de repetição": "#b6e388",
+            "Lógica matemática": "#b6e3af",
+            "Recursão": "#5db500",
+            "String": "#608f65",
+            "Variáveis": "#80b50f",
+          };
+
         const randomColor = () => {
             let r = Math.floor(Math.random() * 256);
             let g = Math.floor(Math.random() * 256);
@@ -174,7 +189,7 @@ export const GetProvider = ({ children }) => {
             datasets: [
                 {
                     data: percentage.map(p => Math.round(p)),
-                    backgroundColor: Array(topics.length).fill().map(() => randomColor()),
+                    backgroundColor: topics.map(topic => colors[topic] || randomColor()),
                     borderWidth: 4,
                     cutout: 60,
                     borderColor: '#1F2937',

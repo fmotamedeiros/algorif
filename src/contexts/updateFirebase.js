@@ -33,34 +33,37 @@ export const UpdateProvider = ({ children }) => {
         updateDoc(scoreRef, { score: newScore });
     }
 
-    const updateDatasQuestion = async (detailsUser, code, description, difficulty) => {
-        const categories = doc(db, "categories", detailsUser.topico)
+    const updateDatasQuestion = async (currentData, code, pastData) => {
+
+        const pastCategories = doc(db, "categories", pastData.topico)
         const timestamp = serverTimestamp()
-        await updateDoc(categories, {
+        await updateDoc(pastCategories, {
             questions: arrayRemove({
-                titulo: detailsUser.titulo,
-                descricao: description,
-                difficulty: difficulty
-            })
-        });
-        await updateDoc(categories, {
-            questions: arrayUnion({
-                titulo: detailsUser.titulo,
-                descricao: detailsUser.descricao,
-                difficulty: detailsUser.dificuldade
+                titulo: pastData.titulo,
+                descricao: pastData.descricao,
+                difficulty: pastData.difficulty
             })
         });
 
-        const detailsQuestions = doc(db, "descriptionQuestion", detailsUser.titulo)
+        const currentCategories = doc(db, "categories", currentData.topico)
+        await updateDoc(currentCategories, {
+            questions: arrayUnion({
+                titulo: currentData.titulo,
+                descricao: currentData.descricao,
+                difficulty: currentData.dificuldade
+            })
+        });
+
+        const detailsQuestions = doc(db, "descriptionQuestion", currentData.titulo)
         
         await updateDoc(detailsQuestions, {
-            topico: detailsUser.topico,
-            titulo: detailsUser.titulo,
-            difficulty: detailsUser.dificuldade,
-            descricao: detailsUser.descricao,
-            descricaoDetalhada: detailsUser.descricaoDetalhada,
+            topico: currentData.topico,
+            titulo: currentData.titulo,
+            difficulty: currentData.dificuldade,
+            descricao: currentData.descricao,
+            descricaoDetalhada: currentData.descricaoDetalhada,
             codigo: code,
-            test: detailsUser.tests.map(test => ({input: test.inputTest, output: test.outputTest})),
+            test: currentData.tests.map(test => ({input: test.inputTest, output: test.outputTest})),
             date: timestamp,
             creator: auth.currentUser.uid,
         });

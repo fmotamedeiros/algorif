@@ -45,7 +45,7 @@ const EditableQuestions = () => {
                                                     {question.descricao}
                                                 </Box>
                                                 <Box className="p-3 m-2 lg:m-0 border border-gray-300 bg-[#111827] group-hover:bg-green-500 group-hover:border-green-500 text-gray-300 group-hover:text-[#1F2937] rounded-lg lg:w-[20%] ">
-                                                    Resolver Desafio
+                                                    Editar Questão
                                                 </Box>
                                             </Box>
                                         </button>

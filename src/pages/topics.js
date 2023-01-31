@@ -16,7 +16,7 @@ const Settings = () => {
       component="main"
       sx={{
         flexGrow: 1,
-        py: 8
+        py: 4
       }}
     >
       <div className='px-[5%]'>

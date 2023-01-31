@@ -33,7 +33,7 @@ export const DashboardMinimalSideBar = () => {
                 height: '100%'
               }}
             >
-              <div className='my-[64px]'
+              <div className='my-[48px]'
               />
               <Box sx={{ flexGrow: 1 }}>
                 {navLinks.map((item) => (

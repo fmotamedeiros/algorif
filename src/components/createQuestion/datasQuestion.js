@@ -184,7 +184,6 @@ const DatasQuestion = () => {
                                     formik={formik}
                                     label="Descrição da Questão"
                                     name="descricao"
-                                    multiline
                                 />
                             </Box>
                             <CustomTextField
@@ -192,6 +191,7 @@ const DatasQuestion = () => {
                                 label="Descricão detalhada da Questão"
                                 name="descricaoDetalhada"
                                 multiline
+                                rows = {10}
                             />
                             <div className='flex mt-2'>
                                 <textarea id='code-editor'></textarea>

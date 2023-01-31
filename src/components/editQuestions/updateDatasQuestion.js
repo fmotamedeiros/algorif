@@ -123,8 +123,7 @@ const UpdateDatasQuestion = ({ descriptionData }) => {
             ),
         }),
         onSubmit: async () => {
-            console.log("a")
-            await updateContext.updateDatasQuestion(formik.values, isCode, descriptionData.descricao, descriptionData.difficulty)
+            await updateContext.updateDatasQuestion(formik.values, isCode, descriptionData)
             alert('Questão Cadastrada com Sucesso')
             Router.back()
         }
@@ -182,7 +181,6 @@ const UpdateDatasQuestion = ({ descriptionData }) => {
                                     formik={formik}
                                     label="Descrição da Questão"
                                     name="descricao"
-                                    multiline
                                 />
                             </Box>
                             <CustomTextField
@@ -190,6 +188,7 @@ const UpdateDatasQuestion = ({ descriptionData }) => {
                                 label="Descricão detalhada da Questão"
                                 name="descricaoDetalhada"
                                 multiline
+                                rows = {10}
                             />
                             <div className='flex mt-2'>
                                 <textarea id='code-editor'></textarea>

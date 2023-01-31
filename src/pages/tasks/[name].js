@@ -119,7 +119,7 @@ const Tasks = () => {
                 {questions["questions"].map((question) => { //Pega os dados de questions.json e faz uma box para cada questão
                   const solved = false;
                   return (
-                    <Link href={`/questions/${question.titulo}`}
+                    <Link href={`/tasks/${router.query.name}/${question.titulo}`}
                       key={question.titulo}>
                       <div className="pb-3">
                         <Box className="group">

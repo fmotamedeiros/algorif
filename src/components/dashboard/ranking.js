@@ -101,17 +101,9 @@ export const Ranking = () => {
                 <TableCell>
                   {indice + 1}°
                 </TableCell>
-
-                {indice === 0 ?
-                  <TableCell style={{ color: '#22c55e' }}>
-                    {ranking.userName}
-                  </TableCell>
-                  :
-                  <TableCell>
-                    {ranking.userName}
-                  </TableCell>
-                }
-
+                <TableCell>
+                  {ranking.userName}
+                </TableCell>
                 <TableCell style={{ color: '#9b9ea3' }}>
                   {ranking.score}
                 </TableCell>

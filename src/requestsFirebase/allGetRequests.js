@@ -1,25 +1,24 @@
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { GetContext } from "../contexts/getFirebase";
 
 //account.js
 export const UserDetails = (setCoders) => {
     const getContext = useContext(GetContext);
-    const loaded = false
+    const [isLoaded, setIsLoaded] = useState(false);
 
     const datasUsers = () => {
-        getContext.getUserDetails().then((value) =>
-            setCoders(value)
-        ).catch(console.error)
+        getContext.getUserDetails().then((value) => {
+            setCoders(value);
+            setIsLoaded(true);
+        }).catch(console.error);
+    };
 
-    }
     useEffect(() => {
-        if (loaded) {
-            return
+        if (!isLoaded) {
+            datasUsers();
         }
-        datasUsers();
-        loaded = true
-    }, []);
-}
+    }, [isLoaded]);
+};
 
 //dashboard-navbar.js
 //account-profile.js
@@ -30,138 +29,134 @@ export const PictureUser = (setImgURL) => {
 
 //[question].js
 export const DescriptionTask = (nameQuestion, setDescriptionData) => {
-    const loaded = false
     const getContext = useContext(GetContext);
+    const [isLoaded, setIsLoaded] = useState(false);
+
     const description = () => {
-        getContext.getDescription(nameQuestion).then((value) =>
-            setDescriptionData(value)
-        ).catch(console.error)
-    }
+        getContext.getDescription(nameQuestion).then(value => {
+            setDescriptionData(value);
+            setIsLoaded(true);
+        })
+            .catch(console.error);
+    };
 
     useEffect(() => {
-        if (loaded) {
-            return
+        if (!isLoaded) {
+            description();
         }
-        description();
-        loaded = true
-    }, []);
-}
+    }, [isLoaded]);
+};
 
 //ranking.js
 export const AllRanking = (setRanking) => {
     const getContext = useContext(GetContext);
+    const [isLoaded, setIsLoaded] = useState(false);
 
     const Ranking = () => {
-        getContext.getRanking(setRanking)
+        getContext.getRanking(setRanking);
+        setIsLoaded(true);
     }
 
     useEffect(() => {
-        Ranking();
-    }, []);
+        if (!isLoaded) {
+            Ranking();
+        }
+    }, [isLoaded]);
 }
 
 export const AllTopics = (setTopics) => {
     const getContext = useContext(GetContext);
-    const loaded = false
+    const [isLoaded, setIsLoaded] = useState(false);
 
     const Topics = () => {
-        getContext.getTopics(setTopics)
+        getContext.getTopics(setTopics);
+        setIsLoaded(true);
     }
 
     useEffect(() => {
-        if (loaded) {
-            return
+        if (!isLoaded) {
+            Topics();
         }
-        Topics();
-        loaded = true
-    }, []);
+    }, [isLoaded]);
 }
 
-export const GetQuestions = (nameQuestion, setQuestions) => {
+export const GetQuestions = (nameTopic, setQuestions) => {
     const getContext = useContext(GetContext);
-    const loaded = false
 
     const allQuestions = () => {
-        getContext.getQuestions(nameQuestion).then((value) =>
-            setQuestions(value)
-        ).catch(console.error)
-    }
+        getContext.getQuestions(nameTopic).then(value => {
+            setQuestions(value);
+        })
+            .catch(console.error);
+    };
 
     useEffect(() => {
-        if (loaded) {
-            return
-        }
         allQuestions();
-        loaded = true
-    }, [nameQuestion]);
+    }, [nameTopic]);
 }
 
-export const GetTaskSolved = (setTaskSolved) => {
+export const GetTaskSolved = setTaskSolved => {
     const getContext = useContext(GetContext);
-    const loaded = false
+    const [isLoaded, setIsLoaded] = useState(false);
 
     const allTasksSolved = () => {
-        getContext.getTaskSolved().then((value) =>
-            setTaskSolved(value)
-        ).catch(console.error)
-    }
+        getContext.getTaskSolved().then(value => {
+            setTaskSolved(value);
+            setIsLoaded(true);
+        })
+            .catch(console.error);
+    };
 
     useEffect(() => {
-        if (loaded) {
-            return
+        if (!isLoaded) {
+            allTasksSolved();
         }
-        allTasksSolved();
-        loaded = true
-    }, []);
-}
+    }, [isLoaded]);
+};
 
 export const GetDifficultRate = (setBarData) => {
     const getContext = useContext(GetContext);
-    const loaded = false
+    const [isLoaded, setIsLoaded] = useState(false);
 
     const DifficultRate = () => {
-        getContext.getDifficultRate(setBarData)
-    }
+        getContext.getDifficultRate(setBarData);
+        setIsLoaded(true);
+    };
 
     useEffect(() => {
-        if (loaded) {
-            return
+        if (!isLoaded) {
+            DifficultRate();
         }
-        DifficultRate();
-        loaded = true
-    }, []);
-}
+    }, [isLoaded]);
+};
 
 export const GetTasksTopic = (setChartData) => {
     const getContext = useContext(GetContext);
-    const loaded = false
+    const [isLoaded, setIsLoaded] = useState(false);
 
     const DifficultRate = () => {
-        getContext.getTasksTopic(setChartData)
+        getContext.getTasksTopic(setChartData);
+        setIsLoaded(true);
     }
 
     useEffect(() => {
-        if (loaded) {
-            return
+        if (!isLoaded) {
+            DifficultRate();
         }
-        DifficultRate();
-        loaded = true
-    }, []);
-}
+    }, [isLoaded]);
+};
 
 export const GetDatasQuestion = (setCreatedQuestions) => {
     const getContext = useContext(GetContext);
-    const loaded = false
+    const [isLoaded, setIsLoaded] = useState(false);
 
     const createdQuestions = () => {
-        getContext.getCreatedQuestions(setCreatedQuestions)
+        getContext.getCreatedQuestions(setCreatedQuestions);
+        setIsLoaded(true);
     }
-
     useEffect(() => {
-        if (loaded) {
-            return
+        if (!isLoaded) {
+            createdQuestions();
         }
-        createdQuestions();
-        loaded = true
-    }, []);
-}
+    }, [isLoaded]);
+};
