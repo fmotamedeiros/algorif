@@ -1,7 +1,6 @@
 import {
     Box,
     Button,
-    TextField,
     Typography
 } from '@mui/material';
 import { UpdateContext } from '../../contexts/updateFirebase';
@@ -166,6 +165,7 @@ const UpdateDatasQuestion = ({ descriptionData }) => {
                                     options={navTopics}
                                 />
                                 <CustomTextField
+                                    readOnly
                                     formik={formik}
                                     label="Título da Questão"
                                     name="titulo"
@@ -188,7 +188,7 @@ const UpdateDatasQuestion = ({ descriptionData }) => {
                                 label="Descricão detalhada da Questão"
                                 name="descricaoDetalhada"
                                 multiline
-                                rows = {10}
+                                rows={10}
                             />
                             <div className='flex mt-2'>
                                 <textarea id='code-editor'></textarea>
@@ -208,31 +208,18 @@ const UpdateDatasQuestion = ({ descriptionData }) => {
                             </div>
                             {formik.values.tests && formik.values.tests.map((test, index) => (
                                 <Box className='grid grid-cols-2 gap-x-4' key={`${test}-${index}`}>
-                                    <TextField
-                                        error={Boolean(formik.touched[`tests.${index}.inputTest`] && formik.errors[`tests.${index}.inputTest`])}
-                                        helperText={formik.touched[`tests.${index}.inputTest`] && formik.errors[`tests.${index}.inputTest`]}
-                                        fullWidth
+                                    <CustomTextField
+                                        formik={formik}
                                         label={`Dados de entrada ${index + 1}`}
-                                        placeholder='Ex: 2, 4'
                                         name={`tests.${index}.inputTest`}
-                                        onChange={formik.handleChange}
-                                        required
-                                        margin="normal"
                                         value={test.inputTest}
-                                        variant="outlined"
                                     />
-                                    <TextField
-                                        error={Boolean(formik.touched[`tests.${index}.outputTest`] && formik.errors[`tests.${index}.outputTest`])}
-                                        helperText={formik.touched[`tests.${index}.outputTest`] && formik.errors[`tests.${index}.outputTest`]}
-                                        fullWidth
+
+                                    <CustomTextField
+                                        formik={formik}
                                         label={`Saída dos dados de entrada ${index + 1}`}
-                                        placeholder='Ex: 8'
                                         name={`tests.${index}.outputTest`}
-                                        onChange={formik.handleChange}
-                                        required
-                                        margin="normal"
                                         value={test.outputTest}
-                                        variant="outlined"
                                     />
                                 </Box>
                             ))}

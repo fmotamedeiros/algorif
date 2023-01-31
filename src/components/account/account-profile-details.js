@@ -7,12 +7,12 @@ import {
   CardHeader,
   Divider,
   Grid,
-  TextField
 } from '@mui/material';
 import * as Yup from 'yup';
 import { useFormik } from 'formik';
 import { UpdateContext } from '../../contexts/updateFirebase';
 import { useRouter } from 'next/router';
+import CustomTextField from '../customTextField';
 
 export const AccountProfileDetails = ({ coders }) => {
 
@@ -64,22 +64,18 @@ export const AccountProfileDetails = ({ coders }) => {
         <CardContent>
           <Grid
             container
-            spacing={3}
+            spacing={0.5}
           >
             <Grid
               item
               md={12}
               xs={12}
             >
-              <TextField
-                fullWidth
+              <CustomTextField
+                formik = {formik}
                 helperText="Please specify the complete name"
                 label="Complete Name"
                 name="userName"
-                onChange={formik.handleChange}
-                required
-                value={formik.values.userName}
-                variant="outlined"
               />
             </Grid>
             <Grid
@@ -87,16 +83,11 @@ export const AccountProfileDetails = ({ coders }) => {
               md={6}
               xs={12}
             >
-              <TextField
-              sx={{
-                color: 'white',
-              }}
+              <CustomTextField
                 disabled
-                fullWidth
                 label="Email Address"
                 name="email"
-                value={formik.values.email}
-                variant="outlined"
+                formik={formik}
               />
             </Grid>
             <Grid
@@ -104,14 +95,11 @@ export const AccountProfileDetails = ({ coders }) => {
               md={6}
               xs={12}
             >
-              <TextField
-                fullWidth
+              <CustomTextField
                 label="Phone Number"
                 name="phone"
-                onChange={formik.handleChange}
                 type="number"
-                value={formik.values.phone}
-                variant="outlined"
+                formik={formik}
               />
             </Grid>
             <Grid
@@ -119,14 +107,10 @@ export const AccountProfileDetails = ({ coders }) => {
               md={6}
               xs={12}
             >
-              <TextField
-                fullWidth
+              <CustomTextField
                 label="State"
                 name="state"
-                onChange={formik.handleChange}
-                required
-                value={formik.values.state}
-                variant="outlined"
+                formik={formik}
               />
             </Grid>
             <Grid
@@ -134,14 +118,10 @@ export const AccountProfileDetails = ({ coders }) => {
               md={6}
               xs={12}
             >
-              <TextField
-                fullWidth
+              <CustomTextField
                 label="Select City"
                 name="city"
-                onChange={formik.handleChange}
-                required
-                value={formik.values.city}
-                variant="outlined"
+                formik={formik}
               />
             </Grid>
           </Grid>

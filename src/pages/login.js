@@ -3,12 +3,13 @@ import NextLink from 'next/link';
 import Router from 'next/router';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import { Box, Button, Container, Grid, Link, TextField, Typography } from '@mui/material';
+import { Box, Button, Container, Link, Typography } from '@mui/material';
 //import { Google as GoogleIcon } from '../icons/google';
 import { getAuth, signInWithEmailAndPassword, signInWithPopup, } from "firebase/auth";
-import { auth, AuthContext } from '../contexts/auth-context';
+import { AuthContext } from '../contexts/auth-context';
 import { useContext, useState } from 'react';
 import { Logo } from '../components/logo';
+import CustomTextField from '../components/customTextField';
 
 const Login = () => {
   const authContext = useContext(AuthContext);
@@ -29,8 +30,8 @@ const Login = () => {
 
   const formik = useFormik({
     initialValues: {
-      email: 'masiocesar@gmail.com',
-      password: '123456'
+      email: '',
+      password: ''
     },
     validationSchema: Yup.object({
       email: Yup
@@ -124,31 +125,19 @@ const Login = () => {
                 ou entre com seu endereço de email
               </Typography>
             </Box> */}
-            <TextField
-              error={Boolean(formik.touched.email && formik.errors.email)}
-              fullWidth
-              helperText={formik.touched.email && formik.errors.email}
+            <CustomTextField
               label="Email Address"
-              margin="normal"
               name="email"
               onBlur={formik.handleBlur}
-              onChange={formik.handleChange}
               type="email"
-              value={formik.values.email}
-              variant="outlined"
+              formik={formik}
             />
-            <TextField
-              error={Boolean(formik.touched.password && formik.errors.password)}
-              fullWidth
-              helperText={formik.touched.password && formik.errors.password}
+            <CustomTextField
               label="Password"
-              margin="normal"
               name="password"
               onBlur={formik.handleBlur}
-              onChange={formik.handleChange}
               type="password"
-              value={formik.values.password}
-              variant="outlined"
+              formik={formik}
             />
             <div id="error-message" className='text-red-500 p-1'></div>
             <Box sx={{ py: 2 }}>
