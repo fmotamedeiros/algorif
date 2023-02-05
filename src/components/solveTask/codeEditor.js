@@ -1,14 +1,15 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
+import { Button } from '@mui/material';
+import { UpdateContext } from '../../contexts/updateFirebase';
+import { SetContext } from '../../contexts/setFirebase';
 import 'codemirror/lib/codemirror.css'
 import 'codemirror/theme/dracula.css'
 import 'codemirror/addon/edit/closetag';
 import 'codemirror/addon/edit/closebrackets';
-import { Button } from '@mui/material';
-import { UpdateContext } from '../../contexts/updateFirebase';
-import { SetContext } from '../../contexts/setFirebase';
+import 'codemirror/mode/javascript/javascript'
+import CodeMirror from 'codemirror';
 
-const MirrorConsole = require("../../../node_modules/codemirror-console/lib/mirror-console");
-const editor = new MirrorConsole();
+
 
 const CodeEditor = ({ descriptionData, nameQuestion, taskSolved }) => {
   const [show, setShow] = useState(false);
@@ -17,52 +18,45 @@ const CodeEditor = ({ descriptionData, nameQuestion, taskSolved }) => {
   const [verificationTask, setVerificationTask] = useState(false);
   const [onConsole, setConsole] = useState([]);
   const [testResults, setTestResults] = useState([]);
-  
+  const codeEditorRef = useRef(null);
+
   const updateContext = useContext(UpdateContext);
   const setContext = useContext(SetContext);
-  const codeMirror = editor.editor;
 
   useEffect(() => {
-    codeMirror.setOption("lineNumbers", true);
-    codeMirror.setOption("autoCloseTags", true);
-    codeMirror.setOption("autoCloseBrackets", true);
-    codeMirror.setOption('theme', 'dracula');
-    codeMirror.setSize("100%", 520);
-    try {
-      editor.setText(content.textContent);
-      editor.swapWithElement(document.getElementById("content"));
-    } catch (error) {
-      console.log(error);
+    if (codeEditorRef.current) {
+      return
     }
+    const codeEditor = CodeMirror.fromTextArea(document.getElementById('code-editor'), {
+      mode: "javascript",
+      theme: 'dracula',
+      lineNumbers: true,
+      autoCloseTags: true,
+      autoCloseBrackets: true
+    });
+    codeEditor.setSize("100%", 520)
+    codeEditor.setValue(`${descriptionData.codigo}`)
+
+    codeEditorRef.current = codeEditor;
   }, []);
 
-  useEffect(() => {
-    //Confere se a questão já foi respondida corretamente
-    if (!solved) {
-      const isCompleted = taskSolved[nameQuestion]?.["completed"];
-      if (show && !isCompleted) {
-        setSolved(true);
-        setContext.taskSolved(nameQuestion, descriptionData.topico, descriptionData.difficulty, true);
-        updateContext.updateScore();
-      } else if (error && !isCompleted) {
-        setContext.taskSolved(nameQuestion, descriptionData.topico, descriptionData.difficulty, false);
-      }
-    }
-  }, [verificationTask]);
-
   const outputResult = () => {
-    let consoleWritten = [];
-    var consoleMock = {
-      log: (arg) => {
-        consoleWritten.push(arg);
-        setConsole(consoleWritten);
-      },
+    try {
+      eval(codeEditorRef.current.getValue()); // executar o código
+      output.textContent = consoleWritten.join("\n");
+      consoleWritten = []
+    } catch (error) {
+      output.textContent = error.toString();
+    }
+  };
+
+  // redefinir console.log para adicionar saída ao elemento de saída
+  let consoleWritten = [];
+  const handleRun = () => {
+    console.log = (...args) => {
+      consoleWritten.push(...args);
     };
-    editor.runInContext({ console: consoleMock }, (error, result) => {
-      if (error) {
-        console.error(error);
-      }
-    });
+    outputResult();
   };
 
   const checkQuestion = () => {
@@ -86,7 +80,7 @@ const CodeEditor = ({ descriptionData, nameQuestion, taskSolved }) => {
       )
     });
 
-    var tests = editor.getText("content");
+    let tests = codeEditorRef.current.getValue();
 
     tests = tests + testsPassed + passed
 
@@ -94,16 +88,14 @@ const CodeEditor = ({ descriptionData, nameQuestion, taskSolved }) => {
       tests = tests + test
     });
 
-    var testsPassedPercentage = ` 
-    // AVISO - talvez em produção isso nao funcione
-
+    let testsDone = ` 
     if (passed === true) {
       setShow(true)
     } else {
       setError(true)
     }
     `
-    tests += testsPassedPercentage
+    tests += testsDone
 
     try {
       eval(tests)
@@ -112,20 +104,29 @@ const CodeEditor = ({ descriptionData, nameQuestion, taskSolved }) => {
     }
   }
 
+  useEffect(() => {
+    //Confere se a questão já foi respondida corretamente
+    if (!solved) {
+      const isCompleted = taskSolved[nameQuestion]?.["completed"];
+      if (show && !isCompleted) {
+        setSolved(true);
+        setContext.taskSolved(nameQuestion, descriptionData.topico, descriptionData.difficulty, true);
+        updateContext.updateScore();
+      } else if (error && !isCompleted) {
+        setContext.taskSolved(nameQuestion, descriptionData.topico, descriptionData.difficulty, false);
+      }
+    }
+  }, [verificationTask]);
+
   return (
     <>
-      <div id='content'>
-        {descriptionData.codigo}
-      </div>
+      <textarea id='code-editor'></textarea>
       <div className='px-4 py-2 flex gap-4 justify-end'>
         <Button variant='outlined' href="#output"
-          onClick={outputResult}>Executar</Button>
+          onClick={handleRun}>Executar</Button>
 
-        <Button variant='outlined'
-          onClick={checkQuestion}
-          href="#Verificado"> Verificar Resposta
-        </Button>
-
+        <Button variant='outlined' href="#Verificado"
+          onClick={checkQuestion}>Verificar Resposta</Button>
       </div>
 
       <div id="output"
