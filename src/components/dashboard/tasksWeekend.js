@@ -1,26 +1,10 @@
 import { Bar } from 'react-chartjs-2';
-import { Box, Button, Card, CardContent, CardHeader, Popover, useTheme } from '@mui/material';
-import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
-import { useState } from 'react';
+import { Box, Card, CardContent, CardHeader } from '@mui/material';
 
 export const TasksWeekend = () => {
-  const theme = useTheme();
 
-  //const [time, setTime] = useState("Semanal");
-
-  const [anchorEl, setAnchorEl] = useState(null);
-
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
-
-  const open = Boolean(anchorEl);
-  const id = open ? 'simple-popover' : undefined;
-
+  const hasData = true
+  const labels = []
   const data = {
     datasets: [
       {
@@ -29,13 +13,17 @@ export const TasksWeekend = () => {
         barThickness: 10,
         borderRadius: 2,
         categoryPercentage: 0.5,
-        data: [18, 5, 19, 27, 29, 19, 20],
+        data: [],
         label: 'Desafios Completados',
         maxBarThickness: 10
       },
     ],
-    labels: ['1° Semana', '2° Semana', '3° Semana', '4° Semana', '5° Semana', '6° Semana', '7° Semana']
+    labels: labels
   };
+
+  if (labels.length === 0) {
+    hasData = false
+  }
 
   const options = {
     animation: false,
@@ -57,43 +45,12 @@ export const TasksWeekend = () => {
         ticks: { color: '#bbbec7', beginAtZero: true }
       }
     }
-    
+
   };
 
   return (
     <Card>
       <CardHeader
-        // action={(
-        //   <>
-        //     <Button
-        //       aria-describedby={id} 
-        //       onClick={handleClick}
-        //       endIcon={<ArrowDropDownIcon fontSize="small" />}
-        //       size="small"
-        //     >
-        //       {time}
-        //     </Button>
-        //     <Popover
-        //     id={id}
-        //     open={open}
-        //     anchorEl={anchorEl}
-        //     onClose={handleClose}
-        //     anchorOrigin={{
-        //       vertical: 'bottom',
-        //       horizontal: 'center',
-        //     }}
-        //     transformOrigin={{
-        //       vertical: 'top',
-        //       horizontal: 'center',
-        //     }}
-        //   >
-        //     <Button onClick={() => setTime("Mensal")} 
-        //     className='p-2 text-green-400'>Mensal</Button>
-        //     <Button onClick={() => setTime("Semanal")} 
-        //     className='p-2 text-green-400'>Semanal</Button>
-        //   </Popover>
-        //   </>
-        // )}
         title="Exercícios Concluídos"
       />
       <CardContent>
@@ -103,10 +60,13 @@ export const TasksWeekend = () => {
             position: 'relative'
           }}
         >
-          <Bar
+          {
+            !hasData && <div className='flex justify-center items-center h-full text-gray-500 text-2xl'>Indisponível</div>
+          }
+          {/* <Bar
             data={data}
             options={options}
-          />
+          /> */}
         </Box>
       </CardContent>
     </Card>
