@@ -24,7 +24,7 @@ const navTopics = getNavTopics()
 
 const UpdateDatasQuestion = ({ descriptionData }) => {
     const [onConsole, setConsole] = useState([])
-    const [isCode, setCode] = useState(descriptionData.codigo)
+    const [isCode, setCode] = useState(descriptionData.code)
     const loaded = false
 
     const updateContext = useContext(UpdateContext);
@@ -61,7 +61,7 @@ const UpdateDatasQuestion = ({ descriptionData }) => {
         };
 
         codeEditor.setValue(
-            `${descriptionData.codigo}`)
+            `${descriptionData.code}`)
 
 
         codeEditor.on('change', (instance, changes) => {
@@ -81,34 +81,34 @@ const UpdateDatasQuestion = ({ descriptionData }) => {
 
     const formik = useFormik({
         initialValues: {
-            topico: descriptionData.topico,
-            titulo: descriptionData.titulo,
-            descricao: descriptionData.descricao,
-            descricaoDetalhada: descriptionData.descricaoDetalhada,
-            dificuldade: descriptionData.difficulty,
+            topic: descriptionData.topic,
+            title: descriptionData.title,
+            description: descriptionData.description,
+            detailedDescription: descriptionData.detailedDescription,
+            difficulty: descriptionData.difficulty,
             tests: descriptionData.test.map(tests => ({ inputTest: tests.input, outputTest: tests.output })),
         },
         validationSchema: Yup.object({
-            topico: Yup
+            topic: Yup
                 .string()
                 .max(255)
                 .required(
                     'Tópico da questão is required'),
-            titulo: Yup
+            title: Yup
                 .string()
                 .max(255)
                 .required(
                     'Título is required'),
-            descricao: Yup
+            description: Yup
                 .string()
                 .required('Descricão is required'),
-            descricaoDetalhada: Yup
+            detailedDescription: Yup
                 .string()
                 .required('Descricão detalhada is required'),
-            dificuldade: Yup
+            difficulty: Yup
                 .string()
                 .max(255)
-                .required('Dificuldade is required'),
+                .required('difficulty is required'),
             tests: Yup.array().of(
                 Yup.object({
                     inputTest: Yup
@@ -122,8 +122,8 @@ const UpdateDatasQuestion = ({ descriptionData }) => {
             ),
         }),
         onSubmit: async () => {
-            await updateContext.updateDatasQuestion(formik.values, isCode, descriptionData)
-            alert('Questão Cadastrada com Sucesso')
+            await updateContext.updateDatasQuestion(formik.values, descriptionData, isCode)
+            alert('Questão Atualizada com Sucesso')
             Router.back()
         }
     })
@@ -160,32 +160,32 @@ const UpdateDatasQuestion = ({ descriptionData }) => {
                                 <CustomTextField
                                     formik={formik}
                                     label="Selecione o Tópico"
-                                    name="topico"
+                                    name="topic"
                                     select
                                     options={navTopics}
                                 />
                                 <CustomTextField
                                     formik={formik}
                                     label="Título da Questão"
-                                    name="titulo"
+                                    name="title"
                                 />
                                 <CustomTextField
                                     formik={formik}
                                     label="Selecione a dificuldade"
-                                    name="dificuldade"
+                                    name="difficulty"
                                     select
                                     options={navDifficulties}
                                 />
                                 <CustomTextField
                                     formik={formik}
                                     label="Descrição da Questão"
-                                    name="descricao"
+                                    name="description"
                                 />
                             </Box>
                             <CustomTextField
                                 formik={formik}
                                 label="Descricão detalhada da Questão"
-                                name="descricaoDetalhada"
+                                name="detailedDescription"
                                 multiline
                                 rows={10}
                             />

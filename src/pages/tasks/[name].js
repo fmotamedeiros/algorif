@@ -116,18 +116,18 @@ const Tasks = () => {
             <Box className="w-full flex flex-col lg:flex-row pt-5 justify-between gap-4 h-full">
               <div className="lg:w-[80%]">
 
-                {questions["questions"].map((question) => { //Pega os dados de questions.json e faz uma box para cada questão
+                {questions["questions"].map((question, i) => { //Pega os dados de questions.json e faz uma box para cada questão
                   const solved = false;
                   return (
-                    <Link href={`/tasks/${router.query.name}/${question.titulo}`}
-                      key={question.titulo}>
+                    <Link href={`/tasks/${router.query.name}/${question.title}`}
+                      key={`${question.title}-${i}`}>
                       <div className="pb-3">
                         <Box className="group">
                           <button className="p-4 border mb-3 border-gray-500 group-hover:border-green-500 w-full rounded">
                             <Box className="font-semibold">
                               <Box className="p-2">
                                 <div className="group-hover:text-green-500 flex text-[20px]">
-                                  {question.titulo}
+                                  {question.title}
                                 </div>
                                 <div className="text-[16px] flex">
                                   <div className="flex">
@@ -135,18 +135,18 @@ const Tasks = () => {
                                     <div className="text-green-500">{question.difficulty}</div>
                                   </div>
                                   <div>
-                                    , Taxa de Acerto: {question.taxaSucesso}
+                                    , Taxa de Acerto: {question.successRate}
                                   </div>
                                 </div>
                               </Box>
                             </Box>
                             <Box className="font-semibold block lg:justify-between lg:flex lg:items-center w-full">
                               <Box className="text-left text-gray-400 p-2 lg:w-[60%]">
-                                {question.descricao}
+                                {question.description}
                               </Box>
                               {
                                 Object.entries(taskSolved).map(([key, value]) => {
-                                  if (question.titulo === key && value["completed"] == true) {
+                                  if (question.title === key && value["completed"] == true) {
                                     solved = true
                                   }
                                 })

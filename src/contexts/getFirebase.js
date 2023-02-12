@@ -51,7 +51,7 @@ export const GetProvider = ({ children }) => {
             const questions = topic.questions;
             for (let i = 0; i < questions.length; i++) {
                 const question = questions[i];
-                if (question.titulo === nameQuestion) {
+                if (question.title === nameQuestion) {
                     setDescriptionData(question);
                     questionFound = true;
                     break;
@@ -184,9 +184,9 @@ export const GetProvider = ({ children }) => {
         }
 
         for (let key in taskData) {
-            if (taskData.hasOwnProperty(key) && taskData[key].topico && taskData[key]["completed"] == true) {
-                if (!topicTask[taskData[key].topico]) topicTask[taskData[key].topico] = { correct: 0 };
-                topicTask[taskData[key].topico].correct++;
+            if (taskData.hasOwnProperty(key) && taskData[key].topic && taskData[key]["completed"] == true) {
+                if (!topicTask[taskData[key].topic]) topicTask[taskData[key].topic] = { correct: 0 };
+                topicTask[taskData[key].topic].correct++;
                 total++;
             }
         }

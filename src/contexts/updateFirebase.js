@@ -33,31 +33,30 @@ export const UpdateProvider = ({ children }) => {
         updateDoc(scoreRef, { score: newScore });
     }
 
-    const updateDatasQuestion = async (currentData, code, pastData) => {
-
-        const pastCategories = doc(db, "categories", pastData.topico)
+    const updateDatasQuestion = async (currentData, pastData, code) => {
+        const pastCategories = doc(db, "categories", pastData.topic)
         await updateDoc(pastCategories, {
             questions: arrayRemove({
-                topico: pastData.topico,
-                titulo: pastData.titulo,
+                topic: pastData.topic,
+                title: pastData.title,
                 difficulty: pastData.difficulty,
-                descricao: pastData.descricao,
-                descricaoDetalhada: pastData.descricaoDetalhada,
-                codigo: pastData.codigo,
+                description: pastData.description,
+                detailedDescription: pastData.detailedDescription,
+                code: pastData.code,
                 test: pastData.test,
                 creator: pastData.creator,
             })
         });
 
-        const currentCategories = doc(db, "categories", currentData.topico)
+        const currentCategories = doc(db, "categories", currentData.topic)
         await updateDoc(currentCategories, {
             questions: arrayUnion({
-                topico: currentData.topico,
-                titulo: currentData.titulo,
-                difficulty: currentData.dificuldade,
-                descricao: currentData.descricao,
-                descricaoDetalhada: currentData.descricaoDetalhada,
-                codigo: code,
+                topic: currentData.topic,
+                title: currentData.title,
+                difficulty: currentData.difficulty,
+                description: currentData.description,
+                detailedDescription: currentData.detailedDescription,
+                code: code,
                 test: currentData.tests.map(test => ({ input: test.inputTest, output: test.outputTest })),
                 creator: auth.currentUser.uid,
             })

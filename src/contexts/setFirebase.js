@@ -35,28 +35,28 @@ export const SetProvider = ({ children }) => {
     }
 
     const setCreateQuestion = async (detailsUser, code) => {
-        const categories = doc(db, "categories", detailsUser.topico)
+        const categories = doc(db, "categories", detailsUser.topic)
         await updateDoc(categories, {
             questions: arrayUnion({
-                topico: detailsUser.topico,
-                titulo: detailsUser.titulo,
-                difficulty: detailsUser.dificuldade,
-                descricao: detailsUser.descricao,
-                descricaoDetalhada: detailsUser.descricaoDetalhada,
-                codigo: code,
+                topic: detailsUser.topic,
+                title: detailsUser.title,
+                difficulty: detailsUser.difficulty,
+                description: detailsUser.description,
+                detailedDescription: detailsUser.detailedDescription,
+                code: code,
                 test: detailsUser.tests.map(test => ({ input: test.inputTest, output: test.outputTest })),
                 creator: auth.currentUser.uid,
             })
         });
     }
 
-    const taskSolved = async (nameQuestion, topico, difficultQuestion, status) => {
+    const taskSolved = async (nameQuestion, topic, difficultQuestion, status) => {
         const ref = doc(db, "taskSolved", auth.currentUser.uid)
         const timestamp = serverTimestamp()
         await updateDoc(ref, {
             [nameQuestion]: ({
                 completed: status,
-                topico: topico,
+                topic: topic,
                 difficultQuestion: difficultQuestion,
                 date: timestamp,
             }),

@@ -34,7 +34,7 @@ const CodeEditor = ({ descriptionData, nameQuestion, taskSolved }) => {
       autoCloseBrackets: true
     });
     codeEditor.setSize("100%", 520)
-    codeEditor.setValue(`${descriptionData.codigo}`)
+    codeEditor.setValue(`${descriptionData.code}`)
 
     codeEditorRef.current = codeEditor;
   }, []);
@@ -109,10 +109,10 @@ const CodeEditor = ({ descriptionData, nameQuestion, taskSolved }) => {
       const isCompleted = taskSolved[nameQuestion]?.["completed"];
       if (show && !isCompleted) {
         setSolved(true);
-        setContext.taskSolved(nameQuestion, descriptionData.topico, descriptionData.difficulty, true);
+        setContext.taskSolved(nameQuestion, descriptionData.topic, descriptionData.difficulty, true);
         updateContext.updateScore();
       } else if (error && !isCompleted) {
-        setContext.taskSolved(nameQuestion, descriptionData.topico, descriptionData.difficulty, false);
+        setContext.taskSolved(nameQuestion, descriptionData.topic, descriptionData.difficulty, false);
       }
     }
   }, [verificationTask]);

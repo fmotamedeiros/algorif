@@ -26,7 +26,7 @@ const navTopics = getNavTopics()
 const DatasQuestion = () => {
     const [onConsole, setConsole] = useState([])
 
-    const [isCode, setCode] = useState("")
+    const [isCode, setCode] = useState(`function main(/*variáveisDeEntradas*/) {\n    return\n} \n\nconsole.log(main())`)
     const loaded = false
 
     useEffect(() => {
@@ -80,36 +80,36 @@ const DatasQuestion = () => {
 
     const formik = useFormik({
         initialValues: {
-            topico: '',
-            titulo: '',
-            descricao: '',
-            descricaoDetalhada: '',
-            dificuldade: '',
+            topic: '',
+            title: '',
+            description: '',
+            detailedDescription: '',
+            difficulty: '',
             tests: [
                 { inputTest: '', outputTest: '' },
             ],
         },
         validationSchema: Yup.object({
-            topico: Yup
+            topic: Yup
                 .string()
                 .max(255)
                 .required(
                     'Tópico da questão is required'),
-            titulo: Yup
+            title: Yup
                 .string()
                 .max(255)
                 .required(
                     'Título is required'),
-            descricao: Yup
+            description: Yup
                 .string()
                 .required('Descricão is required'),
-            descricaoDetalhada: Yup
+            detailedDescription: Yup
                 .string()
                 .required('Descricão detalhada is required'),
-            dificuldade: Yup
+            difficulty: Yup
                 .string()
                 .max(255)
-                .required('Dificuldade is required'),
+                .required('difficulty is required'),
             tests: Yup.array().of(
                 Yup.object({
                     inputTest: Yup
@@ -163,34 +163,34 @@ const DatasQuestion = () => {
                                 <CustomTextField
                                     formik={formik}
                                     label="Selecione o Tópico"
-                                    name="topico"
+                                    name="topic"
                                     select
                                     options={navTopics}
                                 />
                                 <CustomTextField
                                     formik={formik}
                                     label="Título da Questão"
-                                    name="titulo"
+                                    name="title"
                                 />
                                 <CustomTextField
                                     formik={formik}
                                     label="Selecione a dificuldade"
-                                    name="dificuldade"
+                                    name="difficulty"
                                     select
                                     options={navDifficulties}
                                 />
                                 <CustomTextField
                                     formik={formik}
                                     label="Descrição da Questão"
-                                    name="descricao"
+                                    name="description"
                                 />
                             </Box>
                             <CustomTextField
                                 formik={formik}
                                 label="Descricão detalhada da Questão"
-                                name="descricaoDetalhada"
+                                name="detailedDescription"
                                 multiline
-                                rows = {10}
+                                rows={10}
                             />
                             <div className='flex mt-2'>
                                 <textarea id='code-editor'></textarea>
