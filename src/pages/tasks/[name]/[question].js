@@ -15,7 +15,7 @@ const Question = () => {
   const [descriptionData, setDescriptionData] = useState(null)
   const [taskSolved, setTaskSolved] = useState()
 
-  DescriptionTask(router.query.question, setDescriptionData)
+  DescriptionTask(setDescriptionData, router.query.question)
   GetTaskSolved(setTaskSolved)
 
   if (descriptionData && taskSolved) {

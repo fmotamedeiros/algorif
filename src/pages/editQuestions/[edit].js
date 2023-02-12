@@ -12,7 +12,7 @@ const Edit = () => {
     const router = useRouter()
     const [descriptionData, setDescriptionData] = useState(null)
 
-    DescriptionTask(router.query.edit, setDescriptionData)
+    DescriptionTask(setDescriptionData, router.query.edit)
 
     if (!descriptionData) {
         return <> <Loader /> </>

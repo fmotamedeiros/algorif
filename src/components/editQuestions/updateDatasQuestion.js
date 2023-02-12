@@ -165,7 +165,6 @@ const UpdateDatasQuestion = ({ descriptionData }) => {
                                     options={navTopics}
                                 />
                                 <CustomTextField
-                                    readOnly
                                     formik={formik}
                                     label="Título da Questão"
                                     name="titulo"

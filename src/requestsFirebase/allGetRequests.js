@@ -28,21 +28,18 @@ export const PictureUser = (setImgURL) => {
 }
 
 //[question].js
-export const DescriptionTask = (nameQuestion, setDescriptionData) => {
+export const DescriptionTask = (setDescriptionData, nameQuestion) => {
     const getContext = useContext(GetContext);
     const [isLoaded, setIsLoaded] = useState(false);
 
-    const description = () => {
-        getContext.getDescription(nameQuestion).then(value => {
-            setDescriptionData(value);
-            setIsLoaded(true);
-        })
-            .catch(console.error);
-    };
+    const Description = () => {
+        getContext.getDescription(setDescriptionData, nameQuestion);
+        setIsLoaded(true);
+    }
 
     useEffect(() => {
         if (!isLoaded) {
-            description();
+            Description();
         }
     }, [isLoaded]);
 };

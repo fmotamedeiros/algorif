@@ -2,7 +2,6 @@ import { createContext } from "react";
 import { auth, db, storage } from "./auth-context";
 import { collection, doc, getDoc, getDocs, orderBy, query, where } from "firebase/firestore";
 import { ref, getDownloadURL } from "firebase/storage";
-import dayjs from "dayjs";
 
 export const GetContext = createContext({ undefined });
 
@@ -42,11 +41,27 @@ export const GetProvider = ({ children }) => {
         return questions;
     }
 
-    const getDescription = async (nameQuestion) => {
-        const ref = doc(db, "descriptionQuestion", nameQuestion);
-        const data = await getDoc(ref)
-        return data.data();
-    }
+    const getDescription = async (setDescriptionData, nameQuestion) => {
+        const ref = collection(db, "categories");
+        const querySnapshot = await getDocs(ref);
+        let questionFound = false;
+
+        querySnapshot.forEach((doc) => {
+            const topic = doc.data();
+            const questions = topic.questions;
+            for (let i = 0; i < questions.length; i++) {
+                const question = questions[i];
+                if (question.titulo === nameQuestion) {
+                    setDescriptionData(question);
+                    questionFound = true;
+                    break;
+                }
+            }
+        });
+        if (!questionFound) {
+            console.error(`Questão "${nameQuestion}" não encontrada.`);
+        }
+    };
 
     const getRanking = async (setRanking) => {
         const rankingRef = collection(db, "coders");
@@ -111,7 +126,7 @@ export const GetProvider = ({ children }) => {
         }
 
         for (let key in difficultQuestions) {
-            difficultQuestions[key].percentage = (difficultQuestions[key].correct / taskData[key+"Submissions"]) * 100;
+            difficultQuestions[key].percentage = (difficultQuestions[key].correct / taskData[key + "Submissions"]) * 100;
             percentage.push(difficultQuestions[key].percentage)
             topics.push(key)
         }
@@ -159,7 +174,7 @@ export const GetProvider = ({ children }) => {
             "Recursão": "#5db500",
             "String": "#608f65",
             "Variáveis": "#80b50f",
-          };
+        };
 
         const randomColor = () => {
             let r = Math.floor(Math.random() * 256);
@@ -204,17 +219,20 @@ export const GetProvider = ({ children }) => {
     }
 
     const getCreatedQuestions = async (setCreatedQuestions) => {
-        const rankingRef = collection(db, "descriptionQuestion");
-        const q = query(rankingRef, orderBy("date", "desc"), where("creator", "==", auth.currentUser.uid))
+        const createdQuestions = collection(db, "categories");
+        const q = query(createdQuestions)
         const questions = []
         const querySnapshot = await getDocs(q)
 
         querySnapshot.forEach((doc) => {
-            questions.push(doc.data());
-            setCreatedQuestions(questions)
-        })
-
-    }
+            doc.data().questions.forEach(question => {
+                if (question.creator === auth.currentUser.uid) {
+                    questions.push(question);
+                }
+            });
+            setCreatedQuestions(questions);
+        });
+    };
 
 
     return (

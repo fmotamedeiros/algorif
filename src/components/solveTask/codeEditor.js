@@ -16,7 +16,6 @@ const CodeEditor = ({ descriptionData, nameQuestion, taskSolved }) => {
   const [error, setError] = useState(false);
   const [solved, setSolved] = useState(false);
   const [verificationTask, setVerificationTask] = useState(false);
-  const [onConsole, setConsole] = useState([]);
   const [testResults, setTestResults] = useState([]);
   const codeEditorRef = useRef(null);
 

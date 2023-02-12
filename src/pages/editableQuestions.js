@@ -12,7 +12,6 @@ const EditableQuestions = () => {
     if (!createdQuestions) {
         return <> <Loader /> </>
     }
-    console.log(createdQuestions)
     
     return (
         <div className="flex-1 items-center justify-center w-full max-w-6xl px-[5%] mx-auto">

@@ -1,6 +1,6 @@
 import { createContext } from "react";
 import { auth, db, storage } from "./auth-context";
-import { arrayUnion, doc, FieldValue, getDoc, increment, serverTimestamp, setDoc, updateDoc } from "firebase/firestore";
+import { arrayUnion, doc, increment, serverTimestamp, setDoc, updateDoc } from "firebase/firestore";
 import { ref, uploadBytes } from "firebase/storage";;
 
 export const SetContext = createContext({ undefined });
@@ -36,29 +36,20 @@ export const SetProvider = ({ children }) => {
 
     const setCreateQuestion = async (detailsUser, code) => {
         const categories = doc(db, "categories", detailsUser.topico)
-        const timestamp = serverTimestamp()
         await updateDoc(categories, {
             questions: arrayUnion({
+                topico: detailsUser.topico,
                 titulo: detailsUser.titulo,
+                difficulty: detailsUser.dificuldade,
                 descricao: detailsUser.descricao,
-                difficulty: detailsUser.dificuldade
+                descricaoDetalhada: detailsUser.descricaoDetalhada,
+                codigo: code,
+                test: detailsUser.tests.map(test => ({ input: test.inputTest, output: test.outputTest })),
+                creator: auth.currentUser.uid,
             })
         });
-
-        const detailsQuestions = doc(db, "descriptionQuestion", detailsUser.titulo)
-        await setDoc(detailsQuestions, {
-            topico: detailsUser.topico,
-            titulo: detailsUser.titulo,
-            difficulty: detailsUser.dificuldade,
-            descricao: detailsUser.descricao,
-            descricaoDetalhada: detailsUser.descricaoDetalhada,
-            codigo: code,
-            test: detailsUser.tests.map(test => ({input: test.inputTest, output: test.outputTest})),
-            date: timestamp,
-            creator: auth.currentUser.uid,
-        });
     }
-    
+
     const taskSolved = async (nameQuestion, topico, difficultQuestion, status) => {
         const ref = doc(db, "taskSolved", auth.currentUser.uid)
         const timestamp = serverTimestamp()
@@ -69,7 +60,7 @@ export const SetProvider = ({ children }) => {
                 difficultQuestion: difficultQuestion,
                 date: timestamp,
             }),
-            [difficultQuestion+"Submissions"]: increment(1)
+            [difficultQuestion + "Submissions"]: increment(1)
         })
     }
 

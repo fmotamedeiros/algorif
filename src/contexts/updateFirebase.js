@@ -1,6 +1,6 @@
 import { createContext } from "react";
 import { auth, db } from "./auth-context";
-import { arrayRemove, arrayUnion, doc, getDoc, serverTimestamp, updateDoc } from "firebase/firestore";
+import { arrayRemove, arrayUnion, doc, getDoc, updateDoc } from "firebase/firestore";
 import { updatePassword } from "firebase/auth";
 
 export const UpdateContext = createContext({ undefined });
@@ -36,51 +36,33 @@ export const UpdateProvider = ({ children }) => {
     const updateDatasQuestion = async (currentData, code, pastData) => {
 
         const pastCategories = doc(db, "categories", pastData.topico)
-        const timestamp = serverTimestamp()
         await updateDoc(pastCategories, {
             questions: arrayRemove({
+                topico: pastData.topico,
                 titulo: pastData.titulo,
+                difficulty: pastData.difficulty,
                 descricao: pastData.descricao,
-                difficulty: pastData.difficulty
+                descricaoDetalhada: pastData.descricaoDetalhada,
+                codigo: pastData.codigo,
+                test: pastData.test,
+                creator: pastData.creator,
             })
         });
 
         const currentCategories = doc(db, "categories", currentData.topico)
         await updateDoc(currentCategories, {
             questions: arrayUnion({
+                topico: currentData.topico,
                 titulo: currentData.titulo,
+                difficulty: currentData.dificuldade,
                 descricao: currentData.descricao,
-                difficulty: currentData.dificuldade
+                descricaoDetalhada: currentData.descricaoDetalhada,
+                codigo: code,
+                test: currentData.tests.map(test => ({ input: test.inputTest, output: test.outputTest })),
+                creator: auth.currentUser.uid,
             })
         });
-
-        const detailsQuestions = doc(db, "descriptionQuestion", currentData.titulo)
-        
-        await updateDoc(detailsQuestions, {
-            topico: currentData.topico,
-            titulo: currentData.titulo,
-            difficulty: currentData.dificuldade,
-            descricao: currentData.descricao,
-            descricaoDetalhada: currentData.descricaoDetalhada,
-            codigo: code,
-            test: currentData.tests.map(test => ({input: test.inputTest, output: test.outputTest})),
-            date: timestamp,
-            creator: auth.currentUser.uid,
-        });
-
     }
-
-    // async function updateStatusQuestion(nameQuestion) {
-    //     const replySent = doc(db, "coders", auth.currentUser.uid)
-
-    //     const data = await getDoc(replySent)
-
-    //     const newScore = data.data().submissions + 1;
-
-    //     await updateDoc(replySent, {
-    //         checkedQuestions: [{nameQuestion: nameQuestion, solved: true, submissions: newScore}]
-    //     });
-    // }
 
     return (
         <UpdateContext.Provider
@@ -89,7 +71,6 @@ export const UpdateProvider = ({ children }) => {
                 updatePasswordUser,
                 updateScore,
                 updateDatasQuestion,
-                // updateStatusQuestion
             }}
         >
             {children}
