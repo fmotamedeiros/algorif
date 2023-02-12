@@ -35,7 +35,7 @@ const Question = () => {
           <Box className="w-full flex flex-col lg:flex-row h-full">
             <div className="lg:w-[40%]">
               <div className="lg:overflow-y-auto lg:h-[85vh]">
-                <Description description={descriptionData.descricaoDetalhada} />
+                <Description description={descriptionData.detailedDescription} />
               </div>
             </div>
             <Box className="lg:w-[60%] w-full">

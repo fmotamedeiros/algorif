@@ -43,23 +43,25 @@ export const GetProvider = ({ children }) => {
 
     const getDescription = async (setDescriptionData, nameQuestion) => {
         const ref = collection(db, "categories");
-        const querySnapshot = await getDocs(ref);
-        let questionFound = false;
-
-        querySnapshot.forEach((doc) => {
-            const topic = doc.data();
-            const questions = topic.questions;
-            for (let i = 0; i < questions.length; i++) {
-                const question = questions[i];
-                if (question.title === nameQuestion) {
-                    setDescriptionData(question);
-                    questionFound = true;
-                    break;
+        try {
+            const querySnapshot = await getDocs(ref);
+            let questionFound = false;
+            querySnapshot.forEach((doc) => {
+                const { questions } = doc.data();
+                for (let i = 0; i < questions.length; i++) {
+                    const { title } = questions[i];
+                    if (title === nameQuestion) {
+                        setDescriptionData(questions[i]);
+                        questionFound = true;
+                        break;
+                    }
                 }
+            });
+            if (!questionFound) {
+                console.error(`Questão "${nameQuestion}" não encontrada.`);
             }
-        });
-        if (!questionFound) {
-            console.error(`Questão "${nameQuestion}" não encontrada.`);
+        } catch (error) {
+            console.error(error);
         }
     };
 
