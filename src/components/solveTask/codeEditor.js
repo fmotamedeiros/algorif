@@ -43,7 +43,7 @@ const CodeEditor = ({ descriptionData, nameQuestion, taskSolved }) => {
   const outputResult = () => {
     try {
       eval(codeEditorRef.current.getValue()); // executar o código
-      output.textContent = consoleWritten.join("\n");
+      output.innerHTML = consoleWritten.map(line => line + "<br>").join("\n");      
       consoleWritten = []
     } catch (error) {
       output.textContent = error.toString();
@@ -130,7 +130,7 @@ const CodeEditor = ({ descriptionData, nameQuestion, taskSolved }) => {
       </div>
 
       <div id="output"
-        className='bg-[#1F2937] border border-gray-700 lg:h-[280px] h-[200px] p-6'>{onConsole.map((item, indice) => (<div key={indice}>{item}</div>))}</div>
+        className='bg-[#1F2937] border overflow-y-auto border-gray-700 lg:h-[280px] h-[200px] p-6' />
 
       <div id="Verificado">
         {show || error ? (
