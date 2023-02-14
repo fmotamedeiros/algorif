@@ -106,7 +106,7 @@ const Register = () => {
     <>
       <Head>
         <title>
-          Register
+          Registrar-se
         </title>
       </Head>
       <Box
@@ -136,14 +136,14 @@ const Register = () => {
                 color="textPrimary"
                 variant="h4"
               >
-                Create a new account
+                Criar uma nova conta
               </Typography>
               <Typography
                 color="textSecondary"
                 gutterBottom
                 variant="body2"
               >
-                Use your email to create a new account
+                Use seu email para criar uma nova conta
               </Typography>
             </Box>
             <CustomTextField
@@ -221,7 +221,7 @@ const Register = () => {
                     color="textSecondary"
                     variant="body2"
                   >
-                    I have read the
+                    Eu li os
                     {' '}
                     <NextLink
                       href="#"
@@ -232,7 +232,7 @@ const Register = () => {
                         underline="always"
                         variant="subtitle2"
                       >
-                        Terms and Conditions
+                        Termos e Condições
                       </Link>
                     </NextLink>
                   </Typography>
@@ -265,14 +265,14 @@ const Register = () => {
                   }, 3000);
                 }}
               >
-                Sign Up Now
+                Inscreva-se agora
               </Button>
             </Box>
             <Typography
               color="textSecondary"
               variant="body2"
             >
-              Have an account?
+              Tem uma conta?
               {' '}
               <NextLink
                 href="/login"
@@ -282,7 +282,7 @@ const Register = () => {
                   variant="subtitle2"
                   underline="hover"
                 >
-                  Sign In
+                  Entrar
                 </Link>
               </NextLink>
             </Typography>
