@@ -4,7 +4,7 @@ import {
     Typography
 } from '@mui/material';
 import { SetContext } from '../../contexts/setFirebase';
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import Router from 'next/router';
@@ -25,12 +25,12 @@ const navTopics = getNavTopics()
 
 const DatasQuestion = () => {
     const [onConsole, setConsole] = useState([])
-
     const [isCode, setCode] = useState(`function main(/*variáveisDeEntradas*/) {\n    return\n} \n\nconsole.log(main())`)
-    const loaded = false
+    const codeEditorRef = useRef(null);
+
 
     useEffect(() => {
-        if (loaded) {
+        if (codeEditorRef.current) {
             return
         }
         const codeEditor = CodeMirror.fromTextArea(document.getElementById('code-editor'), {
@@ -42,41 +42,30 @@ const DatasQuestion = () => {
         });
         codeEditor.setSize("100%", 520)
 
-        const originalLog = console.log;
-
-        // redefinir console.log para adicionar saída ao elemento de saída
-        var consoleWritten = []
-        console.log = (output) => {
-            consoleWritten.push(output);
-            setConsole(consoleWritten);
-        };
-
-        const runCode = () => {
-            try {
-                eval(codeEditor.getValue()); // executar o código
-                consoleWritten = []
-            } catch (e) {
-                originalLog(e.message);
-            }
-        };
-
         codeEditor.setValue(
             `function main(/*variáveisDeEntradas*/) {\n    return\n} \n\nconsole.log(main())`)
 
-        codeEditor.on('change', (instance, changes) => {
-            const code = instance.getValue();
-            originalLog(code)
-            try {
-                setCode(code)
-            } catch (error) {
-                originalLog(error)
-            }
-        });
-
-        document.getElementById('run-button').addEventListener('click', runCode);
-
-        loaded = true
+        codeEditorRef.current = codeEditor;
     }, []);
+
+    const outputResult = () => {
+        try {
+            eval(codeEditorRef.current.getValue()); // executar o código
+            output.innerHTML = consoleWritten.map(line => line + "<br>").join("\n");
+            consoleWritten = []
+        } catch (error) {
+            output.textContent = error.toString();
+        }
+    };
+
+    // redefinir console.log para adicionar saída ao elemento de saída
+    let consoleWritten = [];
+    const handleRun = () => {
+        console.log = (...args) => {
+            consoleWritten.push(...args);
+        };
+        outputResult();
+    };
 
     const formik = useFormik({
         initialValues: {
@@ -195,17 +184,13 @@ const DatasQuestion = () => {
                             <div className='flex mt-2'>
                                 <textarea id='code-editor'></textarea>
                                 <div className='w-[40%]'>
-                                    <div id="output"
-                                        className='bg-[#1F2937] border border-gray-700 h-full'>
-                                        <div className='px-1 py-1 flex justify-end'>
-                                            <Button variant='outlined' type='button'
-                                                id='run-button'>Executar
-                                            </Button>
-                                        </div>
-                                        <div className='p-6'>
-                                            {onConsole.map((item, indice) => (<div key={`${item}-${indice}`}>{item}</div>))}
-                                        </div>
+                                    <div className='px-1 py-1 flex justify-end bg-[#1F2937] border border-gray-700'>
+                                        <Button variant='outlined' type='button'
+                                            onClick={handleRun}>Executar
+                                        </Button>
                                     </div>
+                                    <div id="output"
+                                        className='bg-[#1F2937] border border-gray-700 h-[467.5px] overflow-y-auto p-6' />
                                 </div>
                             </div>
                             {formik.values.tests && formik.values.tests.map((test, index) => (
