@@ -24,10 +24,7 @@ const navTopics = getNavTopics()
 
 
 const DatasQuestion = () => {
-    const [onConsole, setConsole] = useState([])
-    const [isCode, setCode] = useState(`function main(/*variáveisDeEntradas*/) {\n    return\n} \n\nconsole.log(main())`)
     const codeEditorRef = useRef(null);
-
 
     useEffect(() => {
         if (codeEditorRef.current) {
@@ -112,7 +109,7 @@ const DatasQuestion = () => {
             ),
         }),
         onSubmit: async () => {
-            await setContext.setCreateQuestion(formik.values, isCode)
+            await setContext.setCreateQuestion(formik.values, codeEditorRef.current.getValue())
             alert('Questão Cadastrada com Sucesso')
             Router.reload()
         }

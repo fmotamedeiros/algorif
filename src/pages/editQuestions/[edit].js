@@ -17,7 +17,7 @@ const Edit = () => {
     if (!descriptionData) {
         return <> <Loader /> </>
     }
-    console.log(descriptionData)
+
     return (
         <>
             <Head>

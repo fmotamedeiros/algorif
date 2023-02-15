@@ -23,8 +23,6 @@ const navDifficulties = getNavDifficulties()
 const navTopics = getNavTopics()
 
 const UpdateDatasQuestion = ({ descriptionData }) => {
-    const [onConsole, setConsole] = useState([])
-    const [isCode, setCode] = useState(descriptionData.code)
     const codeEditorRef = useRef(null);
 
     const updateContext = useContext(UpdateContext);
@@ -108,7 +106,7 @@ const UpdateDatasQuestion = ({ descriptionData }) => {
             ),
         }),
         onSubmit: async () => {
-            await updateContext.updateDatasQuestion(formik.values, descriptionData, isCode)
+            await updateContext.updateDatasQuestion(formik.values, descriptionData, codeEditorRef.current.getValue())
             alert('Questão Atualizada com Sucesso')
             Router.back()
         }
