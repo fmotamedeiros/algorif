@@ -174,7 +174,7 @@ const Tasks = () => {
                               {question.description}
                             </Box>
                             {
-                              Object.entries(taskSolved).map(([key, value]) => {
+                              Array.isArray(taskSolved) && taskSolved.map(([key, value]) => {
                                 if (question.title === key && value["completed"] == true) {
                                   solved = true
                                 }

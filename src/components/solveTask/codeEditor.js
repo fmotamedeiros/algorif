@@ -65,9 +65,14 @@ const CodeEditor = ({ descriptionData, nameQuestion, taskSolved }) => {
     let passed = "\n let passed = true"
 
     const testArray = descriptionData["test"].map((test) => {
+      let input = test.input;
+      let inputNumber = test.input.replace(/,\s*/g, '');
+      if (isNaN(Number(inputNumber))) {
+        input = `"${input}"`;
+      }
       return (
         `
-      var b = main(${test.input}); 
+      var b = main(${input}); 
       if(b == "${test.output}"){
         passedTests.push(true) 
       } else {
