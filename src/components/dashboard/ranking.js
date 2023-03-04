@@ -1,9 +1,7 @@
 import {
   Box,
-  Button,
   Card,
   CardHeader,
-  Popover,
   Table,
   TableBody,
   TableCell,
@@ -11,31 +9,14 @@ import {
   TableRow,
 } from '@mui/material';
 
-import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import { useState } from 'react';
 import { AllRanking } from '../../requestsFirebase/allGetRequests';
 import { Loader } from '../../requestsFirebase/loader';
 
 export const Ranking = () => {
-
-  //const [time, setTime] = useState("Semanal");
-
   const [ranking, setRanking] = useState([])
 
   AllRanking(setRanking)
-
-  const [anchorEl, setAnchorEl] = useState(null);
-
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
-
-  const open = Boolean(anchorEl);
-  const id = open ? 'simple-popover' : undefined;
 
   if (!ranking) {
     return <Box className='h-full flex items-center justify-center bg-[#1F2937] rounded-lg'><Loader /></Box>;
@@ -44,40 +25,9 @@ export const Ranking = () => {
   return (
     <Card>
       <CardHeader
-        // action={(
-        //   <>
-        //     <Button
-        //       aria-describedby={id}
-        //       onClick={handleClick}
-        //       endIcon={<ArrowDropDownIcon fontSize="small" />}
-        //       size="small"
-        //     >
-        //       {time}
-        //     </Button>
-        //     <Popover
-        //       id={id}
-        //       open={open}
-        //       anchorEl={anchorEl}
-        //       onClose={handleClose}
-        //       anchorOrigin={{
-        //         vertical: 'bottom',
-        //         horizontal: 'center',
-        //       }}
-        //       transformOrigin={{
-        //         vertical: 'top',
-        //         horizontal: 'center',
-        //       }}
-        //     >
-        //       <Button onClick={() => setTime("Mensal")}
-        //         className='p-2 text-green-400'>Mensal</Button>
-        //       <Button onClick={() => setTime("Semanal")}
-        //         className='p-2 text-green-400'>Semanal</Button>
-        //     </Popover>
-        //   </>
-        // )}
         title="Ranking"
       />
-      <Box className='overflow-y-auto h-[38vh]'>
+      <Box className='overflow-y-auto h-[350px]'>
         <Table size='small'
           aria-label="a dense table">
           <TableHead sx={{ backgroundColor: 'background.dark' }}>

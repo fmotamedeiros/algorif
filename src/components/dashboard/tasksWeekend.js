@@ -1,5 +1,4 @@
-import { Bar } from 'react-chartjs-2';
-import { Box, Card, CardContent, CardHeader } from '@mui/material';
+import { Box, Card, CardHeader } from '@mui/material';
 
 export const TasksWeekend = () => {
 
@@ -53,22 +52,15 @@ export const TasksWeekend = () => {
       <CardHeader
         title="Exercícios Concluídos"
       />
-      <CardContent>
-        <Box
-          sx={{
-            height: 300,
-            position: 'relative'
-          }}
-        >
-          {
-            !hasData && <div className='flex justify-center items-center h-full text-gray-500 text-2xl'>Indisponível</div>
-          }
-          {/* <Bar
+      <Box className='h-[350px]'>
+        {
+          !hasData && <div className='flex justify-center items-center h-full text-gray-500 text-2xl'>Indisponível</div>
+        }
+        {/* <Bar
             data={data}
             options={options}
           /> */}
-        </Box>
-      </CardContent>
+      </Box>
     </Card>
   );
 };
