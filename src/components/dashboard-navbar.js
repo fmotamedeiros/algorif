@@ -1,9 +1,8 @@
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import styled from '@emotion/styled';
-import { AppBar, Avatar, Badge, Box, IconButton, Toolbar, Tooltip } from '@mui/material';
+import { AppBar, Avatar, Box, IconButton, Toolbar } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
-import { Bell as BellIcon } from '../icons/bell';
 import { UserCircle as UserCircleIcon } from '../icons/user-circle';
 import { AccountPopover } from './account-popover';
 import NextLink from 'next/link';
@@ -16,6 +15,24 @@ const DashboardNavbarRoot = styled(AppBar)(({ theme }) => ({
 }));
 
 export const DashboardNavbar = ({ onSidebarOpen, ...other }) => {
+  const [hideNavbar, setHideNavbar] = useState(false);
+
+  useEffect(() => {
+    let prevScrollPos = window.pageYOffset;
+
+    const handleScroll = () => {
+      const currentScrollPos = window.pageYOffset;
+      const difference = prevScrollPos - currentScrollPos;
+
+      setHideNavbar(currentScrollPos > 64 && difference < 0);
+      prevScrollPos = currentScrollPos;
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   const [imgURL, setImgURL] = useState("")
   const settingsRef = useRef(null);
   const [openAccountPopover, setOpenAccountPopover] = useState(false);
@@ -25,7 +42,16 @@ export const DashboardNavbar = ({ onSidebarOpen, ...other }) => {
   return (
     <>
       <DashboardNavbarRoot
-        {...other}>
+        {...other}
+        sx={{
+          position: "fixed",
+          top: 0,
+          left: 0,
+          right: 0,
+          zIndex: (theme) => theme.zIndex.drawer + 1,
+          display: hideNavbar ? "none" : "block",
+        }}
+      >
         <Toolbar
           disableGutters
           sx={{

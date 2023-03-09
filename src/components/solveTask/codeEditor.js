@@ -66,7 +66,7 @@ const CodeEditor = ({ descriptionData, nameQuestion, taskSolved }) => {
 
     const testArray = descriptionData["test"].map((test) => {
       let input = test.input;
-      let inputNumber = test.input.replace(/,\s*/g, '');
+      let inputNumber = test.input.replace(/,\s*/g, '').replace(/\[|\]/g, '');
       if (isNaN(Number(inputNumber))) {
         input = `"${input}"`;
       }

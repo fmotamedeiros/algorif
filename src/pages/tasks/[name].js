@@ -60,12 +60,11 @@ const Tasks = () => {
 
   const filteredQuestions = questions["questions"].filter((question) => {
     let match = true;
-
-    if (filters.resolvido && !taskSolved[question.title]) {
+    if (filters.resolvido && !taskSolved[question.title]?.completed) {
       match = false;
     }
 
-    if (filters.naoResolvido && taskSolved[question.title]) {
+    if (filters.naoResolvido && taskSolved[question.title]?.completed) {
       match = false;
     }
 
