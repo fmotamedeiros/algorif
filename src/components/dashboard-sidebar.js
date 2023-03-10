@@ -43,7 +43,7 @@ export const DashboardSidebar = ({ open, onClose }) => {
               width: 280
             }
           }}
-          sx={{ zIndex: (theme) => theme.zIndex.appBar + 100 }}
+          sx={{ zIndex: (theme) => theme.zIndex.drawer + 2 }}
           variant="temporary"
         >
           <Box
