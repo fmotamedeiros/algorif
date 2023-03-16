@@ -67,7 +67,7 @@ const CodeEditor = ({ descriptionData, nameQuestion, taskSolved }) => {
     const testArray = descriptionData["test"].map((test) => {
       const input = test.input.split(",").map((item) => {
         // Verifica se o item é uma string que contém apenas letras
-        const isStringOnlyLetters = /^[a-zA-Z]+$/.test(item.trim());
+        const isStringOnlyLetters = /^[a-zA-ZáéíóúÁÉÍÓÚâêîôûÂÊÎÔÛÀàèìòùÈÌÒÙÇçÃãÕõ]+$/.test(item.trim());
         if (isStringOnlyLetters) {
           return `"${item.trim()}"`;
         } else {
