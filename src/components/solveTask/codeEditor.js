@@ -65,11 +65,15 @@ const CodeEditor = ({ descriptionData, nameQuestion, taskSolved }) => {
     let passed = "\n let passed = true"
 
     const testArray = descriptionData["test"].map((test) => {
-      let input = test.input;
-      let inputNumber = test.input.replace(/,\s*/g, '').replace(/\[|\]/g, '');
-      if (isNaN(Number(inputNumber))) {
-        input = `"${input}"`;
-      }
+      const input = test.input.split(",").map((item) => {
+        // Verifica se o item é uma string que contém apenas letras
+        const isStringOnlyLetters = /^[a-zA-Z]+$/.test(item.trim());
+        if (isStringOnlyLetters) {
+          return `"${item.trim()}"`;
+        } else {
+          return item.trim();
+        }
+      }).join(", ");
       return (
         `
       var b = main(${input}); 
@@ -100,7 +104,7 @@ const CodeEditor = ({ descriptionData, nameQuestion, taskSolved }) => {
     }
     `
     tests += testsDone
-
+    console.log(tests);
     try {
       eval(tests)
     } catch (error) {

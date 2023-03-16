@@ -222,13 +222,20 @@ export const GetProvider = ({ children }) => {
 
     const getCreatedQuestions = async (setCreatedQuestions) => {
         const createdQuestions = collection(db, "categories");
+        const permissionRef = doc(db, "coders", auth.currentUser.uid);
+        const permissionUser = await getDoc(permissionRef)
+        const admin = permissionUser.data().admin
         const q = query(createdQuestions)
         const questions = []
         const querySnapshot = await getDocs(q)
+        console.log(admin)
 
         querySnapshot.forEach((doc) => {
             doc.data().questions.forEach(question => {
-                if (question.creator === auth.currentUser.uid) {
+                if (admin == true) {
+                    questions.push(question);
+                }
+                else if (question.creator === auth.currentUser.uid) {
                     questions.push(question);
                 }
             });
