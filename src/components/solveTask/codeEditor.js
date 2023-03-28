@@ -118,10 +118,10 @@ const CodeEditor = ({ descriptionData, nameQuestion, taskSolved }) => {
       const isCompleted = taskSolved[nameQuestion]?.["completed"];
       if (show && !isCompleted) {
         setSolved(true);
-        setContext.taskSolved(nameQuestion, descriptionData.topic, descriptionData.difficulty, true);
+        setContext.taskSolved(nameQuestion, descriptionData.topic, descriptionData.difficulty, true, codeEditorRef.current.getValue());
         updateContext.updateScore();
       } else if (error && !isCompleted) {
-        setContext.taskSolved(nameQuestion, descriptionData.topic, descriptionData.difficulty, false);
+        setContext.taskSolved(nameQuestion, descriptionData.topic, descriptionData.difficulty, false, codeEditorRef.current.getValue());
       }
     }
   }, [verificationTask]);

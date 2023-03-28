@@ -30,6 +30,9 @@ export const SetProvider = ({ children }) => {
         const taskRef = doc(db, "taskSolved", auth.currentUser.uid)
         await setDoc(taskRef, {})
 
+        const submissionsRef = doc(db, "submissions", auth.currentUser.uid)
+        await setDoc(submissionsRef, {})
+
         const storageRef = ref(storage, auth.currentUser.uid + ".png");
         await uploadBytes(storageRef)
     }
@@ -50,10 +53,10 @@ export const SetProvider = ({ children }) => {
         });
     }
 
-    const taskSolved = async (nameQuestion, topic, difficultQuestion, status) => {
-        const ref = doc(db, "taskSolved", auth.currentUser.uid)
+    const taskSolved = async (nameQuestion, topic, difficultQuestion, status, code) => {
+        const taskRef = doc(db, "taskSolved", auth.currentUser.uid)
         const timestamp = serverTimestamp()
-        await updateDoc(ref, {
+        await updateDoc(taskRef, {
             [nameQuestion]: ({
                 completed: status,
                 topic: topic,
@@ -62,6 +65,13 @@ export const SetProvider = ({ children }) => {
             }),
             [difficultQuestion + "Submissions"]: increment(1)
         })
+        const submissionsRef = doc(db, "submissions", auth.currentUser.uid)
+        await updateDoc(submissionsRef, {
+            [nameQuestion]: arrayUnion({
+                correctCode: status,
+                code: code,
+            })
+        });
     }
 
     return (
