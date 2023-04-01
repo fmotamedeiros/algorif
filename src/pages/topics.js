@@ -1,9 +1,10 @@
 import Head from 'next/head';
 import { Box } from '@mui/material';
 import { DashboardLayout } from '../components/dashboard-layout';
-import { Topics } from '../components/quests/topics'
+import { QuestionsTopics } from '../components/quests/questionsTopics'
+import { QuestionsSuggest } from '../components/quests/questionsSuggest';
 
-const Settings = () => {
+const Topics = () => {
 
   return(
   <>
@@ -20,17 +21,19 @@ const Settings = () => {
       }}
     >
       <div className='px-[5%]'>
-        <Topics />
+        <QuestionsTopics />
+        <div className='pt-8' />
+        <QuestionsSuggest />
       </div>
     </Box>
   </>
   )
 };
 
-Settings.getLayout = (page) => (
+Topics.getLayout = (page) => (
   <DashboardLayout>
     {page}
   </DashboardLayout>
 );
 
-export default Settings;
+export default Topics;

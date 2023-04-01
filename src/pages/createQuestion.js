@@ -1,4 +1,3 @@
-import { Box } from '@mui/material';
 import dynamic from 'next/dynamic';
 import Head from 'next/head';
 import { useState } from 'react';

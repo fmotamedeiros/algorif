@@ -1,7 +1,7 @@
 import { createContext } from "react";
 import { auth, db, storage } from "./auth-context";
 import { arrayUnion, doc, increment, serverTimestamp, setDoc, updateDoc } from "firebase/firestore";
-import { ref, uploadBytes } from "firebase/storage";;
+import { ref, uploadBytes } from "firebase/storage";
 
 export const SetContext = createContext({ undefined });
 

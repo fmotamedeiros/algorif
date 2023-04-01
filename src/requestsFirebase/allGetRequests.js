@@ -92,7 +92,7 @@ export const GetQuestions = (nameTopic, setQuestions) => {
     }, [nameTopic]);
 }
 
-export const GetTaskSolved = setTaskSolved => {
+export const GetTaskSolved = (setTaskSolved) => {
     const getContext = useContext(GetContext);
     const [isLoaded, setIsLoaded] = useState(false);
 
@@ -107,6 +107,22 @@ export const GetTaskSolved = setTaskSolved => {
     useEffect(() => {
         if (!isLoaded) {
             allTasksSolved();
+        }
+    }, [isLoaded]);
+};
+
+export const GetQuestionsSuggest = (setUnansweredQuestions) => {
+    const getContext = useContext(GetContext);
+    const [isLoaded, setIsLoaded] = useState(false);
+
+    const questionsSuggest = () => {
+        getContext.getUnansweredQuestions(setUnansweredQuestions)
+        setIsLoaded(true);
+    };
+
+    useEffect(() => {
+        if (!isLoaded) {
+            questionsSuggest();
         }
     }, [isLoaded]);
 };

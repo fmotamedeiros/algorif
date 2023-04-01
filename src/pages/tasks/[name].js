@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { DashboardLayout } from "../../components/dashboard-layout";
-import { Topics } from "../../components/quests/topics"
+import { QuestionsTopics } from "../../components/quests/questionsTopics"
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import Filter from "../../components/quests/filter";
 import { Loader } from "../../requestsFirebase/loader";
@@ -110,7 +110,7 @@ const Tasks = () => {
                 horizontal: 'left',
               }}
             >
-              <Topics />
+              <QuestionsTopics />
             </Popover>
 
             <button

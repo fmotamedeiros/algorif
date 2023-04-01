@@ -243,6 +243,59 @@ export const GetProvider = ({ children }) => {
         });
     };
 
+    const getAllQuestions = async () => {
+        const ref = collection(db, "categories");
+        const snapshot = await getDocs(ref);
+        const questions = [];
+
+        snapshot.forEach((doc) => {
+            const categoryQuestions = doc.data().questions;
+            categoryQuestions.forEach((question) => {
+                questions.push(question);
+            });
+        });
+
+        return questions;
+    };
+
+    const getUnansweredQuestions = async (setUnansweredQuestions) => {
+        const questions = await getAllQuestions();
+        const taskDoc = await getTaskSolved();
+        const tasksSolved = taskDoc || {};
+
+        const sortedQuestions = questions.sort((a, b) => {
+            const levels = ["Iniciante", "Fácil", "Médio", "Difícil", "Expert"];
+            const aLevel = levels.indexOf(a.difficulty);
+            const bLevel = levels.indexOf(b.difficulty);
+            return aLevel - bLevel;
+        });
+
+        let unansweredQuestions = [];
+        let unansweredCount = 0;
+
+        const taskSolvedArray = Object.entries(tasksSolved).map(([title, task]) => ({ title, completed: task.completed }));
+
+        for (let i = 0; i < sortedQuestions.length; i++) {
+            const question = sortedQuestions[i];
+            const task = taskSolvedArray.find(task => task.title === question.title);
+            if (!task || !task.completed) {
+                unansweredQuestions.push(question);
+                unansweredCount++;
+                if (unansweredCount === 4) {
+                    break;
+                }
+            }
+        }
+
+        const unansweredQuestionsWithLimitedData = unansweredQuestions.map( (question) => ({
+            title: question.title,
+            description: question.description,
+            topic: question.topic,
+            difficulty: question.difficulty
+        }));
+        setUnansweredQuestions(unansweredQuestionsWithLimitedData);
+    };
+
 
     return (
         <GetContext.Provider
@@ -258,6 +311,8 @@ export const GetProvider = ({ children }) => {
                 getTasksTopic,
                 getCreatedQuestions,
                 //getTasksWeekend,
+                getAllQuestions,
+                getUnansweredQuestions,
             }}
         >
             {children}

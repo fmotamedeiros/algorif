@@ -5,7 +5,7 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { Box, Button, Container, Link, Typography } from '@mui/material';
 //import { Google as GoogleIcon } from '../icons/google';
-import { getAuth, signInWithEmailAndPassword, signInWithPopup, } from "firebase/auth";
+import { getAuth, signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
 import { AuthContext } from '../contexts/auth-context';
 import { useContext, useState } from 'react';
 import { Logo } from '../components/logo';

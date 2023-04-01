@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { AllTopics } from '../../requestsFirebase/allGetRequests';
 import { Loader } from '../../requestsFirebase/loader';
 
-export const Topics = () => {
+export const QuestionsTopics = () => {
   const [topics, setTopics] = useState([])
   
   AllTopics(setTopics)
@@ -30,8 +30,8 @@ export const Topics = () => {
             sx={{ display: 'grid', justifyContent: 'space-between', gap: 1 }}
             width="100%"
           >
-            {topics.map((topic) => (
-              <button key={topic}>
+            {topics.map((topic, i) => (
+              <button key={`${topic}-${i}`}> 
                 <Link href={`/tasks/${topic}`}>
                   <Typography className='border p-3 border-gray-500 hover:border-green-500'  >
                     {topic}
