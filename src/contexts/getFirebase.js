@@ -2,6 +2,8 @@ import { createContext } from "react";
 import { auth, db, storage } from "./auth-context";
 import { collection, doc, getDoc, getDocs, orderBy, query, where } from "firebase/firestore";
 import { ref, getDownloadURL } from "firebase/storage";
+import dayjs from "dayjs";
+import isBetween from "dayjs/plugin/isBetween";
 
 export const GetContext = createContext({ undefined });
 
@@ -85,22 +87,50 @@ export const GetProvider = ({ children }) => {
         return tasksSolved;
     }
 
-    // const getTasksWeekend = async () => {
-    //     const rankingRef = collection(db, "taskSolved", auth.currentUser.uid, "raiz");
+    const getTasksWeekend = async (setAnsweredQuestions, setTasksCount) => {
+        const taskDoc = await getTaskSolved();
+        const tasksSolved = taskDoc || {};
 
-    //     const currentDate = dayjs();
-    //     const startOfWeek = currentDate.startOf('week');
-    //     const endOfWeek = currentDate.endOf('week');
+        const taskSolvedArray = Object.entries(tasksSolved)?.map(([title, task]) => ({
+            ...task,
+        })) || [];
 
-    //     const q = query(rankingRef,
-    //         where("date", ">=", startOfWeek.toDate()),
-    //         where("date", "<=", endOfWeek.toDate()),
-    //         where("completed", "==", true),
-    //     )
-    //     const querySnapshot = await getDocs(q);
+        dayjs.extend(isBetween);
 
-    //     console.log(querySnapshot)
-    // }
+        const currentDate = dayjs();
+        const startOfWeek = currentDate.startOf('week').startOf('day');
+        const endOfWeek = currentDate.endOf('week').endOf('day');
+
+        const completedTasks = taskSolvedArray.filter(
+            (task) =>
+                task.completed &&
+                dayjs(task.date.toDate()).isBetween(startOfWeek, endOfWeek, null, '[]')
+        );
+
+        const tasksCount = completedTasks.reduce((accumulator, { date }) => {
+            const taskDayOfWeek = dayjs(date.toDate()).format('dddd').toLowerCase();
+            if (taskDayOfWeek in accumulator) {
+                accumulator[taskDayOfWeek]++;
+            }
+            return accumulator;
+        }, { sunday: 0, monday: 0, tuesday: 0, wednesday: 0, thursday: 0, friday: 0, saturday: 0 });
+        const dataBar = {
+            datasets: [
+                {
+                    backgroundColor: '#22c55e',
+                    barPercentage: 0.5,
+                    barThickness: 10,
+                    borderRadius: 2,
+                    categoryPercentage: 0.5,
+                    data: Object.values(tasksCount),
+                    label: 'Desafios Completados',
+                    maxBarThickness: 10
+                },
+            ],
+            labels: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado']
+        };
+        setAnsweredQuestions(dataBar);
+    };
 
     const getDifficultRate = async (setBarData) => {
         const rankingRef = doc(db, "taskSolved", auth.currentUser.uid)
@@ -287,7 +317,7 @@ export const GetProvider = ({ children }) => {
             }
         }
 
-        const unansweredQuestionsWithLimitedData = unansweredQuestions.map( (question) => ({
+        const unansweredQuestionsWithLimitedData = unansweredQuestions.map((question) => ({
             title: question.title,
             description: question.description,
             topic: question.topic,
@@ -310,7 +340,7 @@ export const GetProvider = ({ children }) => {
                 getDifficultRate,
                 getTasksTopic,
                 getCreatedQuestions,
-                //getTasksWeekend,
+                getTasksWeekend,
                 getAllQuestions,
                 getUnansweredQuestions,
             }}

@@ -1,27 +1,16 @@
 import { Box, Card, CardHeader } from '@mui/material';
+import { useState } from 'react';
+import { GetTasksWeekend } from '../../requestsFirebase/allGetRequests';
+import { Bar } from 'react-chartjs-2';
+import { Loader } from '../../requestsFirebase/loader';
 
 export const TasksWeekend = () => {
+  const [answeredQuestions, setAnsweredQuestions] = useState()
 
-  const hasData = true
-  const labels = []
-  const data = {
-    datasets: [
-      {
-        backgroundColor: '#22c55e',
-        barPercentage: 0.5,
-        barThickness: 10,
-        borderRadius: 2,
-        categoryPercentage: 0.5,
-        data: [],
-        label: 'Desafios Completados',
-        maxBarThickness: 10
-      },
-    ],
-    labels: labels
-  };
+  GetTasksWeekend(setAnsweredQuestions)
 
-  if (labels.length === 0) {
-    hasData = false
+  if (!answeredQuestions) {
+    return <Box className='h-full flex items-center justify-center bg-[#1F2937] rounded-lg'><Loader /></Box>;
   }
 
   const options = {
@@ -53,13 +42,10 @@ export const TasksWeekend = () => {
         title="Exercícios Concluídos"
       />
       <Box className='h-[350px]'>
-        {
-          !hasData && <div className='flex justify-center items-center h-full text-gray-500 text-2xl'>Indisponível</div>
-        }
-        {/* <Bar
-            data={data}
-            options={options}
-          /> */}
+        <Bar
+          data={answeredQuestions}
+          options={options}
+        />
       </Box>
     </Card>
   );

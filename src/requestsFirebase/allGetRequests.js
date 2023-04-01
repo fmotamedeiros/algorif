@@ -127,6 +127,22 @@ export const GetQuestionsSuggest = (setUnansweredQuestions) => {
     }, [isLoaded]);
 };
 
+export const GetTasksWeekend = (setAnsweredQuestions) => {
+    const getContext = useContext(GetContext);
+    const [isLoaded, setIsLoaded] = useState(false);
+
+    const questionsAnswered = () => {
+        getContext.getTasksWeekend(setAnsweredQuestions)
+        setIsLoaded(true);
+    };
+
+    useEffect(() => {
+        if (!isLoaded) {
+            questionsAnswered();
+        }
+    }, [isLoaded]);
+};
+
 export const GetDifficultRate = (setBarData) => {
     const getContext = useContext(GetContext);
     const [isLoaded, setIsLoaded] = useState(false);
