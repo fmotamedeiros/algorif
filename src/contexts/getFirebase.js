@@ -136,17 +136,6 @@ export const GetProvider = ({ children }) => {
         };
         setAnsweredQuestions(dataBar);
     };
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
 
     const getDifficultRate = async (setBarData) => {
         const rankingRef = doc(db, "taskSolved", auth.currentUser.uid)
