@@ -87,50 +87,66 @@ export const GetProvider = ({ children }) => {
         return tasksSolved;
     }
 
-    const getTasksWeekend = async (setAnsweredQuestions, setTasksCount) => {
+    const getTasksWeekend = async (setAnsweredQuestions) => {
         const taskDoc = await getTaskSolved();
         const tasksSolved = taskDoc || {};
-
+    
         const taskSolvedArray = Object.entries(tasksSolved)?.map(([title, task]) => ({
             ...task,
         })) || [];
-
+    
         dayjs.extend(isBetween);
-
-        const currentDate = dayjs();
-        const startOfWeek = currentDate.startOf('week').startOf('day');
-        const endOfWeek = currentDate.endOf('week').endOf('day');
-
-        const completedTasks = taskSolvedArray.filter(
-            (task) =>
-                task.completed &&
-                dayjs(task.date.toDate()).isBetween(startOfWeek, endOfWeek, null, '[]')
-        );
-
-        const tasksCount = completedTasks.reduce((accumulator, { date }) => {
-            const taskDayOfWeek = dayjs(date.toDate()).format('dddd').toLowerCase();
-            if (taskDayOfWeek in accumulator) {
-                accumulator[taskDayOfWeek]++;
+    
+        const completedTasks = taskSolvedArray.filter((task) => task.completed);
+    
+        const tasksByDate = completedTasks.reduce((accumulator, { date }) => {
+            const taskDate = dayjs(date.toDate()).format('YYYY-MM-DD');
+            if (accumulator[taskDate]) {
+                accumulator[taskDate]++;
+            } else {
+                accumulator[taskDate] = 1;
             }
             return accumulator;
-        }, { sunday: 0, monday: 0, tuesday: 0, wednesday: 0, thursday: 0, friday: 0, saturday: 0 });
+        }, {});
+    
+        const sortedDates = Object.keys(tasksByDate).sort((a, b) => {
+            const dateA = dayjs(a, 'YYYY-MM-DD');
+            const dateB = dayjs(b, 'YYYY-MM-DD');
+            return dateA - dateB;
+        });
+    
+        const last7Dates = sortedDates.slice(-10);
+    
+        const formattedDates = last7Dates.map(date => dayjs(date, 'YYYY-MM-DD').format('DD/MM/YYYY')); // Formatando as datas para 'DD/MM/YYYY'
+    
         const dataBar = {
             datasets: [
                 {
                     backgroundColor: '#22c55e',
-                    barPercentage: 0.5,
+                    barPercentage: 1,
                     barThickness: 10,
                     borderRadius: 2,
-                    categoryPercentage: 0.5,
-                    data: Object.values(tasksCount),
+                    categoryPercentage: 1,
+                    data: last7Dates.map(date => tasksByDate[date] || 0),
                     label: 'Desafios Completados',
                     maxBarThickness: 10
                 },
             ],
-            labels: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado']
+            labels: formattedDates // Novo array com as datas formatadas como labels
         };
         setAnsweredQuestions(dataBar);
     };
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 
     const getDifficultRate = async (setBarData) => {
         const rankingRef = doc(db, "taskSolved", auth.currentUser.uid)
