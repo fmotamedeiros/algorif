@@ -4,6 +4,7 @@ import { Cog as CogIcon } from '../../icons/cog';
 import { User as UserIcon } from '../../icons/user';
 import AddTaskIcon from '@mui/icons-material/AddTask';
 import EditIcon from '@mui/icons-material/Edit';
+import GroupIcon from '@mui/icons-material/Group';
 
 export const getNavLinks = (isTeacher) => {
     const navLinks = [
@@ -18,6 +19,11 @@ export const getNavLinks = (isTeacher) => {
             title: 'Exercícios'
         },
         {
+            href: '/classStudents',
+            icon: (<GroupIcon fontSize="small" />),
+            title: 'Turmas'
+        },
+        {
             href: '/account',
             icon: (<UserIcon fontSize="small" />),
             title: 'Perfil'
@@ -26,7 +32,7 @@ export const getNavLinks = (isTeacher) => {
             href: '/settings',
             icon: (<CogIcon fontSize="small" />),
             title: 'Configurações'
-        },
+        },  
     ];
     if (isTeacher) {
         navLinks.push({

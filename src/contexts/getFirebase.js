@@ -90,15 +90,15 @@ export const GetProvider = ({ children }) => {
     const getTasksWeekend = async (setAnsweredQuestions) => {
         const taskDoc = await getTaskSolved();
         const tasksSolved = taskDoc || {};
-    
+
         const taskSolvedArray = Object.entries(tasksSolved)?.map(([title, task]) => ({
             ...task,
         })) || [];
-    
+
         dayjs.extend(isBetween);
-    
+
         const completedTasks = taskSolvedArray.filter((task) => task.completed);
-    
+
         const tasksByDate = completedTasks.reduce((accumulator, { date }) => {
             const taskDate = dayjs(date.toDate()).format('YYYY-MM-DD');
             if (accumulator[taskDate]) {
@@ -108,17 +108,17 @@ export const GetProvider = ({ children }) => {
             }
             return accumulator;
         }, {});
-    
+
         const sortedDates = Object.keys(tasksByDate).sort((a, b) => {
             const dateA = dayjs(a, 'YYYY-MM-DD');
             const dateB = dayjs(b, 'YYYY-MM-DD');
             return dateA - dateB;
         });
-    
+
         const last7Dates = sortedDates.slice(-10);
-    
+
         const formattedDates = last7Dates.map(date => dayjs(date, 'YYYY-MM-DD').format('DD/MM/YYYY')); // Formatando as datas para 'DD/MM/YYYY'
-    
+
         const dataBar = {
             datasets: [
                 {
@@ -257,25 +257,29 @@ export const GetProvider = ({ children }) => {
 
     const getCreatedQuestions = async (setCreatedQuestions) => {
         const createdQuestions = collection(db, "categories");
-        const permissionRef = doc(db, "coders", auth.currentUser.uid);
-        const permissionUser = await getDoc(permissionRef)
-        const admin = permissionUser.data().admin
-        const q = query(createdQuestions)
-        const questions = []
-        const querySnapshot = await getDocs(q)
-        console.log(admin)
+        const admin = false; // Defina o valor inicial de 'admin' como falso
+
+        if (auth.currentUser) {
+            const permissionRef = doc(db, "coders", auth.currentUser.uid);
+            const permissionUser = await getDoc(permissionRef);
+            admin = permissionUser.data().admin;
+        }
+
+        const q = query(createdQuestions);
+        const questions = [];
+        const querySnapshot = await getDocs(q);
 
         querySnapshot.forEach((doc) => {
-            doc.data().questions.forEach(question => {
-                if (admin == true) {
+            doc.data().questions.forEach((question) => {
+                if (admin) {
                     questions.push(question);
-                }
-                else if (question.creator === auth.currentUser.uid) {
+                } else if (question.creator === auth.currentUser?.uid) {
                     questions.push(question);
                 }
             });
-            setCreatedQuestions(questions);
         });
+
+        setCreatedQuestions(questions);
     };
 
     const getAllQuestions = async () => {
@@ -331,6 +335,43 @@ export const GetProvider = ({ children }) => {
         setUnansweredQuestions(unansweredQuestionsWithLimitedData);
     };
 
+    const getUserGroups = async (setUserGroups) => {
+        try {
+            const user = auth.currentUser.uid
+            const groupsRef = collection(db, "groups");
+            const q = query(groupsRef, where("students", "array-contains", user));
+            const querySnapshot = await getDocs(q);
+
+            const groups = querySnapshot.docs.map((doc) => ({
+                id: doc.id,
+                ...doc.data(),
+            }));
+
+            setUserGroups(groups);
+        } catch (error) {
+            console.error("Erro ao obter os grupos do usuário:", error);
+        }
+    }
+
+    const getQuestionsByGroupName = async (groupName, setQuestions) => {
+        try {
+            const groupsRef = collection(db, "groups");
+            const q = query(groupsRef, where("name", "==", groupName));
+            const querySnapshot = await getDocs(q);
+
+            const questions = [];
+            querySnapshot.forEach((doc) => {
+                const category = doc.data();
+                const categoryQuestions = category.questions || [];
+
+                questions.push(...categoryQuestions);
+            });
+            setQuestions(questions);
+        } catch (error) {
+            console.log(error)
+        }
+    };
+
 
     return (
         <GetContext.Provider
@@ -348,6 +389,8 @@ export const GetProvider = ({ children }) => {
                 getTasksWeekend,
                 getAllQuestions,
                 getUnansweredQuestions,
+                getUserGroups,
+                getQuestionsByGroupName,
             }}
         >
             {children}

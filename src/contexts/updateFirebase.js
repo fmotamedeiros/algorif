@@ -1,7 +1,8 @@
 import { createContext } from "react";
 import { auth, db } from "./auth-context";
-import { arrayRemove, arrayUnion, doc, getDoc, updateDoc } from "firebase/firestore";
+import { arrayRemove, arrayUnion, collection, doc, getDoc, getDocs, query, setDoc, updateDoc, where } from "firebase/firestore";
 import { updatePassword } from "firebase/auth";
+import Router from "next/router";
 
 export const UpdateContext = createContext({ undefined });
 
@@ -63,6 +64,31 @@ export const UpdateProvider = ({ children }) => {
         });
     }
 
+    const addAlunoToGroup = async (groupKey) => {
+        try {
+            const groupsRef = collection(db, "groups");
+            const q = query(groupsRef, where("groupKey", "==", groupKey));
+            const querySnapshot = await getDocs(q);
+
+            if (querySnapshot.empty) {
+                alert("Não foi encontrado nenhum grupo com a chave fornecida");
+                return;
+            }
+
+            const groupDoc = querySnapshot.docs[0];
+            const groupRef = doc(db, "groups", groupDoc.id);
+
+            await updateDoc(groupRef, {
+                students: arrayUnion(auth.currentUser.uid)
+            });
+
+            console.log("Adicionado ao grupo com sucesso!");
+            Router.reload();
+        } catch (error) {
+            console.error("Erro ao adicionar aluno ao grupo:", error);
+        }
+    }
+
     return (
         <UpdateContext.Provider
             value={{
@@ -70,6 +96,7 @@ export const UpdateProvider = ({ children }) => {
                 updatePasswordUser,
                 updateScore,
                 updateDatasQuestion,
+                addAlunoToGroup,
             }}
         >
             {children}

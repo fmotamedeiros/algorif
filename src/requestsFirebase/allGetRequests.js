@@ -189,3 +189,33 @@ export const GetDatasQuestion = (setCreatedQuestions) => {
         }
     }, [isLoaded]);
 };
+
+export const GetUserGroups = (setUserGroups) => {
+    const getContext = useContext(GetContext);
+    const [isLoaded, setIsLoaded] = useState(false);
+
+    const userGroups = () => {
+        getContext.getUserGroups(setUserGroups);
+        setIsLoaded(true);
+    }
+    useEffect(() => {
+        if (!isLoaded) {
+            userGroups();
+        }
+    }, [isLoaded]);
+};
+
+export const GetQuestionsByGroupName = (groupName, setQuestions) => {
+    const getContext = useContext(GetContext);
+    const [isLoaded, setIsLoaded] = useState(false);
+
+    const groupQuestions = () => {
+        getContext.getQuestionsByGroupName(groupName, setQuestions);
+        setIsLoaded(true);
+    }
+    useEffect(() => {
+        if (!isLoaded) {
+            groupQuestions();
+        }
+    }, [isLoaded]);
+};

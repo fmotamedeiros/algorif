@@ -1,6 +1,6 @@
 import { createContext } from "react";
 import { auth, db, storage } from "./auth-context";
-import { arrayUnion, doc, increment, serverTimestamp, setDoc, updateDoc } from "firebase/firestore";
+import { addDoc, arrayUnion, collection, doc, increment, serverTimestamp, setDoc, updateDoc } from "firebase/firestore";
 import { ref, uploadBytes } from "firebase/storage";
 
 export const SetContext = createContext({ undefined });
@@ -74,6 +74,19 @@ export const SetProvider = ({ children }) => {
         });
     }
 
+    const setCreateGroup = async (groupName, selectedQuestions, groupKey) => {
+        try {
+            await addDoc(collection(db, "groups"), {
+                name: groupName,
+                questions: selectedQuestions,
+                groupKey: groupKey,
+                teacher: auth.currentUser.uid,
+            });
+        } catch (error) {
+            console.error("Erro ao criar o grupo:", error);
+        }
+    }
+
     return (
         <SetContext.Provider
             value={{
@@ -81,6 +94,7 @@ export const SetProvider = ({ children }) => {
                 setRegisterUser,
                 setCreateQuestion,
                 taskSolved,
+                setCreateGroup
             }}
         >
             {children}
