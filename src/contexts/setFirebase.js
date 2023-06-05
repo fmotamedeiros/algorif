@@ -81,6 +81,7 @@ export const SetProvider = ({ children }) => {
                 questions: selectedQuestions,
                 groupKey: groupKey,
                 teacher: auth.currentUser.uid,
+                students: arrayUnion(auth.currentUser.uid)
             });
         } catch (error) {
             console.error("Erro ao criar o grupo:", error);
