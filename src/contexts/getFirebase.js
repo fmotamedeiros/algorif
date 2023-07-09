@@ -7,7 +7,6 @@ import isBetween from "dayjs/plugin/isBetween";
 
 export const GetContext = createContext({ undefined });
 
-
 export const GetProvider = ({ children }) => {
     const getUserDetails = async () => {
         const ref = doc(db, "coders", auth.currentUser.uid);
@@ -255,33 +254,6 @@ export const GetProvider = ({ children }) => {
         return setChartData(chartData);
     }
 
-    const getCreatedQuestions = async (setCreatedQuestions) => {
-        const createdQuestions = collection(db, "categories");
-        const admin = false; // Defina o valor inicial de 'admin' como falso
-
-        if (auth.currentUser) {
-            const permissionRef = doc(db, "coders", auth.currentUser.uid);
-            const permissionUser = await getDoc(permissionRef);
-            admin = permissionUser.data().admin;
-        }
-
-        const q = query(createdQuestions);
-        const questions = [];
-        const querySnapshot = await getDocs(q);
-
-        querySnapshot.forEach((doc) => {
-            doc.data().questions.forEach((question) => {
-                if (admin) {
-                    questions.push(question);
-                } else if (question.creator === auth.currentUser?.uid) {
-                    questions.push(question);
-                }
-            });
-        });
-
-        setCreatedQuestions(questions);
-    };
-
     const getAllQuestions = async () => {
         const ref = collection(db, "categories");
         const snapshot = await getDocs(ref);
@@ -385,7 +357,6 @@ export const GetProvider = ({ children }) => {
                 getTaskSolved,
                 getDifficultRate,
                 getTasksTopic,
-                getCreatedQuestions,
                 getTasksWeekend,
                 getAllQuestions,
                 getUnansweredQuestions,
