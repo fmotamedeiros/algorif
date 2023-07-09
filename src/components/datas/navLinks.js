@@ -3,7 +3,6 @@ import { ChartBar as ChartBarIcon } from '../../icons/chart-bar';
 import { Cog as CogIcon } from '../../icons/cog';
 import { User as UserIcon } from '../../icons/user';
 import AddTaskIcon from '@mui/icons-material/AddTask';
-import EditIcon from '@mui/icons-material/Edit';
 import GroupIcon from '@mui/icons-material/Group';
 
 export const getNavLinks = (isTeacher) => {
@@ -12,6 +11,11 @@ export const getNavLinks = (isTeacher) => {
             href: '/',
             icon: (<ChartBarIcon fontSize="small" />),
             title: 'Dashboard'
+        },
+        {
+            href: '/account',
+            icon: (<UserIcon fontSize="small" />),
+            title: 'Perfil'
         },
         {
             href: '/topics',
@@ -24,26 +28,16 @@ export const getNavLinks = (isTeacher) => {
             title: 'Turmas'
         },
         {
-            href: '/account',
-            icon: (<UserIcon fontSize="small" />),
-            title: 'Perfil'
-        },
-        {
             href: '/settings',
             icon: (<CogIcon fontSize="small" />),
             title: 'Configurações'
-        },  
+        },
     ];
     if (isTeacher) {
         navLinks.push({
             href: '/createQuestion',
             icon: (<AddTaskIcon fontSize="small" />),
             title: 'Criar Questão'
-        });
-        navLinks.push({
-            href: '/editableQuestions',
-            icon: (<EditIcon fontSize="small" />),
-            title: 'Editar Questão Criada'
         });
     }
     return navLinks;

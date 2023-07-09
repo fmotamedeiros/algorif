@@ -77,10 +77,10 @@ export const AllTopics = (setTopics) => {
     }, [isLoaded]);
 }
 
-export const GetQuestions = (nameTopic, setQuestions) => {
+export const GetTopicQuestions = (nameTopic, setQuestions) => {
     const getContext = useContext(GetContext);
 
-    const allQuestions = () => {
+    const topicQuestions = () => {
         getContext.getQuestions(nameTopic).then(value => {
             setQuestions(value);
         })
@@ -88,7 +88,7 @@ export const GetQuestions = (nameTopic, setQuestions) => {
     };
 
     useEffect(() => {
-        allQuestions();
+        topicQuestions();
     }, [nameTopic]);
 }
 
@@ -175,21 +175,6 @@ export const GetTasksTopic = (setChartData) => {
     }, [isLoaded]);
 };
 
-export const GetDatasQuestion = (setCreatedQuestions) => {
-    const getContext = useContext(GetContext);
-    const [isLoaded, setIsLoaded] = useState(false);
-
-    const createdQuestions = () => {
-        getContext.getCreatedQuestions(setCreatedQuestions);
-        setIsLoaded(true);
-    }
-    useEffect(() => {
-        if (!isLoaded) {
-            createdQuestions();
-        }
-    }, [isLoaded]);
-};
-
 export const GetUserGroups = (setUserGroups) => {
     const getContext = useContext(GetContext);
     const [isLoaded, setIsLoaded] = useState(false);
@@ -216,6 +201,24 @@ export const GetQuestionsByGroupName = (groupName, setQuestions) => {
     useEffect(() => {
         if (!isLoaded) {
             groupQuestions();
+        }
+    }, [isLoaded]);
+};
+
+export const GetAllQuestions = (setAllQuestions) => {
+    const getContext = useContext(GetContext);
+    const [isLoaded, setIsLoaded] = useState(false);
+
+    const datasUsers = () => {
+        getContext.getAllQuestions().then((value) => {
+            setAllQuestions(value);
+            setIsLoaded(true);
+        }).catch(console.error);
+    };
+
+    useEffect(() => {
+        if (!isLoaded) {
+            datasUsers();
         }
     }, [isLoaded]);
 };

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Loader } from "../requestsFirebase/loader";
-import { GetDatasQuestion, UserDetails } from "../requestsFirebase/allGetRequests";
+import { GetAllQuestions, UserDetails } from "../requestsFirebase/allGetRequests";
 import { DashboardLayout } from "../components/dashboard-layout";
 import Button from "@mui/material/Button";
 import { CreateGroup } from "../components/classStudents/createGroup";
@@ -14,8 +14,7 @@ const ClassStudents = () => {
     const [coders, setCoders] = useState(null)
     const [isCreateGroupOpen, setIsCreateGroupOpen] = useState(false);
 
-
-    GetDatasQuestion(setAllQuestions);
+    GetAllQuestions(setAllQuestions)
     UserDetails(setCoders)
 
     if (!allQuestions || !coders) {

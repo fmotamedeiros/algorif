@@ -1,4 +1,4 @@
-import { Box, Popover } from "@mui/material";
+import { Box, Button, Popover } from "@mui/material";
 import Head from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -8,15 +8,18 @@ import { QuestionsTopics } from "../../components/quests/questionsTopics"
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import Filter from "../../components/quests/filter";
 import { Loader } from "../../requestsFirebase/loader";
-import { GetQuestions, GetTaskSolved } from "../../requestsFirebase/allGetRequests";
+import { GetTaskSolved, GetTopicQuestions, UserDetails } from "../../requestsFirebase/allGetRequests";
 import CheckIcon from '@mui/icons-material/Check';
+import EditIcon from '@mui/icons-material/Edit';
 
 const Tasks = () => {
   const router = useRouter()
   const [questions, setQuestions] = useState(null)
   const [taskSolved, setTaskSolved] = useState(null)
+  const [coders, setCoders] = useState(null)
 
-  GetQuestions(router.query.name, setQuestions)
+  UserDetails(setCoders)
+  GetTopicQuestions(router.query.name, setQuestions)
   GetTaskSolved(setTaskSolved)
 
   const [isTopicsOpen, setTopicsOpen] = useState(null)
@@ -154,8 +157,18 @@ const Tasks = () => {
                         <button className="p-4 border mb-3 border-gray-500 group-hover:border-green-500 w-full rounded">
                           <Box className="font-semibold">
                             <Box className="p-2">
-                              <div className="group-hover:text-green-500 flex text-[20px]">
-                                {question.title}
+                              <div className="justify-between flex items-center">
+                                <div className="group-hover:text-green-500 flex text-[20px]">
+                                  {question.title}
+                                </div>
+                                {coders.teacher &&
+                                <div>
+                                  <Link href={`/editQuestions/${question.title}`}
+                                    key={`${question.title}`}>
+                                    <Button variant="outlined"> <EditIcon /> </Button>
+                                  </Link>
+                                </div>
+                                }
                               </div>
                               <div className="text-[16px] flex">
                                 <div className="flex">

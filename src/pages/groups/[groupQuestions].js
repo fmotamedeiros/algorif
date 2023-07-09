@@ -1,8 +1,5 @@
-import { useEffect, useState } from "react";
-
-import { collection, query, where, getDocs } from "firebase/firestore";
-import { db } from "../../contexts/auth-context";
-import { Box, Divider } from "@mui/material";
+import { useState } from "react";
+import { Box } from "@mui/material";
 import Link from "next/link";
 import { GetQuestionsByGroupName, GetTaskSolved } from "../../requestsFirebase/allGetRequests";
 import { Loader } from "../../requestsFirebase/loader";
