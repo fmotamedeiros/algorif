@@ -47,7 +47,7 @@ export const QuestionsSuggest = () => {
                                     {question.difficulty}
                                   </div>
                                 </div>
-                                <div>, Taxa de Acerto: {question.successRate}</div>
+                                {/* <div>, Taxa de Acerto: {question.successRate}</div> */}
                               </div>
                             </Box>
                           </Box>
