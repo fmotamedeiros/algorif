@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { useState } from 'react';
 import { AllTopics } from '../../requestsFirebase/allGetRequests';
 import { Loader } from '../../requestsFirebase/loader';
+import { Box } from '@mui/system';
 
 export const QuestionsTopics = () => {
   const [topics, setTopics] = useState([])
@@ -25,6 +26,7 @@ export const QuestionsTopics = () => {
             Selecione um Tópico
           </Typography>
         </Grid>
+
         {topics ?
           <Grid className='sm:grid-cols-2 grid-cols-1'
             sx={{ display: 'grid', justifyContent: 'space-between', gap: 1 }}
