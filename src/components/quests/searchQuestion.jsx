@@ -1,12 +1,9 @@
 import React, { FormEvent } from "react";
 import { Box } from "@mui/system";
-import { Card, Typography } from "@mui/material";
+import { Card, CardContent, Typography } from "@mui/material";
 import CustomTextField from "../customTextField";
 import { useFormik } from "formik";
 import * as Yup from 'yup';
-
-
-
 
 function SearchQuestion() {
 
@@ -44,21 +41,23 @@ function SearchQuestion() {
 
     return (
         <Card
-            sx={{ p: 3 }}
+        // sx={{ p: 3 }}
         >
-            <Typography>
-                Pesquisar Questão
-            </Typography>
-            <form onSubmit={handleSubmit}>
-                <CustomTextField
-                    label="Search Question"
-                    name="search"
-                    type="text"
-                    onBlur={formik.handleBlur}
-                    formik={formik}
-                />
+            <CardContent>
+                <Typography>
+                    Pesquisar Questão
+                </Typography>
+                <form onSubmit={handleSubmit}>
+                    <CustomTextField
+                        label="Search Question"
+                        name="search"
+                        type="text"
+                        onBlur={formik.handleBlur}
+                        formik={formik}
+                    />
 
-            </form>
+                </form>
+            </CardContent>
         </Card>
     );
 }
