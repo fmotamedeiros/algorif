@@ -1,8 +1,8 @@
 import { TextField } from "@mui/material";
 
 const CustomTextField = (
-    { formik, label, name, value, helperText, select,
-        options, multiline, rows, readOnly, disabled, type, onBlur, required }) => (
+    { formik, label, name, value, helperText, select, options, multiline,
+        rows, readOnly, disabled, type, onBlur, required }) => (
     <TextField
         error={Boolean(formik.touched[name] && formik.errors[name])}
         helperText={helperText || (formik.touched[name] && formik.errors[name])}

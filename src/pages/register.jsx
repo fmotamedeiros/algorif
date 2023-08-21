@@ -1,22 +1,19 @@
-import Head from 'next/head';
-import { useFormik } from 'formik';
 import { Box, Button, Checkbox, Container, FormHelperText, Link, TextField, Typography } from '@mui/material';
-import { useRef, useState } from 'react';
+import CustomTextField from '../components/customTextField';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import { AuthService } from '../services/auth';
+import { useState } from 'react';
 import { getAuth } from 'firebase/auth';
 import { useRouter } from 'next/router';
+import { useFormik } from 'formik';
 import NextLink from 'next/link';
+import Head from 'next/head';
 import * as Yup from 'yup';
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-
-import { AuthService } from '../services/auth';
-import CustomTextField from '../components/customTextField';
 
 
 const Register = () => {
     const auth = getAuth();
     const router = useRouter();
-
-
     const [isSubmitting, setIsSubmitting] = useState(false);
 
     const formik = useFormik({
@@ -24,6 +21,7 @@ const Register = () => {
             email: '',
             userName: '',
             password: '',
+            confirmationPassword: '',
             city: '',
             state: '',
             teacher: false,
@@ -32,62 +30,63 @@ const Register = () => {
         validationSchema: Yup.object({
             email: Yup
                 .string()
-                .email('Must be a valid email')
+                .email('Deve ser um e-mail válido')
                 .max(255)
-                .required(
-                    'Email is required'),
+                .required('E-mail é obrigatório'),
             userName: Yup
                 .string()
                 .max(255)
-                .required('UserName is required'),
+                .required('Nome de usuário é obrigatório'),
             password: Yup
                 .string()
                 .max(255)
                 .min(6, "Senha muito fraca")
-                .required('Password is required'),
+                .required('Senha é obrigatória'),
+            confirmationPassword: Yup
+                .string()
+                .max(255)
+                .oneOf([Yup.ref('password'), null], 'As senhas devem coincidir'),
             state: Yup
                 .string()
                 .max(255)
-                .required('State is required'),
+                .required('Estado é obrigatório'),
             city: Yup
                 .string()
                 .max(255)
-                .required('City is required'),
+                .required('Cidade é obrigatório'),
             teacher: Yup
                 .boolean(),
             policy: Yup
                 .boolean()
                 .oneOf(
                     [true],
-                    'This field must be checked'
+                    'Este campo deve ser marcado'
                 )
         }),
         onSubmit: async () => {
             setIsSubmitting(true);
 
             try {
-
                 await AuthService.register(formik.values, auth);
                 router.push('/login');
 
             } catch (error) {
-
                 const errorCode = error.code;
                 const errorMessage = error.message;
                 if (errorCode == 'auth/email-already-in-use') {
                     document.querySelector("#error-message").innerHTML = "Email já está em uso";
+
                 } else if (errorCode == 'auth/invalid-email') {
                     document.querySelector("#error-message").innerHTML = "Email inválido";
+
                 } else {
                     alert(errorMessage);
                 }
 
                 console.log(error);
-
             }
 
             setIsSubmitting(false);
-
         }
     });
 
@@ -119,6 +118,7 @@ const Register = () => {
                             Dashboard
                         </Button>
                     </NextLink>
+
                     <form onSubmit={formik.handleSubmit}>
                         <Box sx={{ my: 3 }}>
                             <Typography
@@ -129,55 +129,75 @@ const Register = () => {
                             </Typography>
                             <Typography
                                 color="textSecondary"
-                                gutterBottom
                                 variant="body2"
+                                gutterBottom
                             >
-                                Use seu email para criar uma nova conta
+                                Use seu e-mail para criar uma nova conta
                             </Typography>
                         </Box>
                         <CustomTextField
                             formik={formik}
-                            label="UserName"
+                            label="Nome de usuário"
                             name="userName"
+                            required
                         />
                         <CustomTextField
                             formik={formik}
-                            label="Email Address"
+                            label="Endereço de e-mail"
                             name="email"
+                            required
                         />
                         <TextField
                             error={Boolean(formik.touched.password && formik.errors.password)}
-                            fullWidth
                             helperText={formik.touched.password && formik.errors.password}
-                            label="Password"
+                            label="Senha"
                             margin="normal"
                             name="password"
+                            type="password"
+                            variant="outlined"
                             onBlur={formik.handleBlur}
                             onChange={formik.handleChange}
-                            type="password"
                             value={formik.values.password}
+                            fullWidth
+                            required
+                        />
+                        <TextField
+                            error={Boolean(formik.touched.confirmationPassword && formik.errors.confirmationPassword)}
+                            helperText={formik.touched.confirmationPassword && formik.errors.confirmationPassword}
+                            label="Confirmar senha"
+                            margin="normal"
+                            name="confirmationPassword"
+                            type="password"
                             variant="outlined"
+                            onBlur={formik.handleBlur}
+                            onChange={formik.handleChange}
+                            value={formik.values.confirmationPassword}
+                            fullWidth
+                            required
                         />
                         <div className='block sm:flex gap-3'>
                             <CustomTextField
                                 formik={formik}
-                                label="State"
+                                label="Estado"
                                 name="state"
+                                required
                             />
                             <TextField
                                 error={Boolean(formik.touched.city && formik.errors.city)}
                                 helperText={formik.touched.city && formik.errors.city}
-                                fullWidth
-                                label="City"
-                                margin="normal"
-                                name="city"
-                                onBlur={formik.handleBlur}
                                 onChange={formik.handleChange}
+                                onBlur={formik.handleBlur}
                                 value={formik.values.city}
                                 variant="outlined"
+                                margin="normal"
+                                label="Cidade"
+                                name="city"
+                                fullWidth
+                                required
                             />
                         </div>
                         <div id="error-message" className='text-red-500 p-1'></div>
+
                         <Box
                             sx={{
                                 alignItems: 'center',
@@ -189,67 +209,38 @@ const Register = () => {
                                 <div className='flex items-center'>
                                     <Checkbox
                                         checked={formik.values.teacher}
+                                        onChange={formik.handleChange}
                                         name="teacher"
-                                        onChange={formik.handleChange}
                                     />
                                     <Typography
                                         color="textSecondary"
                                         variant="body2"
                                     >
-                                        Você é um professor
-                                    </Typography>
-                                </div>
-
-                                <div className='flex items-center'>
-                                    <Checkbox
-                                        checked={formik.values.policy}
-                                        name="policy"
-                                        onChange={formik.handleChange}
-                                    />
-                                    <Typography
-                                        color="textSecondary"
-                                        variant="body2"
-                                    >
-                                        Eu li os
-                                        {' '}
-                                        <NextLink
-                                            href="#"
-                                            passHref
-                                        >
-                                            <Link
-                                                color="primary"
-                                                underline="always"
-                                                variant="subtitle2"
-                                            >
-                                                Termos e Condições
-                                            </Link>
-                                        </NextLink>
+                                        Sou professor(a)
                                     </Typography>
                                 </div>
                             </div>
                         </Box>
+
                         {Boolean(formik.touched.teacher && formik.errors.teacher) && (
                             <FormHelperText error>
                                 {formik.errors.teacher}
                             </FormHelperText>
                         )}
-                        {Boolean(formik.touched.policy && formik.errors.policy) && (
-                            <FormHelperText error>
-                                {formik.errors.policy}
-                            </FormHelperText>
-                        )}
+
                         <Box sx={{ py: 2 }}>
                             <Button
-                                color="primary"
                                 disabled={isSubmitting}
-                                fullWidth
-                                size="large"
-                                type="submit"
                                 variant="contained"
+                                color="primary"
+                                type="submit"
+                                size="large"
+                                fullWidth
                             >
                                 Inscreva-se agora
                             </Button>
                         </Box>
+
                         <Typography
                             color="textSecondary"
                             variant="body2"

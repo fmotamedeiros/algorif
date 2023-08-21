@@ -1,32 +1,19 @@
-import Head from 'next/head';
-import NextLink from 'next/link';
-import Router from 'next/router';
-import { useFormik } from 'formik';
-import * as Yup from 'yup';
 import { Box, Button, Container, Link, Typography } from '@mui/material';
-//import { Google as GoogleIcon } from '../icons/google';
-import { getAuth, signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import CustomTextField from '../components/customTextField';
 import { AuthContext } from '../contexts/auth-context';
 import { useContext, useState } from 'react';
 import { Logo } from '../components/logo';
-import CustomTextField from '../components/customTextField';
+import { useFormik } from 'formik';
+import NextLink from 'next/link';
+import Router from 'next/router';
+import Head from 'next/head';
+import * as Yup from 'yup';
+
 
 const Login = () => {
     const authContext = useContext(AuthContext);
-    //const provider = new GoogleAuthProvider()
     const [isSubmitting, setIsSubmitting] = useState(false);
-
-    // function handleGoogleSignIn() {
-
-    //   signInWithPopup(auth, provider)
-    //   .then((response) => {
-    //     authContext.signIn(response.user)
-    //     router.push('/')
-    //   })
-    //   .catch((error) => {
-    //     console.log(error)
-    //   })
-    // }
 
     const formik = useFormik({
         initialValues: {
@@ -36,19 +23,18 @@ const Login = () => {
         validationSchema: Yup.object({
             email: Yup
                 .string()
-                .email('O email deve ser válido!')
                 .max(255)
-                .required('O email é obrigatório!'),
+                .email('O e-mail deve ser válido')
+                .required('O e-mail é obrigatório'),
             password: Yup
                 .string()
                 .max(255)
-                .required('A senha é obrigatória!')
+                .required('Senha é obrigatória')
         }),
         onSubmit: () => {
             const auth = getAuth();
             signInWithEmailAndPassword(auth, formik.values.email, formik.values.password)
                 .then(async (response) => {
-                    //console.log(JSON.stringify(response));
                     localStorage.setItem("@AuthFirebase:metadata", JSON.stringify(response.user))
                     authContext.signIn(response.user);
                     Router
@@ -57,7 +43,7 @@ const Login = () => {
                 })
                 .catch((error) => {
                     console.log(error);
-                    document.querySelector("#error-message").innerHTML = "Email e/ou Senha Incorretos";
+                    document.querySelector("#error-message").innerHTML = "E-mail e/ou senha incorreto(s)";
                 });
         }
     });
@@ -65,7 +51,7 @@ const Login = () => {
     return (
         <>
             <Head>
-                <title>Algorif</title>
+                <title>AlgorIF</title>
             </Head>
             <Box
                 component="main"
@@ -84,70 +70,52 @@ const Login = () => {
                                 variant="h4"
                             >
                                 <div className='flex'>
-                                    <Logo viewWidth={1660} width={552} height={150} imageWidth={800} />
+                                    <Logo
+                                        viewWidth={1660}
+                                        width={552}
+                                        height={150}
+                                        imageWidth={800}
+                                    />
                                 </div>
                             </Typography>
+
                             <Typography
                                 color="textSecondary"
                                 gutterBottom
                                 variant="body2"
                             >
-                                Faça Login no Plataforma do Algorif
+                                Faça login na plataforma do AlgorIF
                             </Typography>
                         </Box>
-                        {/* <Grid
-              item
-              xs={12}
-              md={6}
-            >
-              <Button
-                color="error"
-                fullWidth
-                onClick={handleGoogleSignIn}
-                size="large"
-                startIcon={<GoogleIcon />}
-                variant="contained"
-              >
-                Entre com o Google
-              </Button>
-            </Grid>
-            <Box
-              sx={{
-                pb: 1,
-                pt: 3
-              }}
-            >
-              <Typography
-                align="center"
-                color="textSecondary"
-                variant="body1"
-              >
-                ou entre com seu endereço de email
-              </Typography>
-            </Box> */}
+
                         <CustomTextField
-                            label="Email Address"
+                            onBlur={formik.handleBlur}
+                            formik={formik}
+                            label="Endereço de e-mail"
                             name="email"
-                            onBlur={formik.handleBlur}
                             type="email"
-                            formik={formik}
+                            required
+
                         />
                         <CustomTextField
-                            label="Password"
-                            name="password"
                             onBlur={formik.handleBlur}
-                            type="password"
                             formik={formik}
+                            label="Senha"
+                            name="password"
+                            type="password"
+                            required
                         />
+
                         <div id="error-message" className='text-red-500 p-1'></div>
+
                         <Box sx={{ py: 2 }}>
                             <Button
-                                color="primary"
                                 disabled={isSubmitting}
-                                fullWidth
-                                size="large"
-                                type="submit"
                                 variant="contained"
+                                color="primary"
+                                type="submit"
+                                size="large"
+                                fullWidth
                                 onClick={() => {
                                     formik.handleSubmit();
                                     setIsSubmitting(true);
@@ -159,6 +127,7 @@ const Login = () => {
                                 Entrar
                             </Button>
                         </Box>
+
                         <Typography
                             color="textSecondary"
                             variant="body2"
