@@ -2,10 +2,10 @@ import { doc, getDoc, getDocs, query, collection } from 'firebase/firestore';
 import { auth } from '../contexts/auth-context';
 
 export const QuestionService = {
-    getSuggestions: async function() {
+    getSuggestions: async function () {
         const categoriesRef = collection(database, 'categories');
         const data = await getDocs(categoriesRef);
-        const categories = []; 
+        const categories = [];
 
         data.forEach(categorie => {
             categories.push(categorie.id);
@@ -13,7 +13,7 @@ export const QuestionService = {
 
         return categories;
     },
-    getQuestionsSolved: async function() {
+    getQuestionsSolved: async function () {
         console.log(auth.currentUser.uid);
     }
 }

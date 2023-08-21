@@ -9,7 +9,7 @@ import { CategorieService } from '../../services/categorie';
 export const QuestionsTopics = () => {
     const [categories, setCategories] = useState([]);
 
-    
+
     useEffect(() => {
         const getTopics = async () => {
             const data = await CategorieService.getAll();

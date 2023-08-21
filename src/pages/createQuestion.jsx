@@ -15,15 +15,15 @@ const CreateQuestion = () => {
         return <> <Loader /> </>
     }
 
-    return(
-    <>
-        <Head>
-            <title>
-                Create Question
-            </title>
-        </Head>
-        <DatasQuestion />
-    </>
+    return (
+        <>
+            <Head>
+                <title>
+                    Create Question
+                </title>
+            </Head>
+            <DatasQuestion />
+        </>
     )
 };
 

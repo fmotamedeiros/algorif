@@ -8,95 +8,95 @@ import { AuthContext } from '../contexts/auth-context';
 import { UserDetails } from '../requestsFirebase/allGetRequests';
 
 export const AccountPopover = ({ anchorEl, onClose, open, ...other }) => {
-  
-  const authContext = useContext(AuthContext);
 
-  const [coders, setCoders] = useState(null)
+    const authContext = useContext(AuthContext);
 
-  UserDetails(setCoders)
+    const [coders, setCoders] = useState(null)
 
-  const auth = getAuth();
+    UserDetails(setCoders)
 
-  const handleSignOut = async () => {
-    onClose?.();
-    try {
-      // This can be call inside AuthProvider component, but we do it here for simplicity
-      await auth.signOut();
+    const auth = getAuth();
 
-      // Update Auth Context state
-      authContext.signOut();
+    const handleSignOut = async () => {
+        onClose?.();
+        try {
+            // This can be call inside AuthProvider component, but we do it here for simplicity
+            await auth.signOut();
 
-      // Redirect to sign-in page
-      Router
-        .push('/login')
-        .catch(console.error);
-    } catch (err) {
-      console.error(err);
-    }
-  };
-if (coders) {
-  return (
-    <Popover
-      anchorEl={anchorEl}
-      anchorOrigin={{
-        horizontal: 'left',
-        vertical: 'bottom'
-      }}
-      onClose={onClose}
-      open={open}
-      PaperProps={{
-        sx: { width: '300px' }
-      }}
-      {...other}
-    >
-      <Box
-        sx={{
-          py: 1.5,
-          px: 2
-        }}
-      >
+            // Update Auth Context state
+            authContext.signOut();
 
-          <NextLink
-              href="/account"
-              passHref
+            // Redirect to sign-in page
+            Router
+                .push('/login')
+                .catch(console.error);
+        } catch (err) {
+            console.error(err);
+        }
+    };
+    if (coders) {
+        return (
+            <Popover
+                anchorEl={anchorEl}
+                anchorOrigin={{
+                    horizontal: 'left',
+                    vertical: 'bottom'
+                }}
+                onClose={onClose}
+                open={open}
+                PaperProps={{
+                    sx: { width: '300px' }
+                }}
+                {...other}
             >
-              <a>
-              <Typography variant="overline">
-                Account
-              </Typography>
-              </a>
-          </NextLink>   
-        <Typography
-          color="text.secondary"
-          variant="body2"
-        >
-          {coders.userName}
-        </Typography>
-      </Box>
-      <MenuList
-        disablePadding
-        sx={{
-          '& > *': {
-            '&:first-of-type': {
-              borderTopColor: 'divider',
-              borderTopStyle: 'solid',
-              borderTopWidth: '1px'
-            },
-            padding: '12px 16px'
-          }
-        }}
-      >
-        <MenuItem onClick={handleSignOut}>
-          Sign out
-        </MenuItem>
-      </MenuList>
-    </Popover>
-  );
-}
+                <Box
+                    sx={{
+                        py: 1.5,
+                        px: 2
+                    }}
+                >
+
+                    <NextLink
+                        href="/account"
+                        passHref
+                    >
+                        <a>
+                            <Typography variant="overline">
+                                Account
+                            </Typography>
+                        </a>
+                    </NextLink>
+                    <Typography
+                        color="text.secondary"
+                        variant="body2"
+                    >
+                        {coders.userName}
+                    </Typography>
+                </Box>
+                <MenuList
+                    disablePadding
+                    sx={{
+                        '& > *': {
+                            '&:first-of-type': {
+                                borderTopColor: 'divider',
+                                borderTopStyle: 'solid',
+                                borderTopWidth: '1px'
+                            },
+                            padding: '12px 16px'
+                        }
+                    }}
+                >
+                    <MenuItem onClick={handleSignOut}>
+                        Sign out
+                    </MenuItem>
+                </MenuList>
+            </Popover>
+        );
+    }
 };
 
 AccountPopover.propTypes = {
-  anchorEl: PropTypes.any,
-  onClose: PropTypes.func,
-  open: PropTypes.bool.isRequired
+    anchorEl: PropTypes.any,
+    onClose: PropTypes.func,
+    open: PropTypes.bool.isRequired
 };

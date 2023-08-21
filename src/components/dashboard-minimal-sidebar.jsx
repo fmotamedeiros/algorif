@@ -8,50 +8,50 @@ import { getNavLinks } from './datas/navLinks';
 export const DashboardMinimalSideBar = () => {
 
     const [coders, setCoders] = useState(null)
-  
+
     UserDetails(setCoders)
-  
+
     if (coders) {
-      const navLinks = getNavLinks(coders.teacher)
-  
-      return (
-        <div className='fixed'>
-          <Drawer className='drawer'
-            anchor="left"
-            PaperProps={{
-              sx: {
-                backgroundColor: 'neutral.800',
-                width: 80
-              }
-            }}
-            variant="permanent"
-          >
-            <Box
-              sx={{
-                display: 'flex',
-                flexDirection: 'column',
-                height: '100%'
-              }}
-            >
-              <div className='my-[48px]'
-              />
-              <Box sx={{ flexGrow: 1 }}>
-                {navLinks.map((item) => (
-                  <NavItem
-                    key={item.title}
-                    icon={item.icon}
-                    href={item.href}
-                    titleLabel={item.title}
-                  />
-                ))}
-              </Box>
-            </Box>
-          </Drawer>
-        </div>
-      );
+        const navLinks = getNavLinks(coders.teacher)
+
+        return (
+            <div className='fixed'>
+                <Drawer className='drawer'
+                    anchor="left"
+                    PaperProps={{
+                        sx: {
+                            backgroundColor: 'neutral.800',
+                            width: 80
+                        }
+                    }}
+                    variant="permanent"
+                >
+                    <Box
+                        sx={{
+                            display: 'flex',
+                            flexDirection: 'column',
+                            height: '100%'
+                        }}
+                    >
+                        <div className='my-[48px]'
+                        />
+                        <Box sx={{ flexGrow: 1 }}>
+                            {navLinks.map((item) => (
+                                <NavItem
+                                    key={item.title}
+                                    icon={item.icon}
+                                    href={item.href}
+                                    titleLabel={item.title}
+                                />
+                            ))}
+                        </Box>
+                    </Box>
+                </Drawer>
+            </div>
+        );
     };
-  }
+}
 
 DashboardMinimalSideBar.propTypes = {
-  onSidebarOpen: PropTypes.func
+    onSidebarOpen: PropTypes.func
 };

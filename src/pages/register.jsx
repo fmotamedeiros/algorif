@@ -64,9 +64,9 @@ const Register = () => {
         }),
         onSubmit: async () => {
             setIsSubmitting(true);
-            
+
             try {
-                
+
                 await AuthService.register(formik.values, auth);
                 router.push('/login');
 

@@ -11,7 +11,7 @@ export const QuestionsSuggest = () => {
 
     useEffect(() => {
         const getSuggestions = async () => {
-            
+
         }
     }, []);
 

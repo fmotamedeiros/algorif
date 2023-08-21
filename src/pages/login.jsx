@@ -110,7 +110,7 @@ const Login = () => {
               >
                 Entre com o Google
               </Button>
-            </Grid> 
+            </Grid>
             <Box
               sx={{
                 pb: 1,

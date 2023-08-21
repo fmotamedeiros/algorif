@@ -3,7 +3,7 @@ import { database } from './firebase';
 
 
 export const TestService = {
-    getCategories: async function() {
+    getCategories: async function () {
         const ref = collection(database, 'coders');
         const myQuery = query(ref);
         const coders = await getDocs(myQuery);

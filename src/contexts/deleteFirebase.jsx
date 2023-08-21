@@ -19,9 +19,9 @@ export const DeleteProvider = ({ children }) => {
 
         deleteUser(auth.currentUser).then(() => {
             alert("Conta excluída com sucesso")
-          }).catch((error) => {
+        }).catch((error) => {
             console.log(error)
-          });
+        });
     }
 
     return (

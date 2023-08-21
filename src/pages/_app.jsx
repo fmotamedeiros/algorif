@@ -20,43 +20,43 @@ registerChartJs();
 const clientSideEmotionCache = createEmotionCache();
 
 const App = ({ Component, emotionCache = clientSideEmotionCache, pageProps }) => {
-  const getLayout = Component.getLayout ?? ((page) => page);
+    const getLayout = Component.getLayout ?? ((page) => page);
 
-  return (
-    <CacheProvider value={emotionCache}>
-      <Head>
-        <title>
-          Início
-        </title>
-        <meta
-          name="viewport"
-          content="initial-scale=1, width=device-width"
-        />
-      </Head>
-      <LocalizationProvider dateAdapter={AdapterDateFns}>
-        <ThemeProvider theme={theme}>
-          <CssBaseline />
-          <AuthProvider>
-            <GetProvider>
-              <SetProvider>
-                <UpdateProvider>
-                  <DeleteProvider>
-                    <AuthConsumer>
-                      {
-                        (auth) => auth.isLoading
-                          ? <Fragment />
-                          : getLayout(<Component {...pageProps} />)
-                      }
-                    </AuthConsumer>
-                  </DeleteProvider>
-                </UpdateProvider>
-              </SetProvider>
-            </GetProvider>
-          </AuthProvider>
-        </ThemeProvider>
-      </LocalizationProvider>
-    </CacheProvider>
-  );
+    return (
+        <CacheProvider value={emotionCache}>
+            <Head>
+                <title>
+                    Início
+                </title>
+                <meta
+                    name="viewport"
+                    content="initial-scale=1, width=device-width"
+                />
+            </Head>
+            <LocalizationProvider dateAdapter={AdapterDateFns}>
+                <ThemeProvider theme={theme}>
+                    <CssBaseline />
+                    <AuthProvider>
+                        <GetProvider>
+                            <SetProvider>
+                                <UpdateProvider>
+                                    <DeleteProvider>
+                                        <AuthConsumer>
+                                            {
+                                                (auth) => auth.isLoading
+                                                    ? <Fragment />
+                                                    : getLayout(<Component {...pageProps} />)
+                                            }
+                                        </AuthConsumer>
+                                    </DeleteProvider>
+                                </UpdateProvider>
+                            </SetProvider>
+                        </GetProvider>
+                    </AuthProvider>
+                </ThemeProvider>
+            </LocalizationProvider>
+        </CacheProvider>
+    );
 };
 
 export default App;

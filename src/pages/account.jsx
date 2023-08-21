@@ -8,62 +8,63 @@ import { UserDetails } from '../requestsFirebase/allGetRequests';
 import { Loader } from '../requestsFirebase/loader';
 
 const Account = () => {
-  const [coders, setCoders] = useState(null)
+    const [coders, setCoders] = useState(null)
 
-  UserDetails(setCoders)
+    UserDetails(setCoders)
 
-  if (coders) {
-    return(
-    <>
-      <Head>
-        <title>
-          Account
-        </title>
-      </Head>
-      <Box
-        component="main"
-        sx={{
-          flexGrow: 1,
-          py: 4
-        }}
-      >
-        <Container maxWidth="lg">
-          <Typography
-            sx={{ mb: 3 }}
-            variant="h4"
-          >
-            Account
-          </Typography>
-          <Grid
-            container
-            spacing={3}
-          >
-            <Grid
-              item
-              lg={4}
-              md={6}
-              xs={12}
-            >
-              <AccountProfile coders={coders} />
-            </Grid>
-            <Grid
-              item
-              lg={8}
-              md={6}
-              xs={12}
-            >
-              <AccountProfileDetails coders={coders} />
-            </Grid>
-          </Grid>
-        </Container>
-      </Box>
-    </>
-  )} return <Loader />
+    if (coders) {
+        return (
+            <>
+                <Head>
+                    <title>
+                        Account
+                    </title>
+                </Head>
+                <Box
+                    component="main"
+                    sx={{
+                        flexGrow: 1,
+                        py: 4
+                    }}
+                >
+                    <Container maxWidth="lg">
+                        <Typography
+                            sx={{ mb: 3 }}
+                            variant="h4"
+                        >
+                            Account
+                        </Typography>
+                        <Grid
+                            container
+                            spacing={3}
+                        >
+                            <Grid
+                                item
+                                lg={4}
+                                md={6}
+                                xs={12}
+                            >
+                                <AccountProfile coders={coders} />
+                            </Grid>
+                            <Grid
+                                item
+                                lg={8}
+                                md={6}
+                                xs={12}
+                            >
+                                <AccountProfileDetails coders={coders} />
+                            </Grid>
+                        </Grid>
+                    </Container>
+                </Box>
+            </>
+        )
+    } return <Loader />
 }
 Account.getLayout = (page) => (
-  <DashboardLayout>
-    {page}
-  </DashboardLayout>
+    <DashboardLayout>
+        {page}
+    </DashboardLayout>
 );
 
 export default Account;
