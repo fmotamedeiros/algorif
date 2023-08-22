@@ -2,38 +2,18 @@ import { useContext, useState } from 'react';
 import Router from 'next/router';
 import PropTypes from 'prop-types';
 import { Box, MenuItem, MenuList, Popover, Typography } from '@mui/material';
-import { getAuth } from "firebase/auth";
 import NextLink from 'next/link';
-import { AuthContext } from '../contexts/auth-context';
+import { useAuth } from '../contexts/auth-context';
 import { UserDetails } from '../requestsFirebase/allGetRequests';
 
 export const AccountPopover = ({ anchorEl, onClose, open, ...other }) => {
 
-    const authContext = useContext(AuthContext);
+    const auth = useAuth();
 
     const [coders, setCoders] = useState(null)
 
     UserDetails(setCoders)
 
-    const auth = getAuth();
-
-    const handleSignOut = async () => {
-        onClose?.();
-        try {
-            // This can be call inside AuthProvider component, but we do it here for simplicity
-            await auth.signOut();
-
-            // Update Auth Context state
-            authContext.signOut();
-
-            // Redirect to sign-in page
-            Router
-                .push('/login')
-                .catch(console.error);
-        } catch (err) {
-            console.error(err);
-        }
-    };
     if (coders) {
         return (
             <Popover
@@ -86,7 +66,7 @@ export const AccountPopover = ({ anchorEl, onClose, open, ...other }) => {
                         }
                     }}
                 >
-                    <MenuItem onClick={handleSignOut}>
+                    <MenuItem onClick={() => auth.signOut()}>
                         Sign out
                     </MenuItem>
                 </MenuList>

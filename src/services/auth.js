@@ -7,7 +7,7 @@ import { database, storage } from './firebase';
 export const AuthService = {
     register: async function (userInformations, auth) {
 
-        const newUser = await createUserWithEmailAndPassword(auth, userInformations.email, userInformations.password);
+        await createUserWithEmailAndPassword(auth, userInformations.email, userInformations.password);
 
         await setDoc(doc(database, "coders", auth.currentUser.uid), {
             email: userInformations.email,

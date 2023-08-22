@@ -1,7 +1,7 @@
 import { Box, Button, Container, Link, Typography } from '@mui/material';
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { signInWithEmailAndPassword } from "firebase/auth";
 import CustomTextField from '../components/customTextField';
-import { AuthContext } from '../contexts/auth-context';
+import { useAuth } from '../contexts/auth-context';
 import { useContext, useState } from 'react';
 import { Logo } from '../components/logo';
 import { useFormik } from 'formik';
@@ -12,7 +12,7 @@ import * as Yup from 'yup';
 
 
 const Login = () => {
-    const authContext = useContext(AuthContext);
+    const auth = useAuth();
     const [isSubmitting, setIsSubmitting] = useState(false);
 
     const formik = useFormik({
@@ -31,20 +31,17 @@ const Login = () => {
                 .max(255)
                 .required('Senha é obrigatória')
         }),
-        onSubmit: () => {
-            const auth = getAuth();
-            signInWithEmailAndPassword(auth, formik.values.email, formik.values.password)
-                .then(async (response) => {
-                    localStorage.setItem("@AuthFirebase:metadata", JSON.stringify(response.user))
-                    authContext.signIn(response.user);
-                    Router
-                        .push('/')
-                        .catch(console.error);
-                })
-                .catch((error) => {
-                    console.log(error);
-                    document.querySelector("#error-message").innerHTML = "E-mail e/ou senha incorreto(s)";
-                });
+        onSubmit: async () => {
+            setIsSubmitting(true);
+
+            try {
+                await auth.signIn(formik.values.email, formik.values.password);
+            } catch (error) {
+                document.querySelector("#error-message").innerHTML = "E-mail e/ou senha incorreto(s)";
+                console.log(error);
+            }
+            
+            setIsSubmitting(false);
         }
     });
 
@@ -63,7 +60,7 @@ const Login = () => {
                 }}
             >
                 <Container maxWidth="sm">
-                    <form>
+                    <form onSubmit={formik.handleSubmit}>
                         <Box sx={{ my: 1 }}>
                             <Typography
                                 color="textPrimary"
@@ -116,13 +113,6 @@ const Login = () => {
                                 type="submit"
                                 size="large"
                                 fullWidth
-                                onClick={() => {
-                                    formik.handleSubmit();
-                                    setIsSubmitting(true);
-                                    setTimeout(() => {
-                                        setIsSubmitting(false);
-                                    }, 2000);
-                                }}
                             >
                                 Entrar
                             </Button>

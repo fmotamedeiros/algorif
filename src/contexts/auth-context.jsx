@@ -1,9 +1,10 @@
-import { createContext, useContext, useEffect, useReducer } from 'react';
-import PropTypes from 'prop-types';
+import { createContext, useContext, useEffect, useReducer, useState } from 'react';
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
-import { getAuth } from 'firebase/auth';
+import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 import { getStorage } from "firebase/storage";
+import { useRouter } from 'next/router';
+import PropTypes from 'prop-types';
 
 const firebaseConfig = {
     apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
@@ -23,119 +24,46 @@ export const auth = getAuth(app);
 
 export const storage = getStorage(app);
 
-const HANDLERS = {
-    INITIALIZE: 'INITIALIZE',
-    SIGN_IN: 'SIGN_IN',
-    SIGN_OUT: 'SIGN_OUT'
-};
-
-const initialState = {
-    isAuthenticated: false,
-    isLoading: true,
-    user: null
-};
-
-const handlers = {
-    [HANDLERS.INITIALIZE]: (state, action) => {
-        const user = action.payload;
-
-        return {
-            ...state,
-            ...(
-                user
-                    ? ({
-                        isAuthenticated: true,
-                        isLoading: false,
-                        user
-                    })
-                    : ({
-                        isLoading: false
-                    })
-            )
-        };
-    },
-    [HANDLERS.SIGN_IN]: (state, action) => {
-        const user = action.payload;
-
-        return {
-            ...state,
-            isAuthenticated: true,
-            user
-        };
-    },
-    [HANDLERS.SIGN_OUT]: (state) => {
-        return {
-            ...state,
-            isAuthenticated: false,
-            user: null
-        };
-    }
-};
-
-const reducer = (state, action) => (
-    handlers[action.type] ? handlers[action.type](state, action) : state
-);
-
 export const AuthContext = createContext({ undefined });
 
 
 
-export const AuthProvider = ({ children }) => {
-    const [state, dispatch] = useReducer(reducer, initialState);
-
-    const initialize = async () => {
-        //const localStorage = localStorage()
-        const user = JSON.parse(localStorage.getItem('@AuthFirebase:metadata'))
-        if (user) {
-            signIn(user)
-        }
-        //auth.currentUser = user
-        try {
-            const isAuthenticated = auth.currentUser ? true : false;
-
-            if (isAuthenticated) {
-                const user = auth.currentUser;
-
-                dispatch({
-                    type: HANDLERS.INITIALIZE,
-                    payload: user
-                });
-            } else {
-                dispatch({
-                    type: HANDLERS.INITIALIZE
-                });
-            }
-        } catch (err) {
-            console.error(err);
-            dispatch({
-                type: HANDLERS.INITIALIZE
-            });
-        }
-    };
+export function AuthProvider({ children }) {
+    const [user, setUser] = useState(null);
+    const router = useRouter();
+    
+    const isAuthenticated = !!user;
 
     useEffect(() => {
-        initialize().catch(console.error);
+        const userInformations = localStorage.getItem("@AuthFirebase:metadata");
+        
+        if (userInformations !== 'null') {
+            let userInformationsParsed = JSON.parse(userInformations);
+            setUser(userInformationsParsed);
+        }
+
     }, []);
 
-    const signIn = (user) => {
-        dispatch({
-            type: HANDLERS.SIGN_IN,
-            payload: user
-        });
+    const signIn = async (email, password) => {
+        const { user } = await signInWithEmailAndPassword(auth, email, password);
+        setUser(user);
+        localStorage.setItem("@AuthFirebase:metadata", JSON.stringify(user));
+        router.push('/');
     };
 
     const signOut = async () => {
         await auth.signOut();
-        dispatch({
-            type: HANDLERS.SIGN_OUT
-        });
+        setUser(null);
+        localStorage.removeItem("@AuthFirebase:metadata");
+        router.push('/login');
     };
 
     return (
         <AuthContext.Provider
             value={{
-                ...state,
+                user,
                 signIn,
+                isAuthenticated,
                 signOut,
 
             }}
@@ -151,4 +79,4 @@ AuthProvider.propTypes = {
 
 export const AuthConsumer = AuthContext.Consumer;
 
-export const useAuthContext = () => useContext(AuthContext);
+export const useAuth = () => useContext(AuthContext);
