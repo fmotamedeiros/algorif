@@ -42,7 +42,7 @@ const DatasQuestion = () => {
             difficulty: Yup
                 .string()
                 .max(255)
-                .required('difficulty é obrigatório'),
+                .required('Dificuldade é obrigatório'),
             tests: Yup.array().of(
                 Yup.object({
                     inputTest: Yup
@@ -70,13 +70,15 @@ const DatasQuestion = () => {
     };
 
     const removeTest = () => {
-        const updatedTests = [...formik.values.tests];
-        updatedTests.pop();
+        if (!(formik.values.tests.length == 1)) {
+            const updatedTests = [...formik.values.tests];
 
-        formik.setValues({
-            ...formik.values,
-            tests: updatedTests,
-        });
+            updatedTests.pop();
+            formik.setValues({
+                ...formik.values,
+                tests: updatedTests,
+            });
+        }
     };
 
 
@@ -161,6 +163,7 @@ const DatasQuestion = () => {
                                         label={`${index + 1}° entrada dos dados`}
                                         name={`tests.${index}.inputTest`}
                                         value={test.inputTest}
+                                        required
                                     />
 
                                     <CustomTextField
@@ -168,6 +171,7 @@ const DatasQuestion = () => {
                                         label={`${index + 1}° saída dos dados`}
                                         name={`tests.${index}.outputTest`}
                                         value={test.outputTest}
+                                        required
                                     />
                                 </Box>
                             ))}

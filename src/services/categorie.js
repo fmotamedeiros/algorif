@@ -1,4 +1,4 @@
-import { doc, getDoc, getDocs, query, collection } from 'firebase/firestore';
+import { getDocs, collection } from 'firebase/firestore';
 import { database } from './firebase';
 
 export const CategorieService = {
@@ -11,7 +11,6 @@ export const CategorieService = {
             categories.push(categorie.id);
         });
 
-        console.log(categories);
         return categories;
     }
 }
