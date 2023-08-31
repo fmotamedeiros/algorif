@@ -1,10 +1,9 @@
 import { Card, CardContent, Grid, Typography } from '@mui/material';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
-import { AllTopics } from '../../requestsFirebase/allGetRequests';
 import { Loader } from '../../requestsFirebase/loader';
 import { Box } from '@mui/system';
-import { CategorieService } from '../../services/categorie';
+import { CategoryService } from '../../services/categories';
 
 export const QuestionsTopics = () => {
     const [categories, setCategories] = useState([]);
@@ -12,7 +11,7 @@ export const QuestionsTopics = () => {
 
     useEffect(() => {
         const getTopics = async () => {
-            const data = await CategorieService.getAll();
+            const data = await CategoryService.getAll();
             setCategories(data);
         }
         getTopics();

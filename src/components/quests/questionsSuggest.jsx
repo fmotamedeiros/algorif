@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { Loader } from '../../requestsFirebase/loader';
 import { useState } from 'react';
 import { GetQuestionsSuggest } from '../../requestsFirebase/allGetRequests';
-import { QuestionService } from '../../services/question';
+import { QuestionService } from '../../services/questions';
 import { useEffect } from 'react';
 
 export const QuestionsSuggest = () => {

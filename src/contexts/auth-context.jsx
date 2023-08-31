@@ -1,42 +1,22 @@
-import { createContext, useContext, useEffect, useReducer, useState } from 'react';
-import { initializeApp } from "firebase/app";
-import { getFirestore } from "firebase/firestore";
-import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
-import { getStorage } from "firebase/storage";
+import { createContext, useContext, useEffect, useState } from 'react';
+import { signInWithEmailAndPassword } from 'firebase/auth';
 import { useRouter } from 'next/router';
+import { auth } from '../services/firebase';
 import PropTypes from 'prop-types';
-
-const firebaseConfig = {
-    apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
-    authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
-    projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
-    storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
-    messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
-    appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
-    // measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID
-};
-
-const app = initializeApp(firebaseConfig);
-
-export const db = getFirestore(app);
-
-export const auth = getAuth(app);
-
-export const storage = getStorage(app);
+import { setCookie, parseCookies } from 'nookies';
 
 export const AuthContext = createContext({ undefined });
-
 
 
 export function AuthProvider({ children }) {
     const [user, setUser] = useState(null);
     const router = useRouter();
-    
+
     const isAuthenticated = !!user;
 
     useEffect(() => {
         const userInformations = localStorage.getItem("@AuthFirebase:metadata");
-        
+
         if (userInformations !== 'null') {
             let userInformationsParsed = JSON.parse(userInformations);
             setUser(userInformationsParsed);
@@ -47,7 +27,10 @@ export function AuthProvider({ children }) {
     const signIn = async (email, password) => {
         const { user } = await signInWithEmailAndPassword(auth, email, password);
         setUser(user);
-        localStorage.setItem("@AuthFirebase:metadata", JSON.stringify(user));
+        setCookie(undefined, 'auth-algorif', JSON.stringify(user), {
+            maxAge: 60 * 60 * 1, //1hour
+            path: '/'
+        });
         router.push('/');
     };
 
@@ -65,7 +48,6 @@ export function AuthProvider({ children }) {
                 signIn,
                 isAuthenticated,
                 signOut,
-
             }}
         >
             {children}

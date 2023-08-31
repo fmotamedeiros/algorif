@@ -1,15 +1,17 @@
 import { createContext } from "react";
-import { auth, db, storage } from "./auth-context";
+import { storage, database } from "../services/firebase";
 import { collection, doc, getDoc, getDocs, orderBy, query, where } from "firebase/firestore";
 import { ref, getDownloadURL } from "firebase/storage";
 import dayjs from "dayjs";
 import isBetween from "dayjs/plugin/isBetween";
+import { auth } from "../services/firebase";
+
 
 export const GetContext = createContext({ undefined });
 
 export const GetProvider = ({ children }) => {
     const getUserDetails = async () => {
-        const ref = doc(db, "coders", auth.currentUser.uid);
+        const ref = doc(database, "coders", auth.currentUser.uid);
         const data = await getDoc(ref)
 
         return data.data();
@@ -25,7 +27,7 @@ export const GetProvider = ({ children }) => {
     }
 
     const getTopics = async (setTopics) => {
-        const allTopics = collection(db, "categories");
+        const allTopics = collection(database, "categories");
         const q = query(allTopics);
         const topics = []
         const querySnapshot = await getDocs(q)
@@ -36,14 +38,14 @@ export const GetProvider = ({ children }) => {
     }
 
     const getQuestions = async (topic) => {
-        const ref = doc(db, "categories", topic);
+        const ref = doc(database, "categories", topic);
         const data = await getDoc(ref)
         const questions = data.data()
         return questions;
     }
 
     const getDescription = async (setDescriptionData, nameQuestion) => {
-        const ref = collection(db, "categories");
+        const ref = collection(database, "categories");
         try {
             const querySnapshot = await getDocs(ref);
             let questionFound = false;
@@ -67,7 +69,7 @@ export const GetProvider = ({ children }) => {
     };
 
     const getRanking = async (setRanking) => {
-        const rankingRef = collection(db, "coders");
+        const rankingRef = collection(database, "coders");
         const q = query(rankingRef, orderBy("score", "desc"), where("score", ">", 0))
         const ranking = []
         const querySnapshot = await getDocs(q)
@@ -79,7 +81,7 @@ export const GetProvider = ({ children }) => {
     }
 
     const getTaskSolved = async () => {
-        const taskRef = doc(db, "taskSolved", auth.currentUser.uid);
+        const taskRef = doc(database, "taskSolved", auth.currentUser.uid);
 
         const data = await getDoc(taskRef)
         const tasksSolved = data.data()
@@ -137,7 +139,7 @@ export const GetProvider = ({ children }) => {
     };
 
     const getDifficultRate = async (setBarData) => {
-        const rankingRef = doc(db, "taskSolved", auth.currentUser.uid)
+        const rankingRef = doc(database, "taskSolved", auth.currentUser.uid)
 
         const data = await getDoc(rankingRef)
         const taskData = data.data();
@@ -188,7 +190,7 @@ export const GetProvider = ({ children }) => {
     }
 
     const getTasksTopic = async (setChartData) => {
-        const rankingRef = doc(db, "taskSolved", auth.currentUser.uid)
+        const rankingRef = doc(database, "taskSolved", auth.currentUser.uid)
         const data = await getDoc(rankingRef)
         const taskData = data.data();
         const percentage = []
@@ -255,7 +257,7 @@ export const GetProvider = ({ children }) => {
     }
 
     const getAllQuestions = async () => {
-        const ref = collection(db, "categories");
+        const ref = collection(database, "categories");
         const snapshot = await getDocs(ref);
         const questions = [];
 
@@ -310,7 +312,7 @@ export const GetProvider = ({ children }) => {
     const getUserGroups = async (setUserGroups) => {
         try {
             const user = auth.currentUser.uid
-            const groupsRef = collection(db, "groups");
+            const groupsRef = collection(database, "groups");
             const q = query(groupsRef, where("students", "array-contains", user));
             const querySnapshot = await getDocs(q);
 
@@ -327,7 +329,7 @@ export const GetProvider = ({ children }) => {
 
     const getQuestionsByGroupName = async (groupName, setQuestions) => {
         try {
-            const groupsRef = collection(db, "groups");
+            const groupsRef = collection(database, "groups");
             const q = query(groupsRef, where("name", "==", groupName));
             const querySnapshot = await getDocs(q);
 

@@ -1,7 +1,7 @@
 import { getDocs, collection } from 'firebase/firestore';
 import { database } from './firebase';
 
-export const CategorieService = {
+export const CategoryService = {
     getAll: async function () {
         const categoriesRef = collection(database, 'categories');
         const data = await getDocs(categoriesRef);

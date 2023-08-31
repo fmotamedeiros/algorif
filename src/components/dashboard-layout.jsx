@@ -17,7 +17,7 @@ export const DashboardLayout = ({ children }) => {
     const [isSidebarOpen, setSidebarOpen] = useState(true);
 
     return (
-        <AuthGuard>
+        <>
             <DashboardLayoutRoot>
                 <Box
                     sx={{
@@ -39,6 +39,6 @@ export const DashboardLayout = ({ children }) => {
                 onClose={() => setSidebarOpen(false)}
                 open={isSidebarOpen}
             />
-        </AuthGuard>
+        </>
     );
 };

@@ -1,6 +1,6 @@
-import { CategorieService } from "../../services/categorie";
+import { CategoryService } from "../../services/categorie";
 
-// const getNavTopics = await CategorieService.getAll()
+// const getNavTopics = await CategoryService.getAll()
 // const nav = []
 
 // navTopics.forEach((topic) => {
@@ -10,7 +10,7 @@ import { CategorieService } from "../../services/categorie";
 // console.log(nav)
 
 export const getNavTopics = async () => {
-    const topics = await CategorieService.getAll()
+    const topics = await CategoryService.getAll()
     const navTopics = []
 
     topics.forEach((topic) => {
