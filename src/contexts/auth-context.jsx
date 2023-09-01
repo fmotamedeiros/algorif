@@ -3,7 +3,7 @@ import { signInWithEmailAndPassword } from 'firebase/auth';
 import { useRouter } from 'next/router';
 import { auth } from '../services/firebase';
 import PropTypes from 'prop-types';
-import { setCookie, parseCookies } from 'nookies';
+import { setCookie, parseCookies, destroyCookie } from 'nookies';
 
 export const AuthContext = createContext({ undefined });
 
@@ -25,19 +25,22 @@ export function AuthProvider({ children }) {
     }, []);
 
     const signIn = async (email, password) => {
-        const { user } = await signInWithEmailAndPassword(auth, email, password);
-        setUser(user);
-        setCookie(undefined, 'auth-algorif', JSON.stringify(user), {
-            maxAge: 60 * 60 * 1, //1hour
-            path: '/'
+        const { user: userCred } = await signInWithEmailAndPassword(auth, email, password);
+
+        userCred.getIdToken().then(token => {
+            setUser(userCred);
+            setCookie(undefined, 'auth-algorif', token, {
+                maxAge: 60 * 60 * 1, //1hour
+                path: '/'
+            });
+            router.push('/');
         });
-        router.push('/');
     };
 
     const signOut = async () => {
         await auth.signOut();
         setUser(null);
-        localStorage.removeItem("@AuthFirebase:metadata");
+        destroyCookie(undefined, 'auth-algorif');
         router.push('/login');
     };
 

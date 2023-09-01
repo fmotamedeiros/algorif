@@ -1,21 +1,30 @@
 import { Card, CardContent, Grid, Typography } from '@mui/material';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
-import { Loader } from '../../requestsFirebase/loader';
-import { Box } from '@mui/system';
+import { Loader } from '../loader'; 
 import { CategoryService } from '../../services/categories';
 
 export const QuestionsTopics = () => {
     const [categories, setCategories] = useState([]);
+    const [isLoading, setIsLoading] = useState(false);
+
+    const getCategories = async () => {
+        setIsLoading(true);
+        const data = await CategoryService.getAll();
+        setCategories(data);
+        setIsLoading(false);
+    }
+
+    useEffect(() => { getCategories(); }, []);
 
 
-    useEffect(() => {
-        const getTopics = async () => {
-            const data = await CategoryService.getAll();
-            setCategories(data);
-        }
-        getTopics();
-    }, []);
+    if (isLoading) return (
+        <Card>
+            <CardContent>
+                <Loader/>
+            </CardContent>
+        </Card>
+    );
 
     return (
         <Card>

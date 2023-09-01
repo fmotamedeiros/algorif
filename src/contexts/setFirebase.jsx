@@ -1,5 +1,5 @@
 import { createContext } from "react";
-import { auth, db, storage } from "./auth-context";
+import { database, storage, auth } from "../services/firebase";
 import { addDoc, arrayUnion, collection, doc, increment, serverTimestamp, setDoc, updateDoc } from "firebase/firestore";
 import { ref, uploadBytes } from "firebase/storage";
 
@@ -13,7 +13,7 @@ export const SetProvider = ({ children }) => {
 
     const setRegisterUser = async (detailsUser) => {
         try {
-            await setDoc(doc(db, "coders", auth.currentUser.uid), {
+            await setDoc(doc(database, "coders", auth.currentUser.uid), {
                 email: detailsUser.email,
                 userName: detailsUser.userName,
                 state: detailsUser.state,
@@ -27,18 +27,18 @@ export const SetProvider = ({ children }) => {
             alert(error)
         }
 
-        const taskRef = doc(db, "taskSolved", auth.currentUser.uid)
+        const taskRef = doc(database, "taskSolved", auth.currentUser.uid)
         await setDoc(taskRef, {})
 
-        const submissionsRef = doc(db, "submissions", auth.currentUser.uid)
+        const submissionsRef = doc(database, "submissions", auth.currentUser.uid)
         await setDoc(submissionsRef, {})
 
         const storageRef = ref(storage, auth.currentUser.uid + ".png");
-        await uploadBytes(storageRef)
+        await uploadatabaseytes(storageRef)
     }
 
     const setCreateQuestion = async (detailsUser, code) => {
-        const categories = doc(db, "categories", detailsUser.topic)
+        const categories = doc(database, "categories", detailsUser.topic)
         await updateDoc(categories, {
             questions: arrayUnion({
                 topic: detailsUser.topic,
@@ -54,7 +54,7 @@ export const SetProvider = ({ children }) => {
     }
 
     const taskSolved = async (nameQuestion, topic, difficultQuestion, status, code) => {
-        const taskRef = doc(db, "taskSolved", auth.currentUser.uid)
+        const taskRef = doc(database, "taskSolved", auth.currentUser.uid)
         const timestamp = serverTimestamp()
         await updateDoc(taskRef, {
             [nameQuestion]: ({
@@ -65,7 +65,7 @@ export const SetProvider = ({ children }) => {
             }),
             [difficultQuestion + "Submissions"]: increment(1)
         })
-        const submissionsRef = doc(db, "submissions", auth.currentUser.uid)
+        const submissionsRef = doc(database, "submissions", auth.currentUser.uid)
         await updateDoc(submissionsRef, {
             [nameQuestion]: arrayUnion({
                 correctCode: status,
@@ -76,7 +76,7 @@ export const SetProvider = ({ children }) => {
 
     const setCreateGroup = async (groupName, selectedQuestions, groupKey) => {
         try {
-            await addDoc(collection(db, "groups"), {
+            await addDoc(collection(database, "groups"), {
                 name: groupName,
                 questions: selectedQuestions,
                 groupKey: groupKey,

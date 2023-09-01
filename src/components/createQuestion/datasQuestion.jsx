@@ -1,18 +1,29 @@
-import { getNavDifficulties } from '../datas/navdifficulties';
 import { Box, Button, Typography } from '@mui/material';
-import { SetContext } from '../../contexts/setFirebase';
-import { getNavTopics } from '../datas/navTopics';
-import CustomTextField from '../customTextField';
-import { useContext } from 'react';
 import { useFormik } from 'formik';
 import Router from 'next/router';
 import * as Yup from 'yup';
 
+import { getNavDifficulties } from '../datas/navdifficulties';
+import { getNavTopics } from '../datas/navTopics';
+import CustomTextField from '../customTextField';
+import { QuestionService } from '../../services/questions';
+import { useEffect, useState } from 'react';
 
-const navDifficulties = getNavDifficulties()
-const navTopics = getNavTopics()
+function DatasQuestion() {
+    const [topics, setTopics] = useState([]);
+    const [difficulties, setDifficulties] = useState([]);
 
-const DatasQuestion = () => {
+    async function datas() {
+        let navDifficulties = getNavDifficulties();
+        let navTopics = await getNavTopics();
+        setTopics(navTopics);
+        setDifficulties(navDifficulties);
+    }
+
+    useEffect(() => {
+        datas();
+    }, []);
+
     const formik = useFormik({
         initialValues: {
             topic: '',
@@ -56,9 +67,9 @@ const DatasQuestion = () => {
             ),
         }),
         onSubmit: async () => {
-            await setContext.setCreateQuestion(formik.values)
-            alert('Questão Cadastrada com Sucesso')
-            Router.reload()
+            await QuestionService.createQuestion(formik.values);
+            alert('Questão Cadastrada com Sucesso');
+            Router.reload();
         }
     })
 
@@ -80,9 +91,6 @@ const DatasQuestion = () => {
             });
         }
     };
-
-
-    const setContext = useContext(SetContext);
 
     return (
         <>
@@ -110,7 +118,7 @@ const DatasQuestion = () => {
                                     formik={formik}
                                     label="Selecione um tópico"
                                     name="topic"
-                                    options={navTopics}
+                                    options={topics}
                                     required
                                     select
                                 />
@@ -124,7 +132,7 @@ const DatasQuestion = () => {
                                     formik={formik}
                                     label="Selecione a dificuldade"
                                     name="difficulty"
-                                    options={navDifficulties}
+                                    options={difficulties}
                                     required
                                     select
                                 />

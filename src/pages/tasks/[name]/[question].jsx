@@ -11,12 +11,12 @@ import { Loader } from "../../../requestsFirebase/loader";
 const CodeEditor = dynamic(import('../../../components/solveTask/codeEditor'), { ssr: false })
 
 const Question = () => {
-    const router = useRouter()
-    const [descriptionData, setDescriptionData] = useState(null)
-    const [taskSolved, setTaskSolved] = useState()
+    const router = useRouter();
+    const [descriptionData, setDescriptionData] = useState(null);
+    const [taskSolved, setTaskSolved] = useState();
 
-    DescriptionTask(setDescriptionData, router.query.question)
-    GetTaskSolved(setTaskSolved)
+    DescriptionTask(setDescriptionData, router.query.question);
+    GetTaskSolved(setTaskSolved);
 
     if (descriptionData && taskSolved) {
         return (

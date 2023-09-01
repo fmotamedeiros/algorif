@@ -30,6 +30,7 @@
         "date-fns": "2.29.3",
         "dayjs": "^1.11.7",
         "firebase": "^9.14.0",
+        "firebase-admin": "^11.10.1",
         "formik": "2.2.9",
         "nanoid": "^4.0.2",
         "next": "12.3.0",

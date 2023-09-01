@@ -1,19 +1,36 @@
 import { Box, Card, CardContent, Grid, Typography } from '@mui/material';
 import Link from 'next/link';
-import { Loader } from '../../requestsFirebase/loader';
 import { useState } from 'react';
-import { GetQuestionsSuggest } from '../../requestsFirebase/allGetRequests';
 import { QuestionService } from '../../services/questions';
 import { useEffect } from 'react';
+import { Loader } from '../loader';
 
-export const QuestionsSuggest = () => {
+
+export function QuestionsSuggest() {
     const [unansweredQuestions, setUnansweredQuestions] = useState([]);
+    const [isLoading, setIsLoading] = useState(false);
 
-    useEffect(() => {
-        const getSuggestions = async () => {
+    const getQuestions = async () => {
+        setIsLoading(true);
+        const questionSuggest = await QuestionService.getQuestionsSuggestions();
+        setUnansweredQuestions(questionSuggest);
+        setIsLoading(false);
+    }
 
-        }
-    }, []);
+
+    useEffect(() => { getQuestions(); }, []);
+
+
+    if (isLoading) {
+        return (
+            <Card>
+                <CardContent>
+                    <Loader />
+                </CardContent>
+            </Card>
+        );
+
+    }
 
     return (
         <Card>

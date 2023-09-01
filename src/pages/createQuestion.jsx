@@ -5,15 +5,15 @@ import dynamic from 'next/dynamic';
 import { useState } from 'react';
 import Head from 'next/head';
 
-const DatasQuestion = dynamic(import('../components/createQuestion/datasQuestion'), { ssr: false })
+const DatasQuestion = dynamic(import('../components/createQuestion/datasQuestion'), { ssr: false });
 
 const CreateQuestion = () => {
-    const [coders, setCoders] = useState()
-    UserDetails(setCoders)
+    const [coders, setCoders] = useState();
+    UserDetails(setCoders);
 
-    if (!coders || coders.teacher === false) {
-        return <> <Loader /> </>
-    }
+    // if (!coders || coders.teacher === false) {
+    //     return <Loader />;
+    // }
 
     return (
         <>
