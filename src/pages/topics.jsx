@@ -23,8 +23,6 @@ const Topics = () => {
       >
         <div className='px-[5%]'>
           <QuestionsTopics />
-          <div className="pt-8" />
-          <SearchQuestion />
           <div className='pt-8' />
           <QuestionsSuggest />
 

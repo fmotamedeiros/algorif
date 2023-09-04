@@ -3,17 +3,11 @@ import Link from 'next/link';
 import { Loader } from '../../requestsFirebase/loader';
 import { useState } from 'react';
 import { GetQuestionsSuggest } from '../../requestsFirebase/allGetRequests';
-import { QuestionService } from '../../services/question';
-import { useEffect } from 'react';
 
 export const QuestionsSuggest = () => {
     const [unansweredQuestions, setUnansweredQuestions] = useState([]);
 
-    useEffect(() => {
-        const getSuggestions = async () => {
-            
-        }
-    }, []);
+    GetQuestionsSuggest(setUnansweredQuestions);
 
     return (
         <Card>
