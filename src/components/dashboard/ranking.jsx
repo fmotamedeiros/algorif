@@ -25,7 +25,7 @@ export const Ranking = () => {
   return (
     <Card>
       <CardHeader
-        title="Ranking"
+        title="Classificação"
       />
       <Box className='overflow-y-auto h-[350px]'>
         <Table size='small'
@@ -33,13 +33,13 @@ export const Ranking = () => {
           <TableHead sx={{ backgroundColor: 'background.dark' }}>
             <TableRow>
               <TableCell style={{ color: '#9b9ea3' }}>
-                Position
+                Posição
               </TableCell>
               <TableCell style={{ color: '#9b9ea3' }}>
-                Name
+                Nome
               </TableCell>
               <TableCell style={{ color: '#9b9ea3' }}>
-                Tasks
+                Tarefas
               </TableCell>
             </TableRow>
           </TableHead>

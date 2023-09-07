@@ -32,15 +32,14 @@ const NotFound = () => (
             color="white"
             variant="h1"
           >
-            404: The page you are looking for isn’t here
+           A página que você está procurando não está aqui
           </Typography>
           <Typography
             align="center"
             color="white"
             variant="subtitle2"
           >
-            You either tried some shady route or you came here by mistake.
-            Whichever it is, try using the navigation
+          Você pode ter se perdido ou chegado aqui por engano.
           </Typography>
           <Box sx={{ textAlign: 'center' }}>
             <img
@@ -65,7 +64,7 @@ const NotFound = () => (
               sx={{ mt: 3 }}
               variant="contained"
             >
-              Go back to dashboard
+              Volte ao painel inicial 
             </Button>
           </NextLink>
         </Box>

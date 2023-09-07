@@ -66,7 +66,7 @@ export const UserGroups = () => {
                 </div>
             ) : (
                 <div className="text-gray-500 mt-4 text-lg">
-                    Você não pertence a nenhuma turma.
+                    Você não pertence a alguma turma
                 </div>
             )}
         </div>

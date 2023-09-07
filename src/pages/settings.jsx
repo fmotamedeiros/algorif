@@ -10,7 +10,7 @@ const Settings = () => {
   <>
     <Head>
       <title>
-        Settings
+        Configurações 
       </title>
     </Head>
     <Box
@@ -25,7 +25,7 @@ const Settings = () => {
           sx={{ mb: 3 }}
           variant="h4"
         >
-          Settings
+          Configurações 
         </Typography>
         <SettingsPassword />
         <Box sx={{ pt: 3 }}>

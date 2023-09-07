@@ -49,7 +49,7 @@ function SearchQuestion() {
                 </Typography>
                 <form onSubmit={handleSubmit}>
                     <CustomTextField
-                        label="Search Question"
+                        label="Pesquise aqui"
                         name="search"
                         type="text"
                         onBlur={formik.handleBlur}

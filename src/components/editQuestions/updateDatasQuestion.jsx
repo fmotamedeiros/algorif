@@ -77,22 +77,22 @@ const UpdateDatasQuestion = ({ descriptionData }) => {
                 .string()
                 .max(255)
                 .required(
-                    'Tópico da questão is required'),
+                    'Tópico da questão é obrigatório'),
             title: Yup
                 .string()
                 .max(255)
                 .required(
-                    'Título is required'),
+                    'Título é obrigatório'),
             description: Yup
                 .string()
-                .required('Descricão is required'),
+                .required('A Descrição é obrigatória'),
             detailedDescription: Yup
                 .string()
-                .required('Descricão detalhada is required'),
+                .required('Descrição detalhada é obrigatório'),
             difficulty: Yup
                 .string()
                 .max(255)
-                .required('difficulty is required'),
+                .required('dificuldade é obrigatório'),
             tests: Yup.array().of(
                 Yup.object({
                     inputTest: Yup

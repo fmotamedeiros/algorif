@@ -40,14 +40,14 @@ export const SettingsPassword = () => {
     <form>
       <Card sx={{ backgroundColor: '#1F2937' }}>
         <CardHeader
-          subheader="Update password"
-          title="Password"
+          subheader="Atualizar senha"
+          title="Segurança"
         />
         <Divider />
         <CardContent>
           <TextField
             fullWidth
-            label="Password"
+            label="Digite sua nova senha"
             margin="normal"
             name="password"
             onChange={handleChange}
@@ -57,7 +57,7 @@ export const SettingsPassword = () => {
           />
           <TextField
             fullWidth
-            label="Confirm password"
+            label="Confirme a senha"
             margin="normal"
             name="confirm"
             onChange={handleChange}
@@ -80,7 +80,7 @@ export const SettingsPassword = () => {
             color="primary"
             variant="contained"
           >
-            Update
+          Atualizar 
           </Button>
         </Box>
       </Card>

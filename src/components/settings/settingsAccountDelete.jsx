@@ -42,7 +42,7 @@ export const SettingsAccountDelete = () => {
           color="error"
           variant="contained"
         >
-          Excluir a conta
+          Excluir conta
         </Button>
       </Box>
     </Card>

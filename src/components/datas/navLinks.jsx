@@ -10,7 +10,7 @@ export const getNavLinks = (isTeacher) => {
         {
             href: '/',
             icon: (<ChartBarIcon fontSize="small" />),
-            title: 'Dashboard'
+            title: 'Painel inicial'
         },
         {
             href: '/account',

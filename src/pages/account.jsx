@@ -17,7 +17,7 @@ const Account = () => {
     <>
       <Head>
         <title>
-          Account
+          Conta
         </title>
       </Head>
       <Box
@@ -32,7 +32,7 @@ const Account = () => {
             sx={{ mb: 3 }}
             variant="h4"
           >
-            Account
+            Conta
           </Typography>
           <Grid
             container

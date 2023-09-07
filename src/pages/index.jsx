@@ -10,7 +10,7 @@ const Dashboard = () => (
   <>
     <Head>
       <title>
-        Dashboard
+        Painel inicial 
       </title>
     </Head>
     <Box

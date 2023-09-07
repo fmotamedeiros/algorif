@@ -62,7 +62,7 @@ if (coders) {
             >
               <a>
               <Typography variant="overline">
-                Account
+                Conta
               </Typography>
               </a>
           </NextLink>   
@@ -87,7 +87,7 @@ if (coders) {
         }}
       >
         <MenuItem onClick={handleSignOut}>
-          Sign out
+          Sair 
         </MenuItem>
       </MenuList>
     </Popover>

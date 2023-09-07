@@ -11,7 +11,7 @@ export const QuestionsSuggest = () => {
 
     useEffect(() => {
         const getSuggestions = async () => {
-            
+
         }
     }, []);
 
@@ -20,7 +20,7 @@ export const QuestionsSuggest = () => {
             <CardContent>
                 <Grid container width="100%" sx={{ justifyContent: 'space-between' }}>
                     <Typography sx={{ pb: 3 }} color="textPrimary" variant="h6">
-                        Ou Nós Recomendamos
+                        Recomendações 
                     </Typography>
                 </Grid>
                 {unansweredQuestions?.length === 0 ? (
