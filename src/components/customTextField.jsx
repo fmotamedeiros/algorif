@@ -1,6 +1,8 @@
 import { TextField } from "@mui/material";
 
-const CustomTextField = ({ formik, label, name, value, helperText, select, options, multiline, rows, readOnly, disabled, type, onBlur }) => (
+const CustomTextField = (
+  { formik, label, name, value, helperText, select, options,
+    multiline, rows, readOnly, disabled, type, onBlur, required }) => (
     <TextField
       error={Boolean(formik.touched[name] && formik.errors[name])}
       helperText={helperText || (formik.touched[name] && formik.errors[name])}
@@ -8,7 +10,7 @@ const CustomTextField = ({ formik, label, name, value, helperText, select, optio
       label={label}
       name={name}
       onChange={formik.handleChange}
-      required
+      required={required}
       margin="normal"
       disabled = {disabled}
       type = {type}
@@ -33,5 +35,5 @@ const CustomTextField = ({ formik, label, name, value, helperText, select, optio
       )) : null}
     </TextField>
   );
-  
+
   export default CustomTextField;
