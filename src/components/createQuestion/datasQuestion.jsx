@@ -42,7 +42,7 @@ const DatasQuestion = () => {
             difficulty: Yup
                 .string()
                 .max(255)
-                .required('difficulty é obrigatório'),
+                .required('Dificuldade é obrigatório'),
             tests: Yup.array().of(
                 Yup.object({
                     inputTest: Yup

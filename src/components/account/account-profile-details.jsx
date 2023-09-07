@@ -99,7 +99,7 @@ export const AccountProfileDetails = ({ coders }) => {
                 label="Número de telefone"
                 name="phone"
                 type="number"
-                formik={formik}
+                formik={formik} 
               />
             </Grid>
             <Grid
