@@ -41,34 +41,34 @@ const Register = () => {
     validationSchema: Yup.object({
       email: Yup
         .string()
-        .email('Must be a valid email')
+        .email('Deve ser um e-mail válido')
         .max(255)
         .required(
-          'Email is required'),
+          'E-mail é obrigatório'),
       userName: Yup
         .string()
         .max(255)
-        .required('UserName is required'),
+        .required('Nome de usuário é obrigatório'),
       password: Yup
         .string()
         .max(255)
         .min(6, "Senha muito fraca")
-        .required('Password is required'),
+        .required('A senha é obrigatória'),
       state: Yup
         .string()
         .max(255)
-        .required('State is required'),
+        .required('O estado é obrigatório'),
       city: Yup
         .string()
         .max(255)
-        .required('City is required'),
+        .required('A cidade é obrigatória'),
       teacher: Yup
         .boolean(),
       policy: Yup
         .boolean()
         .oneOf(
           [true],
-          'This field must be checked'
+          'Este campo deve ser verificado'
         )
     }),
     onSubmit: () => {
@@ -94,9 +94,9 @@ const Register = () => {
           const errorCode = error.code;
           const errorMessage = error.message;
           if (errorCode == 'auth/email-already-in-use') {
-            document.querySelector("#error-message").innerHTML = "Email já está em uso";
+            document.querySelector("#error-message").innerHTML = "E-mail já está em uso";
           } if (errorCode == 'auth/invalid-email') {
-            document.querySelector("#error-message").innerHTML = "Email inválido";
+            document.querySelector("#error-message").innerHTML = "E-mail inválido";
           }
         });
     }
@@ -127,7 +127,7 @@ const Register = () => {
               component="a"
               startIcon={<ArrowBackIcon fontSize="small" />}
             >
-              Dashboard
+              Painel inicial 
             </Button>
           </NextLink>
           <form ref={form}>
@@ -148,19 +148,19 @@ const Register = () => {
             </Box>
             <CustomTextField
               formik={formik}
-              label="UserName"
+              label="Nome de usuário"
               name="userName"
             />
             <CustomTextField
               formik={formik}
-              label="Email Address"
+              label="Endereço de e-mail"
               name="email"
             />
             <TextField
               error={Boolean(formik.touched.password && formik.errors.password)}
               fullWidth
               helperText={formik.touched.password && formik.errors.password}
-              label="Password"
+              label="Senha"
               margin="normal"
               name="password"
               onBlur={formik.handleBlur}
@@ -172,14 +172,14 @@ const Register = () => {
             <div className='block sm:flex gap-3'>
               <CustomTextField
                 formik={formik}
-                label="State"
+                label="Estado"
                 name="state"
               />
               <TextField
                 error={Boolean(formik.touched.city && formik.errors.city)}
                 helperText={formik.touched.city && formik.errors.city}
                 fullWidth
-                label="City"
+                label="Cidade"
                 margin="normal"
                 name="city"
                 onBlur={formik.handleBlur}

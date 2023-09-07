@@ -36,9 +36,9 @@ const Login = () => {
     validationSchema: Yup.object({
       email: Yup
         .string()
-        .email('O email deve ser válido!')
+        .email('O e-mail deve ser válido!')
         .max(255)
-        .required('O email é obrigatório!'),
+        .required('O e-mail é obrigatório!'),
       password: Yup
         .string()
         .max(255)
@@ -57,7 +57,7 @@ const Login = () => {
         })
         .catch((error) => {
           console.log(error);
-          document.querySelector("#error-message").innerHTML = "Email e/ou Senha Incorretos";
+          document.querySelector("#error-message").innerHTML = "E-mail e/ou Senha Incorretos";
         });
     }
   });
@@ -92,7 +92,7 @@ const Login = () => {
                 gutterBottom
                 variant="body2"
               >
-                Faça Login no Plataforma do Algorif
+                Faça Login no Plataforma do AlgorIF
               </Typography>
             </Box>
             {/* <Grid
@@ -126,14 +126,14 @@ const Login = () => {
               </Typography>
             </Box> */}
             <CustomTextField
-              label="Email Address"
+              label="Enderço de e-mail"
               name="email"
               onBlur={formik.handleBlur}
               type="email"
               formik={formik}
             />
             <CustomTextField
-              label="Password"
+              label="Senha"
               name="password"
               onBlur={formik.handleBlur}
               type="password"
@@ -176,7 +176,7 @@ const Login = () => {
                     cursor: 'pointer'
                   }}
                 >
-                  Registrar-se
+                  Registra-se
                 </Link>
               </NextLink>
             </Typography>
