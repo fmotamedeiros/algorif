@@ -31,15 +31,15 @@ export const AccountProfileDetails = ({ coders }) => {
       userName: Yup
         .string()
         .max(255)
-        .required('UserName is required'),
+        .required('Usuário é obrigatório'),
       state: Yup
         .string()
         .max(255)
-        .required('State is required'),
+        .required('Estado é obrigatório'),
       city: Yup
         .string()
         .max(255)
-        .required('City is required'),
+        .required('Cidade é obrigatório'),
       phone: Yup
         .string()
         .max(11)
@@ -57,8 +57,8 @@ export const AccountProfileDetails = ({ coders }) => {
     >
       <Card>
         <CardHeader
-          subheader="The information can be edited"
-          title="Profile"
+          subheader="As informações podem ser editadas"
+          title="Perfil"
         />
         <Divider />
         <CardContent>
@@ -73,8 +73,8 @@ export const AccountProfileDetails = ({ coders }) => {
             >
               <CustomTextField
                 formik = {formik}
-                helperText="Please specify the complete name"
-                label="Complete Name"
+                helperText="Por favor especifique o nome completo"
+                label="Nome completo"
                 name="userName"
               />
             </Grid>
@@ -85,7 +85,7 @@ export const AccountProfileDetails = ({ coders }) => {
             >
               <CustomTextField
                 disabled
-                label="Email Address"
+                label="Endereço de e-mail"
                 name="email"
                 formik={formik}
               />
@@ -96,7 +96,7 @@ export const AccountProfileDetails = ({ coders }) => {
               xs={12}
             >
               <CustomTextField
-                label="Phone Number"
+                label="Número de telefone"
                 name="phone"
                 type="number"
                 formik={formik}
@@ -108,7 +108,7 @@ export const AccountProfileDetails = ({ coders }) => {
               xs={12}
             >
               <CustomTextField
-                label="State"
+                label="Estado"
                 name="state"
                 formik={formik}
               />
@@ -119,7 +119,7 @@ export const AccountProfileDetails = ({ coders }) => {
               xs={12}
             >
               <CustomTextField
-                label="Select City"
+                label="Cidade"
                 name="city"
                 formik={formik}
               />
@@ -140,7 +140,7 @@ export const AccountProfileDetails = ({ coders }) => {
             color="primary"
             variant="contained"
           >
-            Save details
+            Salvar detalhes
           </Button>
         </Box>
       </Card>
