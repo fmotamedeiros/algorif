@@ -19,7 +19,7 @@ const CreateQuestion = () => {
     <>
         <Head>
             <title>
-                Create Question
+                Criar Questão
             </title>
         </Head>
         <DatasQuestion />

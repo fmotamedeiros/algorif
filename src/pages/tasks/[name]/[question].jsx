@@ -1,12 +1,12 @@
-import { Box } from "@mui/material";
-import dynamic from "next/dynamic";
-import Head from "next/head";
-import { useRouter } from "next/router";
-import { useState } from "react";
+import { DescriptionTask, GetTaskSolved } from "../../../requestsFirebase/allGetRequests";
 import { DashboardLayout } from "../../../components/dashboard-layout";
 import Description from "../../../components/solveTask/description";
-import { DescriptionTask, GetTaskSolved } from "../../../requestsFirebase/allGetRequests";
 import { Loader } from "../../../requestsFirebase/loader";
+import { useRouter } from "next/router";
+import { Box } from "@mui/material";
+import dynamic from "next/dynamic";
+import { useState } from "react";
+import Head from "next/head";
 
 const CodeEditor = dynamic(import('../../../components/solveTask/codeEditor'), { ssr: false })
 
@@ -38,11 +38,15 @@ const Question = () => {
                                 <Description descriptionData={descriptionData} />
                             </div>
                         </div>
+
                         <Box className="lg:w-[60%] w-full">
-                            <CodeEditor descriptionData={descriptionData} nameQuestion={router.query.question} taskSolved={taskSolved} />
+                            <CodeEditor
+                              descriptionData={descriptionData}
+                              nameQuestion={router.query.question}
+                              taskSolved={taskSolved}
+                            />
                         </Box>
                     </Box>
-
                 </Box>
             </>
         )
@@ -56,4 +60,4 @@ Question.getLayout = (page) => (
     </DashboardLayout>
 );
 
-export default Question;
+export default Question

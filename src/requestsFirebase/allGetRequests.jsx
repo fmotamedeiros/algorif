@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { GetContext } from "../contexts/getFirebase";
 
-//account.js
+// account.js
 export const UserDetails = (setCoders) => {
     const getContext = useContext(GetContext);
     const [isLoaded, setIsLoaded] = useState(false);

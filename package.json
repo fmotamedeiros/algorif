@@ -25,6 +25,7 @@
     "@mui/system": "5.10.5",
     "@mui/x-date-pickers": "^5.0.2",
     "@zalter/identity-js": "1.2.1",
+    "axios": "^1.5.0",
     "chart.js": "3.9.1",
     "codemirror": "^5.65.9",
     "date-fns": "2.29.3",

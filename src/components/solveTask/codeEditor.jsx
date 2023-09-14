@@ -2,11 +2,11 @@ import React, { useContext, useEffect, useRef, useState } from 'react';
 import { Button } from '@mui/material';
 import { UpdateContext } from '../../contexts/updateFirebase';
 import { SetContext } from '../../contexts/setFirebase';
+import 'codemirror/mode/javascript/javascript'
+import 'codemirror/addon/edit/closebrackets';
+import 'codemirror/addon/edit/closetag';
 import 'codemirror/lib/codemirror.css'
 import 'codemirror/theme/dracula.css'
-import 'codemirror/addon/edit/closetag';
-import 'codemirror/addon/edit/closebrackets';
-import 'codemirror/mode/javascript/javascript'
 import CodeMirror from 'codemirror';
 
 
@@ -42,7 +42,7 @@ const CodeEditor = ({ descriptionData, nameQuestion, taskSolved }) => {
   const outputResult = () => {
     try {
       eval(codeEditorRef.current.getValue()); // executar o código
-      output.innerHTML = consoleWritten.map(line => line + "<br>").join("\n");      
+      output.innerHTML = consoleWritten.map(line => line + "<br>").join("\n");
       consoleWritten = []
     } catch (error) {
       output.textContent = error.toString();
@@ -76,12 +76,12 @@ const CodeEditor = ({ descriptionData, nameQuestion, taskSolved }) => {
       }).join(", ");
       return (
         `
-      var b = main(${input}); 
+      var b = main(${input});
       if(b == "${test.output}"){
-        passedTests.push(true) 
+        passedTests.push(true)
       } else {
         passed = false
-        passedTests.push(false) 
+        passedTests.push(false)
       }
       setTestResults(passedTests)
       `
@@ -96,7 +96,7 @@ const CodeEditor = ({ descriptionData, nameQuestion, taskSolved }) => {
       tests = tests + test
     });
 
-    let testsDone = ` 
+    let testsDone = `
     if (passed === true) {
       setShow(true)
     } else {
